@@ -1,9 +1,10 @@
 require("player")
 
 function love.load()
-  scale = 64
-  grid_size = 4
-  player = new_player(grid_size)
+  scale = 128
+  grid_units = 4
+  bg = {0x33, 0xff, 0xff}
+  player = new_player(grid_units)
   select = love.audio.newSource("assets/select.ogg", "static")
 end
 
@@ -28,7 +29,9 @@ function love.mousepressed(x, y, button)
 end
 
 function love.draw()
+  love.graphics.setBackgroundColor(bg)
   --love.graphics.printf(msg, 100, 100, 100)
+  love.graphics.setColor(player.color)
   love.graphics.rectangle("fill", (player.x * scale) + player.size / 2, (player.y * scale) + player.size / 2, player.size, player.size)
 end
 

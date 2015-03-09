@@ -1,12 +1,13 @@
 function new_player(max_x_or_y)
   local _player = {
     x = 0,
+    color = {0x00, 0xff, 0x00},
     y = 0,
     dx = 0,
     dy = 0,
     time_moving = 0,
     movetime = .2,
-    size = 32
+    size = 64
   }
 
   local player_newindex = function (table, key, value)
