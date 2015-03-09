@@ -1,7 +1,9 @@
+require("player")
+
 function love.load()
   scale = 64
   grid_size = 4
-  player = build_player()
+  player = new_player(grid_size)
   select = love.audio.newSource("assets/select.ogg", "static")
 end
 
@@ -44,33 +46,3 @@ function choose_square()
   love.audio.play(select)
 end
 
-function build_player()
-  local _player = {
-    x = 0,
-    y = 0,
-    dx = 0,
-    dy = 0,
-    time_moving = 0,
-    movetime = .2,
-    size = 32
-  }
-
-  player_newindex = function (table, key, value)
-    if (key == "x" or key == "y") then
-      _player[key] = math.max(0, math.min(value, grid_size))
-    else
-      _player[key] = value
-    end
-  end
-
-  player_index = function (table, key)
-    return _player[key]
-  end
-
-  player_meta = {
-    __newindex = player_newindex,
-    __index = player_index
-  }
-
-  return setmetatable({}, player_meta)
-end
