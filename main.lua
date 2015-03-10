@@ -1,11 +1,20 @@
 require("player")
 require("menu")
+require("node")
 
 function love.load()
   menu.load()
   phase = "menu"
   scale = 128
+  plain_font = love.graphics.newFont(20)
   grid_units = 4
+  grid = {}
+  for i=0,grid_units do
+    grid[i] = {}
+    for j=0,grid_units do
+      grid[i][j] = new_node()
+    end
+  end
   bg = {0x33, 0xff, 0xff}
   player = new_player(grid_units)
   select = love.audio.newSource("assets/select.ogg", "static")
@@ -39,9 +48,9 @@ function love.draw()
   if phase == "menu" then
     menu.draw()
   else
+    love.graphics.setFont(plain_font)
     love.graphics.setBackgroundColor(bg)
     --love.graphics.printf(msg, 100, 100, 100)
-    love.graphics.setColor(player.color)
     player:draw(scale)
   end
 end
@@ -57,6 +66,7 @@ function move_closer(current, dest, step)
 end
 
 function choose_square()
+  player.score = player.score + grid[player.y][player.x].score
   love.audio.play(select)
 end
 
