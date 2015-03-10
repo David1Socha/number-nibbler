@@ -1,6 +1,9 @@
 require("player")
+require("menu")
 
 function love.load()
+  menu.load()
+  phase = "menu"
   scale = 128
   grid_units = 4
   bg = {0x33, 0xff, 0xff}
@@ -18,21 +21,29 @@ function love.update(dt)
 end
 
 function love.mousepressed(x, y, button)
-  local grid_x = math.floor(x / scale)
-  local grid_y = math.floor(y / scale)
+  if (phase == "menu") then
+    menu.mousepressed()
+  else
+    local grid_x = math.floor(x / scale)
+    local grid_y = math.floor(y / scale)
 
-  if grid_y == player.y and grid_x == player.x then
-    choose_square()
+    if grid_y == player.y and grid_x == player.x then
+      choose_square()
+    end
+    player.dy = grid_y
+    player.dx = grid_x
   end
-  player.dy = grid_y
-  player.dx = grid_x
 end
 
 function love.draw()
-  love.graphics.setBackgroundColor(bg)
-  --love.graphics.printf(msg, 100, 100, 100)
-  love.graphics.setColor(player.color)
-  love.graphics.rectangle("fill", (player.x * scale) + player.size / 2, (player.y * scale) + player.size / 2, player.size, player.size)
+  if phase == "menu" then
+    menu.draw()
+  else
+    love.graphics.setBackgroundColor(bg)
+    --love.graphics.printf(msg, 100, 100, 100)
+    love.graphics.setColor(player.color)
+    player:draw(scale)
+  end
 end
 
 function move_closer(current, dest, step)

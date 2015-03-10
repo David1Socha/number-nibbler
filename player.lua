@@ -38,5 +38,9 @@ function new_player(max_x_or_y)
     end
   end
 
+  function Player:draw(scale)
+    love.graphics.rectangle("fill", (player.x * scale) + player.size / 2, (player.y * scale) + player.size / 2, player.size, player.size)
+  end
+
   return Player
 end
