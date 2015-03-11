@@ -2,7 +2,7 @@ menu = {}
 
 function menu.load()
   menu.font = love.graphics.newFont(54)
-  menu.bgcolor = {20, 40, 20}
+  menu.bgcolor = {20, 60, 20}
 end
 
 function menu.draw() 
@@ -13,4 +13,5 @@ end
 
 function menu.mousepressed()
   phase = "game"
+  game.load()
 end

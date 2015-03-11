@@ -3,7 +3,6 @@ function new_player(max_x_or_y)
     x = 0,
     color = {0x00, 0xff, 0x00},
     y = 0,
-    score = 0,
     dx = 0,
     dy = 0,
     time_moving = 0,
@@ -40,10 +39,8 @@ function new_player(max_x_or_y)
   end
 
   function Player:draw(scale)
-    love.graphics.setColor(player.color)
-    love.graphics.rectangle("fill", (player.x * scale) + player.size / 2, (player.y * scale) + player.size / 2, player.size, player.size)
-    love.graphics.setColor(0, 0, 0)
-    love.graphics.printf("Score: "..self.score, 0, love.graphics.getHeight() - plain_font:getHeight(), love.graphics.getWidth(), "center")
+    love.graphics.setColor(_player.color)
+    love.graphics.rectangle("fill", (_player.x * scale) + _player.size / 2, (_player.y * scale) + _player.size / 2, _player.size, _player.size)
   end
 
   return Player
