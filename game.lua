@@ -15,7 +15,8 @@ function game.load()
   game.grid[0][0].correct = false
   game.score = 0
   game.bg = {0x33, 0xff, 0xff}
-  game.player = new_player(game.grid_units)
+  game.grid_box_size = love.graphics.getHeight() / (game.grid_units + 1)
+  game.player = new_player(game.grid_units, game.grid_box_size)
   game.plain_font = love.graphics.newFont(20)
   game.select = love.audio.newSource("assets/select.ogg", "static")
 end
@@ -34,14 +35,14 @@ function game.draw()
   love.graphics.setFont(game.plain_font)
   love.graphics.setBackgroundColor(game.bg)
   --love.graphics.printf(msg, 100, 100, 100)
-  game.player:draw(scale)
+  game.player:draw(game.grid_box_size)
   love.graphics.setColor(0, 0, 0)
   love.graphics.printf("Score: "..game.score, 0, love.graphics.getHeight() - game.plain_font:getHeight(), love.graphics.getWidth(), "center")
 end
 
 function game.mousepressed(x, y, grid)
-  local grid_x = math.floor(x / scale)
-  local grid_y = math.floor(y / scale)
+  local grid_x = math.floor(x / game.grid_box_size)
+  local grid_y = math.floor(y / game.grid_box_size)
 
   if grid_y == game.player.y and grid_x == game.player.x then
     choose_square()

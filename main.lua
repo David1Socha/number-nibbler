@@ -4,7 +4,6 @@ require("game")
 function love.load()
   menu.load()
   phase = "menu"
-  scale = 128
 end
 
 function love.update(dt)

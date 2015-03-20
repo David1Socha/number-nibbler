@@ -1,4 +1,4 @@
-function new_player(max_x_or_y)
+function new_player(max_x_or_y, box_size)
   local _player = {
     x = 0,
     color = {0x00, 0xff, 0x00},
@@ -7,7 +7,7 @@ function new_player(max_x_or_y)
     dy = 0,
     time_moving = 0,
     movetime = .2,
-    size = 64
+    size = box_size / 2
   }
 
   local player_newindex = function (table, key, value)
