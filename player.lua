@@ -8,11 +8,15 @@ function new_player(max_x_or_y, box_size)
     time_moving = 0,
     movetime = .5,
     tweening = false,
-    img = love.graphics.newImage "assets/image/froggy.png"
+    imgs = { 
+      rest = love.graphics.newImage "assets/image/froggy.png",
+      eat1 = love.graphics.newImage "assets/image/frog_tongue_1.png",
+      eat2 = love.graphics.newImage "assets/image/frog_tongue_2.png"
+    }
   }
 
-  player.offx = (box_size - player.img:getWidth() / 2) / 2
-  player.offy = (box_size - player.img:getHeight() / 2)
+  player.offx = (box_size - player.imgs.rest:getWidth() / 2) / 2
+  player.offy = (box_size - player.imgs.rest:getHeight() / 2)
 
   function player:update(dt)
     self.time_moving = self.time_moving + dt
@@ -32,7 +36,7 @@ function new_player(max_x_or_y, box_size)
     love.graphics.setColor(self.color)
     scaled_act = self.act * scale + vector(self.offx, self.offy)
     love.graphics.setColor(255, 255, 255)
-    love.graphics.draw(self.img, scaled_act.x, scaled_act.y, 0, .5, .5)
+    love.graphics.draw(self.imgs.rest, scaled_act.x, scaled_act.y, 0, .5, .5)
   end
 
   return player

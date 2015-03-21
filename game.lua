@@ -14,6 +14,9 @@ function game:enter()
   end
   game.grid[0][0].correct = false
   game.score = 0
+  game.select_cd = .5
+  game.since_selected = 0
+  game.can_select = true
   game.bg = {0x33, 0xff, 0xff}
   game.grid_box_size = love.graphics.getHeight() / (game.grid_units + 1)
   game.player = new_player(game.grid_units, game.grid_box_size)
@@ -26,7 +29,14 @@ end
 
 
 function game:update(dt)
-  game.player:update(dt)
+  self.player:update(dt)
+  if not can_select then
+    self.since_selected = self.since_selected + dt
+    if self.since_selected > self.select_cd then
+      self.since_selected = 0
+      self.can_select = true
+    end
+  end
 end
 
 function game:draw()
@@ -49,7 +59,9 @@ function game:mousepressed(x, y, grid)
   local grid_x = math.floor(x / game.grid_box_size)
   local grid_y = math.floor(y / game.grid_box_size)
   local grid_vec = vector(grid_x, grid_y)
-  if neareq_vec(grid_vec, game.player.act) then
+  if neareq_vec(grid_vec, game.player.act) and self.can_select then
+    self.can_select = false
+    self.since_selected = 0
     choose_square()
   end
   game.player.dest = grid_vec
