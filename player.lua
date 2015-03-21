@@ -1,12 +1,12 @@
-vector = require "hump.vector"
 
 function new_player(max_x_or_y, box_size)
   local player = {
     pos = vector(0, 0),
+    act = vector(0.0, 0.0),
     color = {0x00, 0xff, 0x00},
     dest = vector(0, 0),
     time_moving = 0,
-    movetime = .2,
+    movetime = .5,
     size = box_size / 2
   }
 
@@ -14,16 +14,20 @@ function new_player(max_x_or_y, box_size)
     self.time_moving = self.time_moving + dt
     if self.time_moving > self.movetime then
       self.time_moving = self.time_moving - self.movetime
-      local old_pos = self.pos
-      self.pos = move_closer_vector(self.pos, self.dest, 1)
+      local new_pos = move_closer_vector(self.pos, self.dest, 1)
+      local tween_duration = (self.movetime - self.time_moving)  
+      if self.act ~= new_pos then
+        Timer.tween(tween_duration, self.act, new_pos, 'linear')
+      end
+      self.pos = new_pos
     end
   end
 
   function player:draw(scale)
     love.graphics.setColor(self.color)
     local offset = (self.size / 2)
-    scaled_pos = self.pos * scale + vector(offset, offset)
-    love.graphics.rectangle("fill", scaled_pos.x, scaled_pos.y, self.size, self.size)
+    scaled_act = self.act * scale + vector(offset, offset)
+    love.graphics.rectangle("fill", scaled_act.x, scaled_act.y, self.size, self.size)
   end
 
   return player

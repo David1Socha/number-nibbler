@@ -1,7 +1,5 @@
 require("player")
 require("node")
-vector = require "hump.vector"
-Gamestate = require "hump.gamestate"
 
 game = {}
 
@@ -21,10 +19,9 @@ function game:enter()
   game.player = new_player(game.grid_units, game.grid_box_size)
   game.plain_font = love.graphics.newFont(20)
   game.select = love.audio.newSource("assets/sound/select.ogg", "static")
-  Monocle.watch("player pos x", function() return game.player.pos.x end)
-  Monocle.watch("player pos y", function() return game.player.pos.y end)
-  Monocle.watch("player d x", function() return game.player.dest.x end)
-  Monocle.watch("player d y", function() return game.player.dest.y end)
+  Monocle.watch("player pos", function() return game.player.pos end)
+  Monocle.watch("player dest", function() return game.player.dest end)
+  Monocle.watch("player act_pos", function() return game.player.act end)
 end
 
 
