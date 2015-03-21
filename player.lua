@@ -7,17 +7,22 @@ function new_player(max_x_or_y, box_size)
     dest = vector(0, 0),
     time_moving = 0,
     movetime = .5,
-    size = box_size / 2
+    tweening = false,
+    img = love.graphics.newImage "assets/image/froggy.png"
   }
+
+  player.offx = (box_size - player.img:getWidth() / 2) / 2
+  player.offy = (box_size - player.img:getHeight() / 2)
 
   function player:update(dt)
     self.time_moving = self.time_moving + dt
     if self.time_moving > self.movetime then
       self.time_moving = self.time_moving - self.movetime
       local new_pos = move_closer_vector(self.pos, self.dest, 1)
-      local tween_duration = (self.movetime - self.time_moving)  
-      if self.act ~= new_pos then
-        Timer.tween(tween_duration, self.act, new_pos, 'linear')
+      local tween_duration = self.movetime - self.time_moving
+      if not neareq_vec(self.act, new_pos) and not player.tweening then
+        player.tweening = true
+        Timer.tween(tween_duration, self.act, new_pos, 'linear', function() player.tweening = false end)
       end
       self.pos = new_pos
     end
@@ -25,9 +30,9 @@ function new_player(max_x_or_y, box_size)
 
   function player:draw(scale)
     love.graphics.setColor(self.color)
-    local offset = (self.size / 2)
-    scaled_act = self.act * scale + vector(offset, offset)
-    love.graphics.rectangle("fill", scaled_act.x, scaled_act.y, self.size, self.size)
+    scaled_act = self.act * scale + vector(self.offx, self.offy)
+    love.graphics.setColor(255, 255, 255)
+    love.graphics.draw(self.img, scaled_act.x, scaled_act.y, 0, .5, .5)
   end
 
   return player

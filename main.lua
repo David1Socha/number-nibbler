@@ -4,6 +4,7 @@ vector = require("hump.vector")
 game = require("game")
 Timer = require "hump.timer"
 require "monocle.monocle"
+require "equality"
 Monocle.new({})
 
 function love.load()

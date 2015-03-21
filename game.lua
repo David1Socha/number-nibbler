@@ -21,7 +21,7 @@ function game:enter()
   game.select = love.audio.newSource("assets/sound/select.ogg", "static")
   Monocle.watch("player pos", function() return game.player.pos end)
   Monocle.watch("player dest", function() return game.player.dest end)
-  Monocle.watch("player act_pos", function() return game.player.act end)
+  Monocle.watch("player act", function() return game.player.act end)
 end
 
 
@@ -35,18 +35,24 @@ function game:draw()
   --love.graphics.printf(msg, 100, 100, 100)
   game.player:draw(game.grid_box_size)
   love.graphics.setColor(0, 0, 0)
+  for i=0,5 do
+    for j=0,5 do
+      j = j * game.grid_box_size
+      i = i * game.grid_box_size
+      love.graphics.rectangle("line", j, i, game.grid_box_size, game.grid_box_size)
+    end
+  end
   love.graphics.printf("Score: "..game.score, 0, love.graphics.getHeight() - game.plain_font:getHeight(), love.graphics.getWidth(), "center")
 end
 
 function game:mousepressed(x, y, grid)
   local grid_x = math.floor(x / game.grid_box_size)
   local grid_y = math.floor(y / game.grid_box_size)
-
-  if grid_y == game.player.pos.y and grid_x == game.player.pos.x then
+  local grid_vec = vector(grid_x, grid_y)
+  if neareq_vec(grid_vec, game.player.act) then
     choose_square()
   end
-  game.player.dest.y = grid_y
-  game.player.dest.x = grid_x
+  game.player.dest = grid_vec
 end
 
 function choose_square()
