@@ -14,7 +14,7 @@ function game:enter()
   end
   game.grid[0][0].correct = false
   game.score = 0
-  game.select_cd = .5
+  game.select_cd = .3
   game.since_selected = 0
   game.can_select = true
   game.debug = false
@@ -87,6 +87,7 @@ function choose_square()
   else
     game.score = game.score + curr_node.score
     love.audio.play(game.select)
+    game.player.start_anim_eat()
   end
 end
 

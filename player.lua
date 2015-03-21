@@ -8,6 +8,7 @@ function new_player(max_x_or_y, box_size)
     time_moving = 0,
     movetime = .5,
     tweening = false,
+    anim_eat = {s2 = game.select_cd / 2, s3 = game.select_cd},
     imgs = { 
       rest = love.graphics.newImage "assets/image/froggy.png",
       eat1 = love.graphics.newImage "assets/image/frog_tongue_1.png",
@@ -15,20 +16,35 @@ function new_player(max_x_or_y, box_size)
     }
   }
 
+  player.imgs.curr = player.imgs.rest
   player.offx = (box_size - player.imgs.rest:getWidth() / 2) / 2
   player.offy = (box_size - player.imgs.rest:getHeight() / 2)
 
   function player:update(dt)
+    if self.anim_eat.active then
+      self:update_anim_eat(dt)
+    end
+
     self.time_moving = self.time_moving + dt
     if self.time_moving > self.movetime then
       self.time_moving = self.time_moving - self.movetime
       local new_pos = move_closer_vector(self.pos, self.dest, 1)
       local tween_duration = self.movetime - self.time_moving
-      if not neareq_vec(self.act, new_pos) and not player.tweening then
-        player.tweening = true
-        Timer.tween(tween_duration, self.act, new_pos, 'linear', function() player.tweening = false end)
+      if not neareq_vec(self.act, new_pos) and not self.tweening then
+        self.tweening = true
+        Timer.tween(tween_duration, self.act, new_pos, 'linear', function() self.tweening = false end)
       end
       self.pos = new_pos
+    end
+  end
+
+  function player:update_anim_eat(dt)
+    self.anim_eat.elapsed = self.anim_eat.elapsed + dt
+    if self.anim_eat.elapsed > self.anim_eat.s3 then --animation done
+      self.imgs.curr = self.imgs.rest
+      self.anim_eat.active = false
+    elseif self.anim_eat.elapsed > self.anim_eat.s2 then -- in 2nd stage of animation
+      self.imgs.curr = self.imgs.eat2
     end
   end
 
@@ -36,7 +52,13 @@ function new_player(max_x_or_y, box_size)
     love.graphics.setColor(self.color)
     scaled_act = self.act * scale + vector(self.offx, self.offy)
     love.graphics.setColor(255, 255, 255)
-    love.graphics.draw(self.imgs.rest, scaled_act.x, scaled_act.y, 0, .5, .5)
+    love.graphics.draw(self.imgs.curr, scaled_act.x, scaled_act.y, 0, .5, .5)
+  end
+
+  function player:start_anim_eat()
+    player.anim_eat.active = true
+    player.anim_eat.elapsed = 0
+    player.imgs.curr = player.imgs.eat1
   end
 
   return player
