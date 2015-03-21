@@ -1,9 +1,10 @@
 require("player")
 require("node")
+Gamestate = require "hump.gamestate"
 
 game = {}
 
-function game.load()
+function game:enter()
   game.grid_units = 4
   game.grid = {}
   for i=0,game.grid_units do
@@ -18,11 +19,11 @@ function game.load()
   game.grid_box_size = love.graphics.getHeight() / (game.grid_units + 1)
   game.player = new_player(game.grid_units, game.grid_box_size)
   game.plain_font = love.graphics.newFont(20)
-  game.select = love.audio.newSource("assets/select.ogg", "static")
+  game.select = love.audio.newSource("assets/sound/select.ogg", "static")
 end
 
 
-function game.update(dt)
+function game:update(dt)
   game.player.time_moving = game.player.time_moving + dt
   if game.player.time_moving > game.player.movetime then
     game.player.time_moving = game.player.time_moving - game.player.movetime
@@ -31,7 +32,7 @@ function game.update(dt)
   end
 end
 
-function game.draw()
+function game:draw()
   love.graphics.setFont(game.plain_font)
   love.graphics.setBackgroundColor(game.bg)
   --love.graphics.printf(msg, 100, 100, 100)
@@ -40,7 +41,7 @@ function game.draw()
   love.graphics.printf("Score: "..game.score, 0, love.graphics.getHeight() - game.plain_font:getHeight(), love.graphics.getWidth(), "center")
 end
 
-function game.mousepressed(x, y, grid)
+function game:mousepressed(x, y, grid)
   local grid_x = math.floor(x / game.grid_box_size)
   local grid_y = math.floor(y / game.grid_box_size)
 
@@ -54,7 +55,7 @@ end
 function choose_square()
   local curr_node = game.grid[game.player.y][game.player.x]
   if not curr_node.correct then
-    phase = "menu"
+    Gamestate.switch(menu)
   else
     game.score = game.score + curr_node.score
     love.audio.play(game.select)
@@ -70,3 +71,5 @@ function move_closer(current, dest, step)
   end
   return new
 end
+
+return game
