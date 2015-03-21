@@ -1,5 +1,6 @@
 require("player")
 require("node")
+vector = require "hump.vector"
 Gamestate = require "hump.gamestate"
 
 game = {}
@@ -20,16 +21,15 @@ function game:enter()
   game.player = new_player(game.grid_units, game.grid_box_size)
   game.plain_font = love.graphics.newFont(20)
   game.select = love.audio.newSource("assets/sound/select.ogg", "static")
+  Monocle.watch("player pos x", function() return game.player.pos.x end)
+  Monocle.watch("player pos y", function() return game.player.pos.y end)
+  Monocle.watch("player d x", function() return game.player.dest.x end)
+  Monocle.watch("player d y", function() return game.player.dest.y end)
 end
 
 
 function game:update(dt)
-  game.player.time_moving = game.player.time_moving + dt
-  if game.player.time_moving > game.player.movetime then
-    game.player.time_moving = game.player.time_moving - game.player.movetime
-    game.player.x = move_closer(game.player.x, game.player.dx, 1)
-    game.player.y = move_closer(game.player.y, game.player.dy, 1)
-  end
+  game.player:update(dt)
 end
 
 function game:draw()
@@ -45,31 +45,21 @@ function game:mousepressed(x, y, grid)
   local grid_x = math.floor(x / game.grid_box_size)
   local grid_y = math.floor(y / game.grid_box_size)
 
-  if grid_y == game.player.y and grid_x == game.player.x then
+  if grid_y == game.player.pos.y and grid_x == game.player.pos.x then
     choose_square()
   end
-  game.player.dy = grid_y
-  game.player.dx = grid_x
+  game.player.dest.y = grid_y
+  game.player.dest.x = grid_x
 end
 
 function choose_square()
-  local curr_node = game.grid[game.player.y][game.player.x]
+  local curr_node = game.grid[game.player.pos.y][game.player.pos.x]
   if not curr_node.correct then
     Gamestate.switch(menu)
   else
     game.score = game.score + curr_node.score
     love.audio.play(game.select)
   end
-end
-
-function move_closer(current, dest, step)
-  local new = nil
-  if current > dest then
-    new = math.max(current - step, dest)
-  else
-    new = math.min(current + step, dest)
-  end
-  return new
 end
 
 return game

@@ -1,47 +1,49 @@
+vector = require "hump.vector"
+
 function new_player(max_x_or_y, box_size)
-  local _player = {
-    x = 0,
+  local player = {
+    pos = vector(0, 0),
     color = {0x00, 0xff, 0x00},
-    y = 0,
-    dx = 0,
-    dy = 0,
+    dest = vector(0, 0),
     time_moving = 0,
     movetime = .2,
     size = box_size / 2
   }
 
-  local player_newindex = function (table, key, value)
-    if (key == "x" or key == "y") then
-      _player[key] = math.max(0, math.min(value, max_x_or_y))
-    else
-      _player[key] = value
-    end
-  end
-
-  local player_index = function (table, key)
-    return _player[key]
-  end
-
-  local player_meta = {
-    __newindex = player_newindex,
-    __index = player_index
-  }
-
-  local Player = setmetatable({}, player_meta)
-
-  function Player:update(dt)
+  function player:update(dt)
     self.time_moving = self.time_moving + dt
     if self.time_moving > self.movetime then
       self.time_moving = self.time_moving - self.movetime
-      self.x = move_closer(self.x, self.dx, 1)
-      self.y = move_closer(self.y, self.dy, 1)
+      local old_pos = self.pos
+      self.pos = move_closer_vector(self.pos, self.dest, 1)
     end
   end
 
-  function Player:draw(scale)
-    love.graphics.setColor(_player.color)
-    love.graphics.rectangle("fill", (_player.x * scale) + _player.size / 2, (_player.y * scale) + _player.size / 2, _player.size, _player.size)
+  function player:draw(scale)
+    love.graphics.setColor(self.color)
+    local offset = (self.size / 2)
+    scaled_pos = self.pos * scale + vector(offset, offset)
+    love.graphics.rectangle("fill", scaled_pos.x, scaled_pos.y, self.size, self.size)
   end
 
-  return Player
+  return player
+end
+
+function move_closer_vector(current, dest, step)
+  local new = vector()
+  new.x = move_closer(current.x, dest.x, step)
+  new.y = move_closer(current.y, dest.y, step)
+  return new
+end
+
+function move_closer(current, dest, step)
+  local new
+  if current > dest then
+    new = math.max(current - step, dest)
+  elseif current < dest then
+    new = math.min(current + step, dest)
+  else
+    new = current
+  end
+  return new
 end
