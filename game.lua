@@ -1,7 +1,7 @@
 require("player")
 require("node")
 
-game = {}
+local game = {}
 
 function game:enter()
   game.grid_units = 4
@@ -17,6 +17,7 @@ function game:enter()
   game.select_cd = .5
   game.since_selected = 0
   game.can_select = true
+  game.debug = false
   game.bg = {0x33, 0xff, 0xff}
   game.grid_box_size = love.graphics.getHeight() / (game.grid_units + 1)
   game.player = new_player(game.grid_units, game.grid_box_size)
@@ -45,14 +46,20 @@ function game:draw()
   --love.graphics.printf(msg, 100, 100, 100)
   game.player:draw(game.grid_box_size)
   love.graphics.setColor(0, 0, 0)
-  for i=0,5 do
-    for j=0,5 do
-      j = j * game.grid_box_size
-      i = i * game.grid_box_size
-      love.graphics.rectangle("line", j, i, game.grid_box_size, game.grid_box_size)
-    end
+  if game.debug then
+    game:draw_grid()
   end
   love.graphics.printf("Score: "..game.score, 0, love.graphics.getHeight() - game.plain_font:getHeight(), love.graphics.getWidth(), "center")
+end
+
+function game:draw_grid()
+  for i=0,5 do
+    for j=0,5 do
+      x = j * self.grid_box_size
+      y = i * self.grid_box_size
+      love.graphics.rectangle("line", x, y, self.grid_box_size, self.grid_box_size)
+    end
+  end
 end
 
 function game:mousepressed(x, y, grid)
@@ -65,6 +72,12 @@ function game:mousepressed(x, y, grid)
     choose_square()
   end
   game.player.dest = grid_vec
+end
+
+function game:keypressed(key)
+  if key == "`" then
+    self.debug = not self.debug
+  end
 end
 
 function choose_square()
