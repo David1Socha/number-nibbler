@@ -18,7 +18,7 @@ function new_player(max_x_or_y, box_size)
 
   player.imgs.curr = player.imgs.rest
   player.offx = (box_size - player.imgs.rest:getWidth() / 2) / 2
-  player.offy = (box_size - player.imgs.rest:getHeight() / 2)
+  player.offy = (box_size - player.imgs.rest:getHeight() / 2) - player.imgs.rest:getHeight() / 40
 
   function player:update(dt)
     if self.anim_eat.active then
@@ -49,7 +49,6 @@ function new_player(max_x_or_y, box_size)
   end
 
   function player:draw(scale)
-    love.graphics.setColor(self.color)
     scaled_act = self.act * scale + vector(self.offx, self.offy)
     love.graphics.setColor(255, 255, 255)
     love.graphics.draw(self.imgs.curr, scaled_act.x, scaled_act.y, 0, .5, .5)

@@ -5,11 +5,12 @@ local game = {}
 
 function game:enter()
   game.grid_units = 4
+  game.grid_box_size = love.graphics.getHeight() / (game.grid_units + 1)
   game.grid = {}
   for i=0,game.grid_units do
     game.grid[i] = {}
     for j=0,game.grid_units do
-      game.grid[i][j] = new_node()
+      game.grid[i][j] = new_node(game.grid_box_size)
     end
   end
   game.grid[0][0].correct = false
@@ -19,7 +20,6 @@ function game:enter()
   game.can_select = true
   game.debug = false
   game.bg = {0x33, 0xff, 0xff}
-  game.grid_box_size = love.graphics.getHeight() / (game.grid_units + 1)
   game.player = new_player(game.grid_units, game.grid_box_size)
   game.plain_font = love.graphics.newFont(20)
   game.select = love.audio.newSource("assets/sound/select.ogg", "static")
@@ -43,11 +43,10 @@ end
 function game:draw()
   love.graphics.setFont(game.plain_font)
   love.graphics.setBackgroundColor(game.bg)
+  self:draw_grid()
   game.player:draw(game.grid_box_size)
-  if game.debug then
-    game:draw_grid()
-  end
-  love.graphics.printf("Score: "..game.score, 0, love.graphics.getHeight() - game.plain_font:getHeight(), love.graphics.getWidth(), "center")
+  love.graphics.setColor({0,0,0})
+  love.graphics.printf("Score: "..game.score, 0, 0, love.graphics.getWidth(), "center")
 end
 
 function game:draw_grid()
@@ -55,7 +54,10 @@ function game:draw_grid()
     for j=0,self.grid_units do
       x = j * self.grid_box_size
       y = i * self.grid_box_size
-      love.graphics.rectangle("line", x, y, self.grid_box_size, self.grid_box_size)
+      if self.debug then
+        love.graphics.setColor({255,255,255})
+        love.graphics.rectangle("line", x, y, self.grid_box_size, self.grid_box_size)
+      end
       self.grid[i][j]:draw(i,j,self.grid_box_size)
     end
   end
