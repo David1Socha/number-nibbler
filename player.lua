@@ -3,7 +3,7 @@ function new_player(max_x_or_y, box_size)
   local player = {
     pos = vector(0, 0),
     act = vector(0.0, 0.0),
-    color = {0x00, 0xff, 0x00},
+    color = {0x00, 0xff, 0x00}, --TODO PROBABLY REMOVE THIS
     dest = vector(0, 0),
     time_moving = 0,
     movetime = .5,

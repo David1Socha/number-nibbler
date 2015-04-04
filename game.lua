@@ -43,9 +43,7 @@ end
 function game:draw()
   love.graphics.setFont(game.plain_font)
   love.graphics.setBackgroundColor(game.bg)
-  --love.graphics.printf(msg, 100, 100, 100)
   game.player:draw(game.grid_box_size)
-  love.graphics.setColor(0, 0, 0)
   if game.debug then
     game:draw_grid()
   end
@@ -53,11 +51,12 @@ function game:draw()
 end
 
 function game:draw_grid()
-  for i=0,5 do
-    for j=0,5 do
+  for i=0,self.grid_units do
+    for j=0,self.grid_units do
       x = j * self.grid_box_size
       y = i * self.grid_box_size
       love.graphics.rectangle("line", x, y, self.grid_box_size, self.grid_box_size)
+      self.grid[i][j]:draw(i,j,self.grid_box_size)
     end
   end
 end
