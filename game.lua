@@ -2,6 +2,8 @@ require("player")
 require("lilypad")
 require "fly"
 
+math.randomseed(os.time())
+
 local game = { }
 
 function game:enter()

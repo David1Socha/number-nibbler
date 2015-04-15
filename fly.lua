@@ -8,7 +8,7 @@ function new_fly(col, row, box_size)
     col = col,
     correct = c,
     font = love.graphics.newFont(10),
-    text = tostring(c).."bool",
+    text = tostring(c),
     text_off = vector(-10, 50),
     img = love.graphics.newImage "assets/image/fly.png",
   }
