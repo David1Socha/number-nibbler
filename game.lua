@@ -1,7 +1,7 @@
 require("player")
 require("node")
 
-local game = {}
+local game = { }
 
 function game:enter()
   game.grid_units = 4
@@ -41,11 +41,11 @@ function game:update(dt)
 end
 
 function game:draw()
-  love.graphics.setFont(game.plain_font)
   love.graphics.setBackgroundColor(game.bg)
   self:draw_grid()
   game.player:draw(game.grid_box_size)
   love.graphics.setColor({0,0,0})
+  love.graphics.setFont(game.plain_font)
   love.graphics.printf("Score: "..game.score, 0, 0, love.graphics.getWidth(), "center")
 end
 
