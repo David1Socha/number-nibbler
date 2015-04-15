@@ -9,6 +9,8 @@ local game = { }
 function game:enter()
   game.grid_units = 3
   game.grid_box_size = love.graphics.getHeight() / (game.grid_units + 1)
+  game.yes_flies = 0
+  game.no_flies = 0
   self:build_fly_grid()
   game.score = 0
   game.lilypad = new_lilypad(game.grid_box_size)
@@ -23,6 +25,7 @@ function game:enter()
   Monocle.watch("player pos", function() return game.player.pos end)
   Monocle.watch("player dest", function() return game.player.dest end)
   Monocle.watch("player act", function() return game.player.act end)
+  Monocle.watch("yes flies", function() return game.yes_flies end)
 end
 
 
@@ -93,7 +96,6 @@ end
 
 function game:choose_square()
   local curr_fly = self.fly_grid[self.player.pos.y][self.player.pos.x]
-  self.fly_grid[self.player.pos.y][self.player.pos.x] = empty_fly()
   if curr_fly.real then
     if not curr_fly.correct then
       Gamestate.switch(menu)
@@ -101,8 +103,14 @@ function game:choose_square()
       self.score = self.score + curr_fly.score
       love.audio.play(self.select)
       self.player.start_anim_eat()
+      self:replace_fly(curr_fly)
     end
   end
+end
+
+function game:replace_fly(fly)
+  self.yes_flies = self.yes_flies - 1
+  self.fly_grid[fly.col][fly.row] = empty_fly()
 end
 
 function game:build_fly_grid() 
@@ -110,9 +118,17 @@ function game:build_fly_grid()
   for i=0,self.grid_units do
     self.fly_grid[i] = {}
     for j=0,self.grid_units do
-      self.fly_grid[i][j] = new_fly(i,j,self.grid_box_size)
+      local newfly = new_fly(i,j,self.grid_box_size)
+      self.fly_grid[i][j] = newfly
+      if newfly.correct then
+        self.yes_flies = self.yes_flies + 1
+      else
+        self.no_flies = self.no_flies + 1
+      end
     end
   end
+  --ensure at least 4 yes flies (loop)
+  --ensure no more than 10 yes flies (loop)
 end
 
 return game
