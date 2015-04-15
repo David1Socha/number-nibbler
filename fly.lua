@@ -1,11 +1,11 @@
 function new_fly(box_size)
   local fly = {
     score = 1,
-    scale = .9,
+    scale = 1,
     correct = true,
     font = love.graphics.newFont(10),
-    text = "5 + 5 + 5",
-    text_off = vector(-20, 46),
+    text = "5 + 5 + 5 + 5",
+    text_off = vector(-10, 50),
     img = love.graphics.newImage "assets/image/fly.png",
   }
 

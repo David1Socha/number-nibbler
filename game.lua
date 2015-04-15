@@ -4,7 +4,7 @@ require("node")
 local game = { }
 
 function game:enter()
-  game.grid_units = 4
+  game.grid_units = 3
   game.grid_box_size = love.graphics.getHeight() / (game.grid_units + 1)
   game.grid = {}
   for i=0,game.grid_units do
