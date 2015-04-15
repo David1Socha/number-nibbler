@@ -8,8 +8,6 @@ function game:enter()
   game.grid_units = 3
   game.grid_box_size = love.graphics.getHeight() / (game.grid_units + 1)
   self:build_fly_grid()
-  game.fly_grid[0][0].correct = false
-  game.fly_grid[0][0].text = "FALSE"
   game.score = 0
   game.lilypad = new_lilypad(game.grid_box_size)
   game.select_cd = .3
@@ -39,26 +37,38 @@ end
 
 function game:draw()
   love.graphics.setBackgroundColor(game.bg)
-  self:draw_grid()
+  self:draw_lilypads()
   game.player:draw(game.grid_box_size)
   love.graphics.setColor({0,0,0})
   love.graphics.setFont(game.plain_font)
+  self:draw_flies()
   love.graphics.printf("Score: "..game.score, 0, 0, love.graphics.getWidth(), "center")
 end
 
-function game:draw_grid()
-  for i=0,self.grid_units do
-    for j=0,self.grid_units do
-      x = j * self.grid_box_size
-      y = i * self.grid_box_size
-      if self.debug then
-        love.graphics.setColor({255,255,255})
-        love.graphics.rectangle("line", x, y, self.grid_box_size, self.grid_box_size)
-      end
-      self.fly_grid[i][j]:draw(i,j,self.grid_box_size)
-      --self.grid[i][j]:draw(i,j,self.grid_box_size)
+function enumerate_2d(imax,jmax,action)
+  for i=0,imax do
+    for j=0,jmax do
+      action(i,j)
     end
   end
+end
+
+function game:draw_flies()
+  local action = function(i,j)
+    x = j * self.grid_box_size
+    y = i * self.grid_box_size
+    if self.debug then
+      love.graphics.setColor({255,255,255})
+      love.graphics.rectangle("line", x, y, self.grid_box_size, self.grid_box_size)
+    end
+    self.fly_grid[i][j]:draw(self.grid_box_size)
+  end
+  enumerate_2d(self.grid_units, self.grid_units, action)
+end
+
+function game:draw_lilypads()
+  local action = function(i,j) self.lilypad:draw(i,j) end
+  enumerate_2d(self.grid_units, self.grid_units, action)
 end
 
 function game:mousepressed(x, y, grid)
@@ -81,6 +91,8 @@ end
 
 function game:choose_square()
   local curr_fly = self.fly_grid[self.player.pos.y][self.player.pos.x]
+  print(curr_fly.correct)
+  print(curr_fly.text)
   if not curr_fly.correct then
     Gamestate.switch(menu)
   else
@@ -95,7 +107,7 @@ function game:build_fly_grid()
   for i=0,self.grid_units do
     self.fly_grid[i] = {}
     for j=0,self.grid_units do
-      self.fly_grid[i][j] = new_fly(self.grid_box_size)
+      self.fly_grid[i][j] = new_fly(i,j,self.grid_box_size)
     end
   end
 end

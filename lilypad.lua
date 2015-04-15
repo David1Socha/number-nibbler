@@ -14,7 +14,6 @@ function new_lilypad(box_size)
     love.graphics.setColor(255, 255, 255)
     rowcol_scaled = vector(row, col) * self.box_size + vector(self.offx, self.offy)
     love.graphics.draw(self.img, rowcol_scaled.x, rowcol_scaled.y, 0, self.scale, self.scale)
-    self.fly:draw(row, col, self.box_size)
   end
 
   return lilypad
