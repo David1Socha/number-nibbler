@@ -1,20 +1,17 @@
 require("player")
-require("node")
+require("lilypad")
+require "fly"
 
 local game = { }
 
 function game:enter()
   game.grid_units = 3
   game.grid_box_size = love.graphics.getHeight() / (game.grid_units + 1)
-  game.grid = {}
-  for i=0,game.grid_units do
-    game.grid[i] = {}
-    for j=0,game.grid_units do
-      game.grid[i][j] = new_node(game.grid_box_size)
-    end
-  end
-  game.grid[0][0].correct = false
+  self:build_fly_grid()
+  game.fly_grid[0][0].correct = false
+  game.fly_grid[0][0].text = "FALSE"
   game.score = 0
+  game.lilypad = new_lilypad(game.grid_box_size)
   game.select_cd = .3
   game.since_selected = 0
   game.can_select = true
@@ -58,7 +55,8 @@ function game:draw_grid()
         love.graphics.setColor({255,255,255})
         love.graphics.rectangle("line", x, y, self.grid_box_size, self.grid_box_size)
       end
-      self.grid[i][j]:draw(i,j,self.grid_box_size)
+      self.fly_grid[i][j]:draw(i,j,self.grid_box_size)
+      --self.grid[i][j]:draw(i,j,self.grid_box_size)
     end
   end
 end
@@ -70,7 +68,7 @@ function game:mousepressed(x, y, grid)
   if neareq_vec(grid_vec, game.player.act) and self.can_select then
     self.can_select = false
     self.since_selected = 0
-    choose_square()
+    self:choose_square()
   end
   game.player.dest = grid_vec
 end
@@ -81,14 +79,24 @@ function game:keypressed(key)
   end
 end
 
-function choose_square()
-  local curr_node = game.grid[game.player.pos.y][game.player.pos.x]
-  if not curr_node.correct then
+function game:choose_square()
+  local curr_fly = self.fly_grid[self.player.pos.y][self.player.pos.x]
+  if not curr_fly.correct then
     Gamestate.switch(menu)
   else
-    game.score = game.score + curr_node.score
-    love.audio.play(game.select)
-    game.player.start_anim_eat()
+    self.score = self.score + curr_fly.score
+    love.audio.play(self.select)
+    self.player.start_anim_eat()
+  end
+end
+
+function game:build_fly_grid() 
+  self.fly_grid = {}
+  for i=0,self.grid_units do
+    self.fly_grid[i] = {}
+    for j=0,self.grid_units do
+      self.fly_grid[i][j] = new_fly(self.grid_box_size)
+    end
   end
 end
 

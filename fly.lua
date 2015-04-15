@@ -4,7 +4,7 @@ function new_fly(box_size)
     scale = 1,
     correct = true,
     font = love.graphics.newFont(10),
-    text = "5 + 5 + 5 + 5",
+    text = "TRUE",
     text_off = vector(-10, 50),
     img = love.graphics.newImage "assets/image/fly.png",
   }
