@@ -93,14 +93,15 @@ end
 
 function game:choose_square()
   local curr_fly = self.fly_grid[self.player.pos.y][self.player.pos.x]
-  print(curr_fly.correct)
-  print(curr_fly.text)
-  if not curr_fly.correct then
-    Gamestate.switch(menu)
-  else
-    self.score = self.score + curr_fly.score
-    love.audio.play(self.select)
-    self.player.start_anim_eat()
+  self.fly_grid[self.player.pos.y][self.player.pos.x] = empty_fly()
+  if curr_fly.real then
+    if not curr_fly.correct then
+      Gamestate.switch(menu)
+    else
+      self.score = self.score + curr_fly.score
+      love.audio.play(self.select)
+      self.player.start_anim_eat()
+    end
   end
 end
 

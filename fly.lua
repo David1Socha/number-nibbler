@@ -5,6 +5,7 @@ function new_fly(col, row, box_size)
     score = 1,
     scale = 1,
     row = row,
+    real = true,
     col = col,
     correct = c,
     font = love.graphics.newFont(10),
@@ -26,4 +27,8 @@ function new_fly(col, row, box_size)
   end
 
   return fly
+end
+
+function empty_fly()
+  return { draw = function() end, real = false}
 end
