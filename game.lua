@@ -23,12 +23,17 @@ function game:enter()
       love.graphics.printf("Score: "..self.value, 0, love.graphics.getHeight() - self.font:getHeight(), love.graphics.getWidth())
     end
   }
+  game.bg = {
+    color = {0x33, 0xff, 0xff},
+    draw = function (self)
+      love.graphics.setBackgroundColor(self.color)
+    end
+  }
   game.lilypad = new_lilypad(game.grid_box_size, self.offx)
   game.select_cd = .3
   game.since_selected = 0
   game.can_select = true
   game.debug = false
-  game.bg = {0x33, 0xff, 0xff}
   game.player = new_player(game.grid_units, game.grid_box_size, self.offx)
   game.select = love.audio.newSource("assets/sound/select.ogg", "static")
   Monocle.watch("player pos", function() return game.player.pos end)
@@ -50,7 +55,7 @@ function game:update(dt)
 end
 
 function game:draw()
-  love.graphics.setBackgroundColor(self.bg)
+  self.bg:draw()
   self:draw_lilypads()
   self.player:draw()
   self:draw_flies()
