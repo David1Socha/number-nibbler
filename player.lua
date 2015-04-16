@@ -5,6 +5,7 @@ function new_player(max_x_or_y, box_size, offx)
     act = vector(0.0, 0.0),
     dest = vector(0, 0),
     time_moving = 0,
+    box_size = box_size,
     movetime = .5,
     scale = .69,
     tweening = false,
@@ -49,8 +50,8 @@ function new_player(max_x_or_y, box_size, offx)
     end
   end
 
-  function player:draw(box_size)
-    scaled_act = self.act * box_size + vector(self.off.x, self.off.y)
+  function player:draw()
+    scaled_act = self.act * self.box_size + vector(self.off.x, self.off.y)
     love.graphics.setColor(255, 255, 255)
     love.graphics.draw(self.imgs.curr, scaled_act.x, scaled_act.y, 0, self.scale, self.scale)
   end

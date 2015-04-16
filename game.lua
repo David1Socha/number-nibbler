@@ -52,8 +52,7 @@ end
 function game:draw()
   love.graphics.setBackgroundColor(self.bg)
   self:draw_lilypads()
-  self.player:draw(self.grid_box_size)
-  love.graphics.setColor({0,0,0})
+  self.player:draw()
   self:draw_flies()
   self.score:draw()
 end
