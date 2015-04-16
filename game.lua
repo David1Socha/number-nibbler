@@ -23,7 +23,7 @@ function game:enter()
   game.debug = false
   game.bg = {0x33, 0xff, 0xff}
   game.player = new_player(game.grid_units, game.grid_box_size, self.offx)
-  game.plain_font = love.graphics.newFont(20)
+  game.plain_font = love.graphics.newFont(40)
   game.select = love.audio.newSource("assets/sound/select.ogg", "static")
   Monocle.watch("player pos", function() return game.player.pos end)
   Monocle.watch("player dest", function() return game.player.dest end)
@@ -48,9 +48,9 @@ function game:draw()
   self:draw_lilypads()
   self.player:draw(self.grid_box_size)
   love.graphics.setColor({0,0,0})
-  love.graphics.setFont(self.plain_font)
   self:draw_flies()
-  love.graphics.printf("Score: "..self.score, 0, love.graphics.getHeight() - self.plain_font:getHeight(), love.graphics.getWidth(), "center")
+  love.graphics.setFont(self.plain_font)
+  love.graphics.printf("Score: "..self.score, 0, love.graphics.getHeight() - self.plain_font:getHeight(), love.graphics.getWidth())
 end
 
 function enumerate_2d(imax,jmax,action)
