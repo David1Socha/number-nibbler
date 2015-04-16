@@ -22,7 +22,7 @@ function game:enter()
   game.can_select = true
   game.debug = false
   game.bg = {0x33, 0xff, 0xff}
-  game.player = new_player(game.grid_units, game.grid_box_size)
+  game.player = new_player(game.grid_units, game.grid_box_size, self.offx)
   game.plain_font = love.graphics.newFont(20)
   game.select = love.audio.newSource("assets/sound/select.ogg", "static")
   Monocle.watch("player pos", function() return game.player.pos end)
