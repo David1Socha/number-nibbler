@@ -1,5 +1,5 @@
 
-function new_fly(col, row, box_size, prob_correct)
+function new_fly(col, row, box_size, offx, prob_correct)
   prob_correct = prob_correct or .5
   local c = math.random() < prob_correct
   local fly = {
@@ -15,13 +15,14 @@ function new_fly(col, row, box_size, prob_correct)
     img = love.graphics.newImage "assets/image/fly.png",
   }
 
-  fly.offx = (box_size - fly.img:getWidth() * fly.scale) / 2
-  fly.offy = 0
+  fly_offx = (box_size - fly.img:getWidth() * fly.scale) / 2 + offx
+  fly_offy = 0
+  fly.off = vector(fly_offx,fly_offy)
 
   function fly:draw(box_size) 
     love.graphics.setColor(255, 255, 255)
     love.graphics.setFont(self.font)
-    rowcol_scaled = vector(self.row, self.col) * box_size + vector(self.offx, self.offy)
+    rowcol_scaled = vector(self.row, self.col) * box_size + self.off
     love.graphics.draw(self.img, rowcol_scaled.x, rowcol_scaled.y, 0, self.scale, self.scale)
     love.graphics.setColor(0, 0, 0)
     love.graphics.printf(self.text, rowcol_scaled.x + self.text_off.x, rowcol_scaled.y + self.text_off.y, self.img:getWidth(), "center")

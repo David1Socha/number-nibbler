@@ -8,6 +8,7 @@ local game = { }
 
 function game:enter()
   game.grid_units = 3
+  game.offx = 100
   game.grid_box_size = love.graphics.getHeight() / (game.grid_units + 1)
   game.yes_flies = 0
   game.no_flies = 0
@@ -15,13 +16,13 @@ function game:enter()
   game.max_yes_flies = 12
   self:build_fly_grid()
   game.score = 0
-  game.lilypad = new_lilypad(game.grid_box_size)
+  game.lilypad = new_lilypad(game.grid_box_size, 100)
   game.select_cd = .3
   game.since_selected = 0
   game.can_select = true
   game.debug = false
   game.bg = {0x33, 0xff, 0xff}
-  game.player = new_player(game.grid_units, game.grid_box_size)
+  game.player = new_player(game.grid_units, game.grid_box_size, self.offx)
   game.plain_font = love.graphics.newFont(20)
   game.select = love.audio.newSource("assets/sound/select.ogg", "static")
   Monocle.watch("player pos", function() return game.player.pos end)
@@ -43,13 +44,13 @@ function game:update(dt)
 end
 
 function game:draw()
-  love.graphics.setBackgroundColor(game.bg)
+  love.graphics.setBackgroundColor(self.bg)
   self:draw_lilypads()
-  game.player:draw(game.grid_box_size)
+  self.player:draw(self.grid_box_size)
   love.graphics.setColor({0,0,0})
-  love.graphics.setFont(game.plain_font)
+  love.graphics.setFont(self.plain_font)
   self:draw_flies()
-  love.graphics.printf("Score: "..game.score, 0, 0, love.graphics.getWidth(), "center")
+  love.graphics.printf("Score: "..self.score, 0, love.graphics.getHeight() - self.plain_font:getHeight(), love.graphics.getWidth(), "center")
 end
 
 function enumerate_2d(imax,jmax,action)
@@ -66,7 +67,7 @@ function game:draw_flies()
     y = i * self.grid_box_size
     if self.debug then
       love.graphics.setColor({255,255,255})
-      love.graphics.rectangle("line", x, y, self.grid_box_size, self.grid_box_size)
+      love.graphics.rectangle("line", x + self.offx, y, self.grid_box_size, self.grid_box_size)
     end
     self.fly_grid[i][j]:draw(self.grid_box_size)
   end
@@ -79,7 +80,7 @@ function game:draw_lilypads()
 end
 
 function game:mousepressed(x, y, grid)
-  local grid_x = math.floor(x / game.grid_box_size)
+  local grid_x = math.floor((x - self.offx) / game.grid_box_size)
   local grid_y = math.floor(y / game.grid_box_size)
   local grid_vec = vector(grid_x, grid_y)
   if neareq_vec(grid_vec, game.player.act) and self.can_select then
@@ -120,7 +121,7 @@ function game:build_fly_grid()
   for i=0,self.grid_units do
     self.fly_grid[i] = {}
     for j=0,self.grid_units do
-      local newfly = new_fly(i,j,self.grid_box_size)
+      local newfly = new_fly(i,j,self.grid_box_size, self.offx)
       self.fly_grid[i][j] = newfly
       if newfly.correct then
         self.yes_flies = self.yes_flies + 1
@@ -130,18 +131,22 @@ function game:build_fly_grid()
     end
   end
   while(self.yes_flies < self.min_yes_flies) do
-    i = math.random(4)
-    j = math.random(4)
+    i = math.random(4) - 1
+    j = math.random(4) - 1
     if not self.fly_grid[i][j].correct then
-      --self.fly_grid[math.random(4)][math.random[4]] = new_yes_fly()
-      --self.yes_flies = self.yes_flies + 1
-      --self.no_flies = self.no_flies - 1
+      self.fly_grid[i][j] = new_fly(i,j,self.grid_box_size, self.offx, 1)
+      self.yes_flies = self.yes_flies + 1
+      self.no_flies = self.no_flies - 1
     end
   end
   while(self.yes_flies > self.max_yes_flies) do
-    --self.fly_grid[math.random(4)][math.random[4]] = new_no_fly()
-    --self.yes_flies = self.yes_flies + 1
-    --self.no_flies = self.no_flies - 1
+    i = math.random(4) - 1
+    j = math.random(4) - 1
+    if self.fly_grid[i][j].correct then
+      self.fly_grid[i][j] = new_fly(i,j,self.grid_box_size, self.offx, 0)
+      self.yes_flies = self.yes_flies - 1
+      self.no_flies = self.no_flies + 1
+    end
   end
 end
 

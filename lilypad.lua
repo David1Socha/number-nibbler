@@ -1,13 +1,13 @@
 require('fly')
 
-function new_lilypad(box_size)
+function new_lilypad(box_size, offx)
   local lilypad = {
     scale = .9,
     box_size = box_size,
     img = love.graphics.newImage "assets/image/lilypad.png",
   }
 
-  lilypad.offx = (box_size - lilypad.img:getWidth() * lilypad.scale) / 2
+  lilypad.offx = (box_size - lilypad.img:getWidth() * lilypad.scale) / 2 + offx
   lilypad.offy = (box_size - lilypad.img:getHeight() * lilypad.scale)
 
   function lilypad:draw(row, col) 
