@@ -8,7 +8,7 @@ local game = { }
 
 function game:enter()
   game.grid_units = 3
-  game.offx = 100
+  game.offx = 200
   game.grid_box_size = love.graphics.getHeight() / (game.grid_units + 1)
   game.yes_flies = 0
   game.no_flies = 0
@@ -16,7 +16,7 @@ function game:enter()
   game.max_yes_flies = 12
   self:build_fly_grid()
   game.score = 0
-  game.lilypad = new_lilypad(game.grid_box_size, 100)
+  game.lilypad = new_lilypad(game.grid_box_size, self.offx)
   game.select_cd = .3
   game.since_selected = 0
   game.can_select = true
