@@ -11,6 +11,8 @@ function game:enter()
   game.grid_box_size = love.graphics.getHeight() / (game.grid_units + 1)
   game.yes_flies = 0
   game.no_flies = 0
+  game.min_yes_flies = 4
+  game.max_yes_flies = 12
   self:build_fly_grid()
   game.score = 0
   game.lilypad = new_lilypad(game.grid_box_size)
@@ -127,8 +129,20 @@ function game:build_fly_grid()
       end
     end
   end
-  --ensure at least 4 yes flies (loop)
-  --ensure no more than 10 yes flies (loop)
+  while(self.yes_flies < self.min_yes_flies) do
+    i = math.random(4)
+    j = math.random(4)
+    if not self.fly_grid[i][j].correct then
+      --self.fly_grid[math.random(4)][math.random[4]] = new_yes_fly()
+      --self.yes_flies = self.yes_flies + 1
+      --self.no_flies = self.no_flies - 1
+    end
+  end
+  while(self.yes_flies > self.max_yes_flies) do
+    --self.fly_grid[math.random(4)][math.random[4]] = new_no_fly()
+    --self.yes_flies = self.yes_flies + 1
+    --self.no_flies = self.no_flies - 1
+  end
 end
 
 return game
