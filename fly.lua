@@ -1,6 +1,7 @@
 
-function new_fly(col, row, box_size)
-  local c = math.random(2) == 1
+function new_fly(col, row, box_size, prob_correct)
+  prob_correct = prob_correct or .5
+  local c = math.random() < prob_correct
   local fly = {
     score = 1,
     scale = 1,
