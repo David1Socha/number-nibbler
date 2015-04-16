@@ -80,7 +80,7 @@ function game:draw_lilypads()
 end
 
 function game:mousepressed(x, y, grid)
-  local grid_x = math.floor(x / game.grid_box_size)
+  local grid_x = math.floor((x - self.offx) / game.grid_box_size)
   local grid_y = math.floor(y / game.grid_box_size)
   local grid_vec = vector(grid_x, grid_y)
   if neareq_vec(grid_vec, game.player.act) and self.can_select then
