@@ -15,7 +15,14 @@ function game:enter()
   game.min_yes_flies = 4
   game.max_yes_flies = 12
   self:build_fly_grid()
-  game.score = 0
+  game.score = {
+    value = 0,
+    font = love.graphics.newFont(40),
+    draw = function(self)
+      love.graphics.setFont(self.font)
+      love.graphics.printf("Score: "..self.value, 0, love.graphics.getHeight() - self.font:getHeight(), love.graphics.getWidth())
+    end
+  }
   game.lilypad = new_lilypad(game.grid_box_size, self.offx)
   game.select_cd = .3
   game.since_selected = 0
@@ -23,7 +30,6 @@ function game:enter()
   game.debug = false
   game.bg = {0x33, 0xff, 0xff}
   game.player = new_player(game.grid_units, game.grid_box_size, self.offx)
-  game.plain_font = love.graphics.newFont(40)
   game.select = love.audio.newSource("assets/sound/select.ogg", "static")
   Monocle.watch("player pos", function() return game.player.pos end)
   Monocle.watch("player dest", function() return game.player.dest end)
@@ -49,8 +55,7 @@ function game:draw()
   self.player:draw(self.grid_box_size)
   love.graphics.setColor({0,0,0})
   self:draw_flies()
-  love.graphics.setFont(self.plain_font)
-  love.graphics.printf("Score: "..self.score, 0, love.graphics.getHeight() - self.plain_font:getHeight(), love.graphics.getWidth())
+  self.score:draw()
 end
 
 function enumerate_2d(imax,jmax,action)
@@ -103,7 +108,7 @@ function game:choose_square()
     if not curr_fly.correct then
       Gamestate.switch(menu)
     else
-      self.score = self.score + curr_fly.score
+      self.score.value = self.score.value + curr_fly.score
       love.audio.play(self.select)
       self.player.start_anim_eat()
       self:replace_fly(curr_fly)
