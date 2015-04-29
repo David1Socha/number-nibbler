@@ -1,6 +1,6 @@
 require("player")
 require("lilypad")
-require "fly"
+require("hive")
 
 math.randomseed(os.time())
 
@@ -14,6 +14,7 @@ function game:enter()
   game.no_flies = 0
   game.min_yes_flies = 4
   game.max_yes_flies = 12
+  game.hive = new_hive()
   self:build_fly_grid()
   game.score = {
     value = 0,
@@ -21,6 +22,14 @@ function game:enter()
     draw = function(self)
       love.graphics.setFont(self.font)
       love.graphics.printf("Score: "..self.value, 0, love.graphics.getHeight() - self.font:getHeight(), love.graphics.getWidth())
+    end
+  }
+  game.question = {
+    value = function() return game.hive.question end,
+    font = love.graphics.newFont(40),
+    draw = function(self)
+      love.graphics.setFont(self.font)
+      love.graphics.printf(self.value(), 0, love.graphics.getHeight() - self.font:getHeight() * 2, love.graphics.getWidth())
     end
   }
   game.bg = {
@@ -60,6 +69,7 @@ function game:draw()
   self.player:draw()
   self:draw_flies()
   self.score:draw()
+  self.question:draw()
 end
 
 function enumerate_2d(imax,jmax,action)
@@ -122,7 +132,7 @@ end
 
 function game:replace_fly(fly)
   self.yes_flies = self.yes_flies - 1
-  self.fly_grid[fly.col][fly.row] = empty_fly()
+  self.fly_grid[fly.col][fly.row] = self.hive.empty_fly()
 end
 
 function game:build_fly_grid() 
@@ -130,7 +140,7 @@ function game:build_fly_grid()
   for i=0,self.grid_units do
     self.fly_grid[i] = {}
     for j=0,self.grid_units do
-      local newfly = new_fly(i,j,self.grid_box_size, self.offx)
+      local newfly = self.hive:new_fly(i,j,self.grid_box_size, self.offx)
       self.fly_grid[i][j] = newfly
       if newfly.correct then
         self.yes_flies = self.yes_flies + 1
@@ -143,7 +153,7 @@ function game:build_fly_grid()
     i = math.random(4) - 1
     j = math.random(4) - 1
     if not self.fly_grid[i][j].correct then
-      self.fly_grid[i][j] = new_fly(i,j,self.grid_box_size, self.offx, 1)
+      self.fly_grid[i][j] = self.hive:new_fly(i,j,self.grid_box_size, self.offx, 1)
       self.yes_flies = self.yes_flies + 1
       self.no_flies = self.no_flies - 1
     end
@@ -152,7 +162,7 @@ function game:build_fly_grid()
     i = math.random(4) - 1
     j = math.random(4) - 1
     if self.fly_grid[i][j].correct then
-      self.fly_grid[i][j] = new_fly(i,j,self.grid_box_size, self.offx, 0)
+      self.fly_grid[i][j] = self.hive:new_fly(i,j,self.grid_box_size, self.offx, 0)
       self.yes_flies = self.yes_flies - 1
       self.no_flies = self.no_flies + 1
     end

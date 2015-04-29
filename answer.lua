@@ -14,7 +14,6 @@ function gen_non_addend_pairs(x)
   local nps = {}
   local ps = gen_addend_pairs(x)
   table.foreach(ps, function(i)
-    print(ps[i][1], ps[i][2], "HI")
     p = ps[i]
     for i=p[1]-MIN_DELTA,p[1]+MAX_DELTA do --range of near values to try in order to trick player
       for j=p[2]-MIN_DELTA,p[2]+MAX_DELTA do
@@ -28,7 +27,3 @@ function gen_non_addend_pairs(x)
   )
   return nps
 end
-
-t = gen_non_addend_pairs(10)
-table.foreachi(t , function(i) print(t[i][1],t[i][2]) end)
-table.foreachi(t, function(i) assert(t[i][1] + t[i][2] ~= 10) end)

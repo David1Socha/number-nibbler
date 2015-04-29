@@ -12,29 +12,37 @@ function map(a, fn)
   return new_array
 end
 
+function prepare_hive_addends(hive)
+  hive.value = math.random(ADDEND_MIN_ANS, ADDEND_MAX_ANS)
+  hive.question = "Add to "..hive.value
+  local ps = gen_addend_pairs(hive.value)
+  local nps = gen_non_addend_pairs(hive.value)
+  local pair_to_sum_text = function(p)
+    local txt = ""
+    if math.random() > .5 then
+      txt = p[1].." + "..p[2]
+    else
+      txt = p[2].." + "..p[1]
+    end
+    return txt
+  end
+  hive.answers = map(ps, pair_to_sum_text)
+  hive.traps = map(nps, pair_to_sum_text)
+  function hive:get_answer()
+    return self.answers[math.random(table.getn(self.answers))]
+  end
+  function hive:get_trap()
+    return self.traps[math.random(table.getn(self.traps))]
+  end
+end
+
 function new_hive(question_type)
+  question_type = question_type or ADDENDS
   local hive = {}
   if question_type == ADDENDS then
     prepare_hive_addends(hive)
   else
     assert(false) -- no other type currently supported
-  end
-
-  function prepare_hive_addends(hive)
-    hive.value = math.random(ADDEND_MIN_ANS, ADDEND_MAX_ANS)
-    hive.question = "Numbers that add to " + hive.value
-    print(hive.question)
-    local ps = gen_addend_pairs(hive.value)
-    local nps = gen_non_addend_pairs(hive.value)
-    local pair_to_sum_text = function(p) do
-      if math.random() > .5 then
-        return p[1] + " + " p[2]
-      else
-        return p[2] + " + " p[1]
-      end
-    end
-    hive.answers = map(ps, pair_to_sum_text)
-    hive.traps = map(nps, pair_to_sum_text)
   end
 
   function hive:new_fly(col, row, box_size, offx, prob_correct)
@@ -48,7 +56,6 @@ function new_hive(question_type)
       col = col,
       correct = c,
       font = love.graphics.newFont(10),
-      text = tostring(c),
       text_off = vector(-10, 50),
       img = love.graphics.newImage "assets/image/fly.png",
     }
@@ -56,6 +63,11 @@ function new_hive(question_type)
     fly_offx = (box_size - fly.img:getWidth() * fly.scale) / 2 + offx
     fly_offy = 0
     fly.off = vector(fly_offx,fly_offy)
+    if c then
+      fly.text = self:get_answer()
+    else
+      fly.text = self:get_trap()
+    end
 
     function fly:draw(box_size) 
       love.graphics.setColor(255, 255, 255)

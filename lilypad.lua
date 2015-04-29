@@ -1,5 +1,3 @@
-require('fly')
-
 function new_lilypad(box_size, offx)
   local lilypad = {
     scale = .9,
