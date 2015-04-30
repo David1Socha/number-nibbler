@@ -9,6 +9,7 @@ function new_player(max_x_or_y, box_size, offx)
     movetime = .5,
     scale = .69,
     tweening = false,
+    move_sound = love.audio.newSource("assets/sound/player_movement.ogg", "static"),
     anim_eat = {s2 = game.select_cd / 2, s3 = game.select_cd},
     imgs = { 
       rest = love.graphics.newImage "assets/image/froggy.png",
@@ -34,6 +35,7 @@ function new_player(max_x_or_y, box_size, offx)
       local tween_duration = self.movetime - self.time_moving
       if not neareq_vec(self.act, new_pos) and not self.tweening then
         self.tweening = true
+        love.audio.play(self.move_sound)
         Timer.tween(tween_duration, self.act, new_pos, 'linear', function() self.tweening = false end)
       end
       self.pos = new_pos
