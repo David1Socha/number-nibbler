@@ -20,6 +20,7 @@ function game:enter()
     value = 0,
     font = love.graphics.newFont(40),
     draw = function(self)
+      love.graphics.setColor({0,0,0})
       love.graphics.setFont(self.font)
       love.graphics.printf("Score: "..self.value, 0, love.graphics.getHeight() - self.font:getHeight(), love.graphics.getWidth())
     end
@@ -28,6 +29,7 @@ function game:enter()
     value = function() return game.hive.question end,
     font = love.graphics.newFont(40),
     draw = function(self)
+      love.graphics.setColor({0,0,0})
       love.graphics.setFont(self.font)
       love.graphics.printf(self.value(), 0, love.graphics.getHeight() - self.font:getHeight() * 2, love.graphics.getWidth())
     end

@@ -100,6 +100,7 @@ end
 function Monocle.draw()
 	if Monocle.active then
 		love.graphics.setColor(Monocle.printColor)
+    love.graphics.setNewFont(16)
 		--love.graphics.print("> " .. Monocle.text .. "|", 0, 0)
 		local draw_y = 0
 		for name,result in pairs(Monocle.results) do
@@ -150,7 +151,7 @@ function love.errhand(msg)
 	if love.audio then love.audio.stop() end
 	love.graphics.reset()
 	love.graphics.setBackgroundColor(89, 157, 220)
-	local font = love.graphics.setNewFont(14)
+	local font = love.graphics.setNewFont(8)
 
 	love.graphics.setColor(255, 255, 255, 255)
 
@@ -183,6 +184,7 @@ function love.errhand(msg)
 
 	local function draw()
 		love.graphics.clear()
+    love.graphics.setColor({0,0,0})
 		love.graphics.printf(p, 150, 70, love.graphics.getWidth()-150)
 		love.graphics.printf(table.concat(mon,'\n'), 0, 15, 150)
 		love.graphics.present()
