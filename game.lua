@@ -61,10 +61,6 @@ function game:enter()
 
   game.debug = false
   game.select = love.audio.newSource("assets/sound/select.ogg", "static")
-  Monocle.watch("player pos", function() return game.player.pos end)
-  Monocle.watch("player dest", function() return game.player.dest end)
-  Monocle.watch("player act", function() return game.player.act end)
-  Monocle.watch("yes flies", function() return game.yes_flies end)
 end
 
 function game:update(dt)

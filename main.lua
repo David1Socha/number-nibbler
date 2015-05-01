@@ -12,6 +12,10 @@ function love.load()
   Gamestate.switch(menu)
   d = 0
   Monocle.watch("dt", function() return d end)
+  Monocle.watch("player pos", function() if game.player then return game.player.pos end end)
+  Monocle.watch("player dest", function() if game.player then return game.player.dest end end)
+  Monocle.watch("player act", function() if game.player then return game.player.act end end)
+  Monocle.watch("yes flies", function() return game.yes_flies end)
 end
 
 function love.update(dt)
