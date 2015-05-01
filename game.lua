@@ -6,16 +6,30 @@ math.randomseed(os.time())
 
 local game = { }
 
+function game:enter_level()
+  game.yes_flies = 0
+  game.no_flies = 0
+  game.hive = new_hive()
+  self:build_fly_grid()
+
+  game.since_selected = 0
+  game.can_select = true
+
+  game.player = new_player(game.grid_units, game.grid_box_size, self.offx)
+end
+
 function game:enter()
   game.grid_units = 3
   game.offx = 200
   game.grid_box_size = love.graphics.getHeight() / (game.grid_units + 1)
-  game.yes_flies = 0
-  game.no_flies = 0
+
   game.min_yes_flies = 4
   game.max_yes_flies = 12
-  game.hive = new_hive()
-  self:build_fly_grid()
+
+  game.select_cd = .3
+
+  self:enter_level()
+
   game.score = {
     value = 0,
     font = love.graphics.newFont(40),
@@ -25,6 +39,7 @@ function game:enter()
       love.graphics.printf("Score: "..self.value, 0, love.graphics.getHeight() - self.font:getHeight(), love.graphics.getWidth())
     end
   }
+
   game.question = {
     value = function() return game.hive.question end,
     font = love.graphics.newFont(40),
@@ -34,25 +49,23 @@ function game:enter()
       love.graphics.printf(self.value(), 0, love.graphics.getHeight() - self.font:getHeight() * 2, love.graphics.getWidth())
     end
   }
+
   game.bg = {
     color = {0x33, 0xff, 0xff},
     draw = function (self)
       love.graphics.setBackgroundColor(self.color)
     end
   }
+
   game.lilypad = new_lilypad(game.grid_box_size, self.offx)
-  game.select_cd = .3
-  game.since_selected = 0
-  game.can_select = true
+
   game.debug = false
-  game.player = new_player(game.grid_units, game.grid_box_size, self.offx)
   game.select = love.audio.newSource("assets/sound/select.ogg", "static")
   Monocle.watch("player pos", function() return game.player.pos end)
   Monocle.watch("player dest", function() return game.player.dest end)
   Monocle.watch("player act", function() return game.player.act end)
   Monocle.watch("yes flies", function() return game.yes_flies end)
 end
-
 
 function game:update(dt)
   self.player:update(dt)
