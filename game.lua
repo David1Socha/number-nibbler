@@ -23,8 +23,8 @@ function game:enter()
   game.offx = 200
   game.grid_box_size = love.graphics.getHeight() / (game.grid_units + 1)
 
-  game.min_yes_flies = 4
-  game.max_yes_flies = 12
+  game.min_yes_flies = 1
+  game.max_yes_flies = 1
 
   game.select_cd = .3
 
@@ -61,6 +61,8 @@ function game:enter()
 
   game.debug = false
   game.select = love.audio.newSource("assets/sound/select.ogg", "static")
+  game.level_complete = love.audio.newSource("assets/sound/level_complete.ogg", "static")
+  game.level_complete_delay = .7
 end
 
 function game:update(dt)
@@ -129,6 +131,11 @@ function game:keypressed(key)
   end
 end
 
+function game:finish_level()
+  love.audio.play(self.level_complete)
+  print("Level Complete")
+end
+
 function game:choose_square()
   local curr_fly = self.fly_grid[self.player.pos.y][self.player.pos.x]
   if curr_fly.real then
@@ -140,7 +147,7 @@ function game:choose_square()
       self.player.start_anim_eat()
       self:replace_fly(curr_fly)
       if (self.yes_flies == 0) then
-        print("Level complete")
+        Timer.add(self.level_complete_delay, function() self:finish_level() end)
       end
     end
   end
