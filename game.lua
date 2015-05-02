@@ -13,6 +13,7 @@ function game:enter_level()
   self:build_fly_grid()
 
   game.since_selected = 0
+  game.can_move = true
   game.can_select = true
 
   game.player = new_player(game.grid_units, game.grid_box_size, self.offx)
@@ -127,14 +128,16 @@ function game:mousepressed(x, y, grid)
   local grid_x = math.floor((x - self.offx) / game.grid_box_size)
   local grid_y = math.floor(y / game.grid_box_size)
   --TODO handle non grid clicks here, afterwards assume click is for grid movement
-  if grid_x < 0 or grid_y < 0 or grid_x > self.grid_units or grid_y > self.grid_units then return end --can't let user go off grid
-  local grid_vec = vector(grid_x, grid_y)
-  if neareq_vec(grid_vec, game.player.act) and self.can_select then
-    self.can_select = false
-    self.since_selected = 0
-    self:choose_square()
+  if self.can_move then
+    if grid_x < 0 or grid_y < 0 or grid_x > self.grid_units or grid_y > self.grid_units then return end --can't let user go off grid
+    local grid_vec = vector(grid_x, grid_y)
+    if neareq_vec(grid_vec, game.player.act) and self.can_select then
+      self.can_select = false
+      self.since_selected = 0
+      self:choose_square()
+    end
+    game.player.dest = grid_vec
   end
-  game.player.dest = grid_vec
 end
 
 function game:keypressed(key)
@@ -161,6 +164,8 @@ function game:choose_square()
       self.player.start_anim_eat()
       self:replace_fly(curr_fly)
       if (self.yes_flies == 0) then
+        self.can_select = false
+        self.can_move = false
         Timer.add(self.level_complete_delay, function() self:finish_level() end)
       end
     end
