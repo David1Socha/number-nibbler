@@ -23,8 +23,8 @@ function game:enter()
   game.offx = 200
   game.grid_box_size = love.graphics.getHeight() / (game.grid_units + 1)
 
-  game.min_yes_flies = 1
-  game.max_yes_flies = 1
+  game.min_yes_flies = 4
+  game.max_yes_flies = 12
 
   game.select_cd = .3
 
@@ -134,6 +134,7 @@ end
 function game:finish_level()
   love.audio.play(self.level_complete)
   print("Level Complete")
+  self:enter_level()
 end
 
 function game:choose_square()
