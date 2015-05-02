@@ -19,10 +19,10 @@ function game:enter_level()
 end
 
 function game:enter()
-  game.curr_level = 1
   game.grid_units = 3
   game.offx = 200
   game.grid_box_size = love.graphics.getHeight() / (game.grid_units + 1)
+  game.info_font = love.graphics.newFont(40)
 
   game.min_yes_flies = 4
   game.max_yes_flies = 12
@@ -33,7 +33,7 @@ function game:enter()
 
   game.score = {
     value = 0,
-    font = love.graphics.newFont(40),
+    font = game.info_font,
     draw = function(self)
       love.graphics.setColor({0,0,0})
       love.graphics.setFont(self.font)
@@ -43,13 +43,23 @@ function game:enter()
 
   game.question = {
     value = function() return game.hive.question end,
-    font = love.graphics.newFont(40),
+    font = game.info_font,
     draw = function(self)
       love.graphics.setColor({0,0,0})
       love.graphics.setFont(self.font)
-      love.graphics.printf(self.value(), 0, love.graphics.getHeight() - self.font:getHeight() * 2, love.graphics.getWidth())
+      love.graphics.printf(self.value(), 0, love.graphics.getHeight() - self.font:getHeight() * 3, love.graphics.getWidth())
     end
   }
+
+  game.level = {
+    value = 1,
+    font = game.info_font,
+    draw = function(self)
+      love.graphics.setColor({0,0,0})
+      love.graphics.setFont(self.font)
+      love.graphics.printf("Level: "..self.value, 0, love.graphics.getHeight() - self.font:getHeight() * 2, love.graphics.getWidth())
+    end
+}
 
   game.bg = {
     color = {0x33, 0xff, 0xff},
@@ -84,6 +94,7 @@ function game:draw()
   self:draw_flies()
   self.score:draw()
   self.question:draw()
+  self.level:draw()
 end
 
 function enumerate_2d(imax,jmax,action)
@@ -135,7 +146,7 @@ end
 function game:finish_level()
   love.audio.play(self.level_complete)
   print("Level Complete")
-  self.curr_level = self.curr_level + 1
+  self.level.value = self.level.value + 1
   self:enter_level()
 end
 

@@ -16,7 +16,6 @@ function love.load()
   Monocle.watch("player dest", function() if game.player then return game.player.dest end end)
   Monocle.watch("player act", function() if game.player then return game.player.act end end)
   Monocle.watch("yes flies", function() return game.yes_flies end)
-  Monocle.watch("curr level", function() return game.curr_level end)
 end
 
 function love.update(dt)
