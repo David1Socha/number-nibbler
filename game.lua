@@ -139,6 +139,9 @@ function game:choose_square()
       love.audio.play(self.select)
       self.player.start_anim_eat()
       self:replace_fly(curr_fly)
+      if (self.yes_flies == 0) then
+        print("Level complete")
+      end
     end
   end
 end
