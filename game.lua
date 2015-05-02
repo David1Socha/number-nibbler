@@ -19,6 +19,7 @@ function game:enter_level()
 end
 
 function game:enter()
+  game.curr_level = 1
   game.grid_units = 3
   game.offx = 200
   game.grid_box_size = love.graphics.getHeight() / (game.grid_units + 1)
@@ -134,6 +135,7 @@ end
 function game:finish_level()
   love.audio.play(self.level_complete)
   print("Level Complete")
+  self.curr_level = self.curr_level + 1
   self:enter_level()
 end
 
