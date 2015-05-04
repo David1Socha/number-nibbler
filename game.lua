@@ -79,6 +79,9 @@ end
 function game:update(dt)
   self.player:update(dt)
   self.time = self.time + dt
+  if self.time_left.value() <= 0 then
+    Gamestate.switch(menu)
+  end
   if not can_select then
     self.since_selected = self.since_selected + dt
     if self.since_selected > self.select_cd then
