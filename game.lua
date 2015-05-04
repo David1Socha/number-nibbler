@@ -7,7 +7,6 @@ math.randomseed(os.time())
 local game = { }
 
 function game:draw_txt(t, n)
-  print("YO")
   love.graphics.setColor({0,0,0})
   love.graphics.setFont(self.info_font)
   love.graphics.printf(t:text(), 0, love.graphics.getHeight() - self.info_font:getHeight() * n, love.graphics.getWidth())
@@ -19,9 +18,9 @@ function game:enter_level()
   game.hive = new_hive()
   self:build_fly_grid()
 
-  game.time = {
+  game.time_left = {
     value = 0,
-    text = function(self) return "Time: "..math.ceil(self.value) end,
+    text = function(self) return "Time left: "..math.ceil(self.value) end,
   }
 
   game.since_selected = 0
@@ -75,7 +74,7 @@ end
 
 function game:update(dt)
   self.player:update(dt)
-  self.time.value = self.time.value + dt
+  self.time_left.value = self.time_left.value + dt
   if not can_select then
     self.since_selected = self.since_selected + dt
     if self.since_selected > self.select_cd then
@@ -90,7 +89,7 @@ function game:draw()
   self:draw_lilypads()
   self.player:draw()
   self:draw_flies()
-  self:draw_txt(self.time,4)
+  self:draw_txt(self.time_left,4)
   self:draw_txt(self.question,3)
   self:draw_txt(self.level,2)
   self:draw_txt(self.score,1)
