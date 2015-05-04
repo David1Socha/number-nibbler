@@ -89,10 +89,13 @@ function game:draw()
   self:draw_lilypads()
   self.player:draw()
   self:draw_flies()
-  self:draw_txt(self.time_left,4)
-  self:draw_txt(self.question,3)
-  self:draw_txt(self.level,2)
-  self:draw_txt(self.score,1)
+  self:draw_txts(self.score,self.level,self.question,self.time_left)
+end
+
+function game:draw_txts(...)
+  for k,v in ipairs({...}) do
+    self:draw_txt(v,k)
+  end
 end
 
 function enumerate_2d(imax,jmax,action)
