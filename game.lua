@@ -18,9 +18,11 @@ function game:enter_level()
   game.hive = new_hive()
   self:build_fly_grid()
 
+  game.time = 0
+  game.time_limit = math.max(game.time_limit - 5,25)
   game.time_left = {
-    value = 0,
-    text = function(self) return "Time left: "..math.ceil(self.value) end,
+    value = function() return game.time_limit - game.time end,
+    text = function(self) return "Time left: "..math.ceil(self.value()) end,
   }
 
   game.since_selected = 0
@@ -40,6 +42,8 @@ function game:enter()
   game.max_yes_flies = 12
 
   game.select_cd = .3
+
+  game.time_limit = 65
 
   self:enter_level()
 
@@ -74,7 +78,7 @@ end
 
 function game:update(dt)
   self.player:update(dt)
-  self.time_left.value = self.time_left.value + dt
+  self.time = self.time + dt
   if not can_select then
     self.since_selected = self.since_selected + dt
     if self.since_selected > self.select_cd then
