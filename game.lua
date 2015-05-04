@@ -6,6 +6,13 @@ math.randomseed(os.time())
 
 local game = { }
 
+function game:draw_txt(t, n)
+  print("YO")
+  love.graphics.setColor({0,0,0})
+  love.graphics.setFont(self.info_font)
+  love.graphics.printf(t:text(), 0, love.graphics.getHeight() - self.info_font:getHeight() * n, love.graphics.getWidth())
+end
+
 function game:enter_level()
   game.yes_flies = 0
   game.no_flies = 0
@@ -14,12 +21,7 @@ function game:enter_level()
 
   game.time = {
     value = 0,
-    font = game.info_font,
-    draw = function(self)
-      love.graphics.setColor({0,0,0})
-      love.graphics.setFont(self.font)
-      love.graphics.printf("Time: "..math.ceil(self.value), 0, love.graphics.getHeight() - self.font:getHeight() * 4, love.graphics.getWidth())
-    end
+    text = function(self) return "Time: "..math.ceil(self.value) end,
   }
 
   game.since_selected = 0
@@ -44,32 +46,16 @@ function game:enter()
 
   game.score = {
     value = 0,
-    font = game.info_font,
-    draw = function(self)
-      love.graphics.setColor({0,0,0})
-      love.graphics.setFont(self.font)
-      love.graphics.printf("Score: "..self.value, 0, love.graphics.getHeight() - self.font:getHeight(), love.graphics.getWidth())
-    end
+    text = function(self) return "Score: "..self.value end
   }
 
   game.question = {
-    value = function() return game.hive.question end,
-    font = game.info_font,
-    draw = function(self)
-      love.graphics.setColor({0,0,0})
-      love.graphics.setFont(self.font)
-      love.graphics.printf(self.value(), 0, love.graphics.getHeight() - self.font:getHeight() * 3, love.graphics.getWidth())
-    end
+    text = function(self) return game.hive.question end,
   }
 
   game.level = {
     value = 1,
-    font = game.info_font,
-    draw = function(self)
-      love.graphics.setColor({0,0,0})
-      love.graphics.setFont(self.font)
-      love.graphics.printf("Level: "..self.value, 0, love.graphics.getHeight() - self.font:getHeight() * 2, love.graphics.getWidth())
-    end
+    text = function(self) return "Level: "..self.value end
 }
 
   game.bg = {
@@ -104,10 +90,10 @@ function game:draw()
   self:draw_lilypads()
   self.player:draw()
   self:draw_flies()
-  self.time:draw()
-  self.question:draw()
-  self.level:draw()
-  self.score:draw()
+  self:draw_txt(self.time,4)
+  self:draw_txt(self.question,3)
+  self:draw_txt(self.level,2)
+  self:draw_txt(self.score,1)
 end
 
 function enumerate_2d(imax,jmax,action)
