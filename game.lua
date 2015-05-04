@@ -12,6 +12,16 @@ function game:enter_level()
   game.hive = new_hive()
   self:build_fly_grid()
 
+  game.time = {
+    value = 0,
+    font = game.info_font,
+    draw = function(self)
+      love.graphics.setColor({0,0,0})
+      love.graphics.setFont(self.font)
+      love.graphics.printf("Time: "..math.ceil(self.value), 0, love.graphics.getHeight() - self.font:getHeight() * 4, love.graphics.getWidth())
+    end
+  }
+
   game.since_selected = 0
   game.can_move = true
   game.can_select = true
@@ -79,6 +89,7 @@ end
 
 function game:update(dt)
   self.player:update(dt)
+  self.time.value = self.time.value + dt
   if not can_select then
     self.since_selected = self.since_selected + dt
     if self.since_selected > self.select_cd then
@@ -93,9 +104,10 @@ function game:draw()
   self:draw_lilypads()
   self.player:draw()
   self:draw_flies()
-  self.score:draw()
+  self.time:draw()
   self.question:draw()
   self.level:draw()
+  self.score:draw()
 end
 
 function enumerate_2d(imax,jmax,action)
