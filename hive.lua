@@ -49,7 +49,7 @@ function new_hive(question_type)
     prob_correct = prob_correct or .5
     local c = math.random() < prob_correct
     local fly = {
-      score = 1,
+      score = 5,
       scale = 1,
       row = row,
       real = true,

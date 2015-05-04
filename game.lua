@@ -19,7 +19,7 @@ function game:enter_level()
   self:build_fly_grid()
 
   game.time = 0
-  game.time_limit = math.max(game.time_limit - 5,25)
+  game.time_limit = math.max(game.time_limit - 5,20)
   game.time_left = {
     value = function() return game.time_limit - game.time end,
     text = function(self) return "Time left: "..math.ceil(self.value()) end,
