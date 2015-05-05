@@ -34,9 +34,9 @@ end
 
 function game:enter()
   game.grid_units = 3
-  game.offx = 200
+  game.offx = 400
   game.grid_box_size = love.graphics.getHeight() / (game.grid_units + 1)
-  game.info_font = love.graphics.newFont(40)
+  game.info_font = love.graphics.newFont(60)
 
   game.min_yes_flies = 4
   game.max_yes_flies = 12
