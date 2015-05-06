@@ -9,7 +9,7 @@ local game = { }
 function game:draw_txt(t, n)
   love.graphics.setColor({0,0,0})
   love.graphics.setFont(self.info_font)
-  love.graphics.printf(t:text(), 0, love.graphics.getHeight() - self.info_font:getHeight() * n, love.graphics.getWidth())
+  love.graphics.printf(t:text(), self.left_margin, love.graphics.getHeight() - self.info_font:getHeight() * n, love.graphics.getWidth())
 end
 
 function game:enter_level()
@@ -35,10 +35,11 @@ end
 function game:enter()
 
   game.grid_units = 3
-  game.offx = 450
+  game.offx = 500
   game.board_margin = 50
+  game.left_margin = 15
   game.grid_box_size = love.graphics.getHeight() / (game.grid_units + 1)
-  game.info_font = love.graphics.newFont(60)
+  game.info_font = love.graphics.newFont("assets/font/kenvector_future_thin.ttf",60)
   game.score_bg = {
     color = {255,255,153},
     draw = function(self)

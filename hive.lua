@@ -55,7 +55,7 @@ function new_hive(question_type)
       real = true,
       col = col,
       correct = c,
-      font = love.graphics.newFont(25),
+      font = love.graphics.newFont("assets/font/kenvector_future_thin.ttf",25),
       text_off = vector(-14, 70),
       img = love.graphics.newImage "assets/image/fly.png",
     }

@@ -2,7 +2,7 @@ Gamestate = require "hump.gamestate"
 menu = {}
 
 function menu:enter()
-  menu.font = love.graphics.newFont(54)
+  menu.font = love.graphics.newFont("assets/font/kenvector_future_thin.ttf",54)
   menu.bgcolor = {20, 60, 20}
 end
 
