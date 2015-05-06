@@ -49,6 +49,9 @@ function game:enter()
       love.graphics.rectangle("fill",0,0,game.offx - game.board_margin,love.graphics.getWidth())
       love.graphics.setColor({0,0,0})
       love.graphics.rectangle("fill",game.offx - game.board_margin,0,self.border_width,love.graphics.getWidth())
+      --love.graphics.rectangle("fill",0,0,self.border_width,love.graphics.getWidth())
+      --love.graphics.rectangle("fill",0,0,game.offx - game.board_margin,self.border_width)
+      --love.graphics.rectangle("fill",0,love.graphics.getHeight() -self.border_width,game.offx - game.board_margin,self.border_width)
     end
   }
 
