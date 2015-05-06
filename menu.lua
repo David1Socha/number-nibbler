@@ -10,7 +10,7 @@ function menu:draw()
   love.graphics.setBackgroundColor(menu.bgcolor)
   love.graphics.setFont(menu.font)
   love.graphics.setColor({0xff, 0xff, 0xff})
-  love.graphics.printf("Click to start", 0, love.graphics.getHeight() / 2 - 100, love.graphics.getWidth(), "center")
+  love.graphics.printf("Press to start", 0, love.graphics.getHeight() / 2 - 100, love.graphics.getWidth(), "center")
 end
 
 function menu:mousepressed()
