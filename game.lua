@@ -33,10 +33,19 @@ function game:enter_level()
 end
 
 function game:enter()
+
   game.grid_units = 3
-  game.offx = 400
+  game.offx = 450
+  game.board_margin = 50
   game.grid_box_size = love.graphics.getHeight() / (game.grid_units + 1)
   game.info_font = love.graphics.newFont(60)
+  game.score_bg = {
+    color = {255,255,153},
+    draw = function(self)
+      love.graphics.setColor(self.color)
+      love.graphics.rectangle("fill",0,0,game.offx - game.board_margin,love.graphics.getWidth()) 
+    end
+  }
 
   game.min_yes_flies = 4
   game.max_yes_flies = 12
@@ -93,6 +102,7 @@ end
 
 function game:draw()
   self.bg:draw()
+  self.score_bg:draw()
   self:draw_lilypads()
   self.player:draw()
   self:draw_flies()
