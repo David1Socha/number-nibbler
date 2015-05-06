@@ -40,14 +40,14 @@ function game:enter()
   game.info_margin = 5
   game.left_margin = 15
   game.grid_box_size = love.graphics.getHeight() / (game.grid_units + 1)
-  game.info_font = love.graphics.newFont("assets/font/kenvector_future_thin.ttf",60)
+  game.info_font = love.graphics.newFont("assets/font/kenvector_future_thin.ttf",59)
   game.score_bg = {
     color = {255,255,153},
-    border_width = 3,
+    border_width = 10,
     draw = function(self)
       love.graphics.setColor(self.color)
       love.graphics.rectangle("fill",0,0,game.offx - game.board_margin,love.graphics.getWidth())
-      love.graphics.setColor({0,0,0})
+      love.graphics.setColor({184,184,110})
       love.graphics.rectangle("fill",game.offx - game.board_margin,0,self.border_width,love.graphics.getWidth())
       --love.graphics.rectangle("fill",0,0,self.border_width,love.graphics.getWidth())
       --love.graphics.rectangle("fill",0,0,game.offx - game.board_margin,self.border_width)
