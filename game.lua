@@ -102,7 +102,6 @@ end
 function game:warn_enemy()
   self.spawn_i = math.random(0,self.grid_units)
   self.spawn_j = math.random(0,self.grid_units)
-  --draw warning box
   love.audio.play(self.warning)
 end
 
@@ -141,6 +140,16 @@ function game:draw()
   self.player:draw()
   self:draw_flies()
   self:draw_txts(self.score,self.level,self.question,self.time_left)
+  if self.enemy_warned and not self.enemy_spawned then
+    self:draw_enemy_warning()
+  end
+end
+
+function game:draw_enemy_warning()
+  local x = self.spawn_j * self.grid_box_size
+  local y = self.spawn_i * self.grid_box_size
+  love.graphics.setColor({255,255,255})
+  love.graphics.rectangle("line", x + self.offx, y, self.grid_box_size, self.grid_box_size)
 end
 
 function game:draw_txts(...)
@@ -159,8 +168,8 @@ end
 
 function game:draw_flies()
   local action = function(i,j)
-    x = j * self.grid_box_size
-    y = i * self.grid_box_size
+    local x = j * self.grid_box_size
+    local y = i * self.grid_box_size
     if self.debug then
       love.graphics.setColor({255,255,255})
       love.graphics.rectangle("line", x + self.offx, y, self.grid_box_size, self.grid_box_size)
@@ -244,8 +253,8 @@ function game:build_fly_grid()
     end
   end
   while(self.yes_flies < self.min_yes_flies) do
-    i = math.random(4) - 1
-    j = math.random(4) - 1
+    local i = math.random(4) - 1
+    local j = math.random(4) - 1
     if not self.fly_grid[i][j].correct then
       self.fly_grid[i][j] = self.hive:new_fly(i,j,self.grid_box_size, self.offx, 1)
       self.yes_flies = self.yes_flies + 1
@@ -253,8 +262,8 @@ function game:build_fly_grid()
     end
   end
   while(self.yes_flies > self.max_yes_flies) do
-    i = math.random(4) - 1
-    j = math.random(4) - 1
+    local i = math.random(4) - 1
+    local j = math.random(4) - 1
     if self.fly_grid[i][j].correct then
       self.fly_grid[i][j] = self.hive:new_fly(i,j,self.grid_box_size, self.offx, 0)
       self.yes_flies = self.yes_flies - 1
