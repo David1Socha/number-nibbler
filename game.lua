@@ -18,8 +18,11 @@ function game:enter_level()
   game.hive = new_hive()
   self:build_fly_grid()
 
+  game.enemy_delay = math.random(5,15)
+  game.enemy_spawned = false
+
   game.time = 0
-  game.time_limit = math.max(game.time_limit - 5,20)
+  game.time_limit = math.max(game.time_limit - 5,25)
   game.time_left = {
     value = function() return game.time_limit - game.time end,
     text = function(self) return "Time left: "..math.ceil(self.value()) end,
@@ -98,6 +101,11 @@ function game:update(dt)
   self.time = self.time + dt
   if self.time_left.value() <= 0 then
     Gamestate.switch(menu)
+  end
+  if self.enemy_delay <= self.time and self.enemy_spawned == false then
+    self.enemy_spawned = true
+    print("spawned after "..self.enemy_delay.."s")
+    --spawn enemy
   end
   if not can_select then
     self.since_selected = self.since_selected + dt
