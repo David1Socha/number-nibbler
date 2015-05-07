@@ -7,6 +7,7 @@ require "equality"
 
 function love.load()
   Gamestate.registerEvents()
+  love.graphics.setLineWidth(10)
   Gamestate.switch(menu)
   d = 0
 end
