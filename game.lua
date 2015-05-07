@@ -18,8 +18,8 @@ function game:enter_level()
   game.hive = new_hive()
   self:build_fly_grid()
 
-  game.enemy_delay = math.random(5,15)
-  game.enemy_warning_delay = game.enemy_delay - 2
+  game.enemy_delay = math.random(7,17)
+  game.enemy_warning_delay = game.enemy_delay - 3
   game.enemy_warned = false
   game.enemy_spawned = false
 
