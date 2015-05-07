@@ -6,8 +6,9 @@ Timer = require "hump.timer"
 require "equality"
 
 function love.load()
+  line_width = 10
   Gamestate.registerEvents()
-  love.graphics.setLineWidth(10)
+  love.graphics.setLineWidth(line_width)
   Gamestate.switch(menu)
   d = 0
 end

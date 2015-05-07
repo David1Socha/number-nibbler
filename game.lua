@@ -9,7 +9,13 @@ local game = { }
 function game:draw_txt(t, n)
   love.graphics.setColor({0,0,0})
   love.graphics.setFont(self.info_font)
-  love.graphics.printf(t:text(), self.left_margin, love.graphics.getHeight() - (self.info_font:getHeight() + self.info_margin) * n, love.graphics.getWidth())
+  local x = self.left_margin
+  local y = love.graphics.getHeight() - (self.info_font:getHeight() + self.info_margin) * n
+  love.graphics.printf(t:text(),x,y,love.graphics.getWidth())
+  if t.warned then
+    love.graphics.setColor(self.warning_color)
+    love.graphics.rectangle("line",x-line_width,y,game.offx - game.board_margin - line_width,self.info_font:getHeight())
+  end
 end
 
 function game:enter_level()
@@ -23,7 +29,6 @@ function game:enter_level()
   game.enemy_warned = false
   game.enemy_spawned = false
 
-  game.timer_warned = false
   game.timer_warn_threshold = 10
 
   game.time = 0
@@ -117,14 +122,14 @@ function game:spawn_enemy()
 end
 
 function game:warn_timer()
-  self.timer_warned = true
+  self.time_left.warned = true
   love.audio.play(self.warning)
 end
 
 function game:update(dt)
   self.player:update(dt)
   self.time = self.time + dt
-  if not self.timer_warned and self.time_left.value() <= self.timer_warn_threshold then
+  if not self.time_left.warned and self.time_left.value() <= self.timer_warn_threshold then
     self:warn_timer()
   end
   if self.time_left.value() <= 0 then
