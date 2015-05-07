@@ -116,7 +116,6 @@ function game:warn_enemy()
 end
 
 function game:spawn_enemy()
-  print("spawned @ i:"..self.spawn_i.." j:"..self.spawn_j)
   self.enemy_spawned = true
   --gen enemy
 end
@@ -225,7 +224,6 @@ end
 
 function game:finish_level()
   love.audio.play(self.level_complete)
-  print("Level Complete")
   self.level.value = self.level.value + 1
   self.score.value = self.score.value + math.ceil(self.time_left.value())
   self:enter_level()
