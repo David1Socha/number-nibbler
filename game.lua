@@ -100,12 +100,14 @@ function game:enter()
 end
 
 function game:warn_enemy()
-  --pick square for enemy
+  self.spawn_i = math.random(0,self.grid_units)
+  self.spawn_j = math.random(0,self.grid_units)
   --draw warning box
   love.audio.play(self.warning)
 end
 
 function game:spawn_enemy()
+  print("spawned @ i:"..self.spawn_i.." j:"..self.spawn_j)
   --gen enemy
 end
 
