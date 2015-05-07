@@ -148,7 +148,7 @@ end
 function game:draw_enemy_warning()
   local x = self.spawn_j * self.grid_box_size
   local y = self.spawn_i * self.grid_box_size
-  love.graphics.setColor({255,255,255})
+  love.graphics.setColor({255,0,0})
   love.graphics.rectangle("line", x + self.offx, y, self.grid_box_size, self.grid_box_size)
 end
 
