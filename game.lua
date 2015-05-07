@@ -94,13 +94,15 @@ function game:enter()
 
   game.debug = false
   game.select = love.audio.newSource("assets/sound/select.ogg", "static")
+  game.warning = love.audio.newSource("assets/sound/warning.ogg", "static")
   game.level_complete = love.audio.newSource("assets/sound/level_complete.ogg", "static")
   game.level_complete_delay = .7
 end
 
 function game:warn_enemy()
+  --pick square for enemy
   --draw warning box
-  --play warning sound
+  love.audio.play(self.warning)
 end
 
 function game:spawn_enemy()
