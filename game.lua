@@ -19,6 +19,8 @@ function game:enter_level()
   self:build_fly_grid()
 
   game.enemy_delay = math.random(5,15)
+  game.enemy_warning_delay = game.enemy_delay - 2
+  game.enemy_warned = false
   game.enemy_spawned = false
 
   game.time = 0
@@ -96,16 +98,28 @@ function game:enter()
   game.level_complete_delay = .7
 end
 
+function game:warn_enemy()
+  --draw warning box
+  --play warning sound
+end
+
+function game:spawn_enemy()
+  --gen enemy
+end
+
 function game:update(dt)
   self.player:update(dt)
   self.time = self.time + dt
   if self.time_left.value() <= 0 then
     Gamestate.switch(menu)
   end
-  if self.enemy_delay <= self.time and self.enemy_spawned == false then
+  if self.enemy_warned == false and self.enemy_warning_delay <= self.time then
+    self.enemy_warned = true
+    self:warn_enemy()
+  end
+  if self.enemy_spawned == false and self.enemy_delay <= self.time then
     self.enemy_spawned = true
-    print("spawned after "..self.enemy_delay.."s")
-    --spawn enemy
+    self:spawn_enemy()
   end
   if not can_select then
     self.since_selected = self.since_selected + dt
