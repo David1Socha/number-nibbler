@@ -23,6 +23,9 @@ function game:enter_level()
   game.enemy_warned = false
   game.enemy_spawned = false
 
+  game.timer_warned = false
+  game.timer_warn_threshold = 10
+
   game.time = 0
   game.time_limit = math.max(game.time_limit - 5,25)
   game.time_left = {
@@ -39,6 +42,7 @@ end
 
 function game:enter()
 
+  game.warning_color = {255,0,0}
   game.grid_units = 3
   game.offx = 500
   game.board_margin = 50
@@ -103,25 +107,33 @@ function game:warn_enemy()
   self.spawn_i = math.random(0,self.grid_units)
   self.spawn_j = math.random(0,self.grid_units)
   love.audio.play(self.warning)
+  self.enemy_warned = true
 end
 
 function game:spawn_enemy()
   print("spawned @ i:"..self.spawn_i.." j:"..self.spawn_j)
+  self.enemy_spawned = true
   --gen enemy
+end
+
+function game:warn_timer()
+  self.timer_warned = true
+  love.audio.play(self.warning)
 end
 
 function game:update(dt)
   self.player:update(dt)
   self.time = self.time + dt
+  if not self.timer_warned and self.time_left.value() <= self.timer_warn_threshold then
+    self:warn_timer()
+  end
   if self.time_left.value() <= 0 then
     Gamestate.switch(menu)
   end
-  if self.enemy_warned == false and self.enemy_warning_delay <= self.time then
-    self.enemy_warned = true
+  if not self.enemy_warned and self.enemy_warning_delay <= self.time then
     self:warn_enemy()
   end
-  if self.enemy_spawned == false and self.enemy_delay <= self.time then
-    self.enemy_spawned = true
+  if not self.enemy_spawned and self.enemy_delay <= self.time then
     self:spawn_enemy()
   end
   if not can_select then
@@ -148,7 +160,7 @@ end
 function game:draw_enemy_warning()
   local x = self.spawn_j * self.grid_box_size
   local y = self.spawn_i * self.grid_box_size
-  love.graphics.setColor({255,0,0})
+  love.graphics.setColor(self.warning_color)
   love.graphics.rectangle("line", x + self.offx, y, self.grid_box_size, self.grid_box_size)
 end
 
