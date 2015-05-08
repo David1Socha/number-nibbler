@@ -2,6 +2,7 @@ Gamestate = require "hump.gamestate"
 menu = require("menu")
 vector = require("hump.vector")
 game = require("game")
+defeat = require("defeat")
 Timer = require "hump.timer"
 require "equality"
 

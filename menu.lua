@@ -1,4 +1,3 @@
-Gamestate = require "hump.gamestate"
 menu = {}
 
 function menu:enter()
