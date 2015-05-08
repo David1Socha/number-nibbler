@@ -132,7 +132,7 @@ function game:update(dt)
     self:warn_timer()
   end
   if self.time_left.value() <= 0 then
-    Gamestate.switch(menu)
+    self:defeat()
   end
   if not self.enemy_warned and self.enemy_warning_delay <= self.time then
     self:warn_enemy()
@@ -233,7 +233,7 @@ function game:choose_square()
   local curr_fly = self.fly_grid[self.player.pos.y][self.player.pos.x]
   if curr_fly.real then
     if not curr_fly.correct then
-      Gamestate.switch(menu)
+      self:defeat()
     else
       self.score.value = self.score.value + curr_fly.score
       love.audio.play(self.select)
@@ -246,6 +246,10 @@ function game:choose_square()
       end
     end
   end
+end
+
+function game:defeat()
+  Gamestate.switch(defeat)
 end
 
 function game:replace_fly(fly)
