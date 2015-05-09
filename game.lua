@@ -51,7 +51,7 @@ function game:enter()
   game.grid_units = 3
   game.offx = 500
   game.board_margin = 50
-  game.info_margin = 5
+  game.info_margin = 8
   game.left_margin = 15
   game.grid_box_size = love.graphics.getHeight() / (game.grid_units + 1)
   game.info_font = love.graphics.newFont("assets/font/kenvector_future_thin.ttf",59)
@@ -155,7 +155,7 @@ function game:draw()
   self:draw_lilypads()
   self.player:draw()
   self:draw_flies()
-  self:draw_txts(self.score,self.level,self.question,self.time_left)
+  self:draw_txts(self.score,self.level,self.time_left,self.question)
   if self.enemy_warned and not self.enemy_spawned then
     self:draw_enemy_warning()
   end
