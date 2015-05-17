@@ -20,6 +20,11 @@ function game:draw_txt(t, n)
   end
 end
 
+function game:play_alone(s)
+  love.audio.stop()
+  love.audio.play(s)
+end
+
 function game:enter_level()
   game.yes_flies = 0
   game.no_flies = 0
@@ -120,7 +125,7 @@ end
 function game:warn_enemy()
   self.spawn_i = math.random(0,self.grid_units)
   self.spawn_j = math.random(0,self.grid_units)
-  love.audio.play(self.warning)
+  self:play_warning()
   self.enemy_warned = true
   self.danger = true
 end
@@ -134,7 +139,13 @@ end
 function game:warn_timer()
   self.time_left.warned = true
   self.danger = true
-  love.audio.play(self.warning)
+  self:play_warning()
+end
+
+function game:play_warning()
+  if not self.level_complete:isPlaying() then
+    self:play_alone(self.warning)
+  end
 end
 
 function game:update(dt)
@@ -235,7 +246,7 @@ function game:keypressed(key)
 end
 
 function game:finish_level()
-  love.audio.play(self.level_complete)
+  self:play_alone(self.level_complete)
   self.level.value = self.level.value + 1
   self.score.value = self.score.value + math.ceil(self.time_left.value())
   self:enter_level()
