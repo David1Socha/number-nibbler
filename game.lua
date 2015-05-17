@@ -7,8 +7,10 @@ math.randomseed(os.time())
 local game = { }
 
 function game:draw_txt(t, n)
-  love.graphics.setColor({0,0,0})
-  love.graphics.setFont(self.info_font)
+  local color = t.color or {0,0,0}
+  love.graphics.setColor(color)
+  local font = t.font or self.info_font
+  love.graphics.setFont(font)
   local x = self.left_margin
   local y = love.graphics.getHeight() - (self.info_font:getHeight() + self.info_margin) * n
   love.graphics.printf(t:text(),x,y,love.graphics.getWidth())
