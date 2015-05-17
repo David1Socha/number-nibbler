@@ -28,6 +28,7 @@ function game:enter_level()
   game.enemy_warning_delay = game.enemy_delay - 3
   game.enemy_warned = false
   game.enemy_spawned = false
+  game.danger = false
 
   game.timer_warn_threshold = 10
 
@@ -36,6 +37,10 @@ function game:enter_level()
   game.time_left = {
     value = function() return game.time_limit - game.time end,
     text = function(self) return "Time left: "..math.ceil(self.value()) end,
+  }
+
+  game.warn_txt = {
+    text = function(self) return game.danger and "DANGER" or "" end
   }
 
   game.since_selected = 0
@@ -113,15 +118,18 @@ function game:warn_enemy()
   self.spawn_j = math.random(0,self.grid_units)
   love.audio.play(self.warning)
   self.enemy_warned = true
+  self.danger = true
 end
 
 function game:spawn_enemy()
   self.enemy_spawned = true
+  self.danger = false
   --gen enemy
 end
 
 function game:warn_timer()
   self.time_left.warned = true
+  self.danger = true
   love.audio.play(self.warning)
 end
 
@@ -155,7 +163,7 @@ function game:draw()
   self:draw_lilypads()
   self.player:draw()
   self:draw_flies()
-  self:draw_txts(self.score,self.level,self.time_left,self.question)
+  self:draw_txts(self.score,self.level,self.time_left,self.question,self.warn_txt)
   if self.enemy_warned and not self.enemy_spawned then
     self:draw_enemy_warning()
   end
