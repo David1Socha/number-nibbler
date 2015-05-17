@@ -125,7 +125,7 @@ end
 function game:warn_enemy()
   self.spawn_i = math.random(0,self.grid_units)
   self.spawn_j = math.random(0,self.grid_units)
-  love.audio.play(self.warning)
+  self:play_warning()
   self.enemy_warned = true
   self.danger = true
 end
@@ -139,7 +139,13 @@ end
 function game:warn_timer()
   self.time_left.warned = true
   self.danger = true
-  love.audio.play(self.warning)
+  self:play_warning()
+end
+
+function game:play_warning()
+  if not self.level_complete:isPlaying() then
+    self:play_alone(self.warning)
+  end
 end
 
 function game:update(dt)
