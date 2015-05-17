@@ -42,7 +42,9 @@ function game:enter_level()
   }
 
   game.warn_txt = {
-    text = function(self) return game.danger and "DANGER" or "" end
+    text = function(self) return game.danger and "DANGER" or "" end,
+    color = game.warning_color,
+    font = love.graphics.newFont("assets/font/kenvector_future_thin.ttf",70)
   }
 
   game.since_selected = 0
