@@ -7,8 +7,10 @@ math.randomseed(os.time())
 local game = { }
 
 function game:draw_txt(t, n)
-  love.graphics.setColor({0,0,0})
-  love.graphics.setFont(self.info_font)
+  local color = t.color or {0,0,0}
+  love.graphics.setColor(color)
+  local font = t.font or self.info_font
+  love.graphics.setFont(font)
   local x = self.left_margin
   local y = love.graphics.getHeight() - (self.info_font:getHeight() + self.info_margin) * n
   love.graphics.printf(t:text(),x,y,love.graphics.getWidth())
@@ -28,6 +30,7 @@ function game:enter_level()
   game.enemy_warning_delay = game.enemy_delay - 3
   game.enemy_warned = false
   game.enemy_spawned = false
+  game.danger = false
 
   game.timer_warn_threshold = 10
 
@@ -36,6 +39,12 @@ function game:enter_level()
   game.time_left = {
     value = function() return game.time_limit - game.time end,
     text = function(self) return "Time left: "..math.ceil(self.value()) end,
+  }
+
+  game.warn_txt = {
+    text = function(self) return game.danger and "DANGER" or "" end,
+    color = game.warning_color,
+    font = love.graphics.newFont("assets/font/kenvector_future_thin.ttf",70)
   }
 
   game.since_selected = 0
@@ -113,15 +122,18 @@ function game:warn_enemy()
   self.spawn_j = math.random(0,self.grid_units)
   love.audio.play(self.warning)
   self.enemy_warned = true
+  self.danger = true
 end
 
 function game:spawn_enemy()
   self.enemy_spawned = true
+  self.danger = false
   --gen enemy
 end
 
 function game:warn_timer()
   self.time_left.warned = true
+  self.danger = true
   love.audio.play(self.warning)
 end
 
@@ -155,7 +167,7 @@ function game:draw()
   self:draw_lilypads()
   self.player:draw()
   self:draw_flies()
-  self:draw_txts(self.score,self.level,self.time_left,self.question)
+  self:draw_txts(self.score,self.level,self.time_left,self.question,self.warn_txt)
   if self.enemy_warned and not self.enemy_spawned then
     self:draw_enemy_warning()
   end
