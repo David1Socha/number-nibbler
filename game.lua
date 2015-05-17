@@ -20,6 +20,11 @@ function game:draw_txt(t, n)
   end
 end
 
+function game:play_alone(s)
+  love.audio.stop()
+  love.audio.play(s)
+end
+
 function game:enter_level()
   game.yes_flies = 0
   game.no_flies = 0
@@ -235,7 +240,7 @@ function game:keypressed(key)
 end
 
 function game:finish_level()
-  love.audio.play(self.level_complete)
+  self:play_alone(self.level_complete)
   self.level.value = self.level.value + 1
   self.score.value = self.score.value + math.ceil(self.time_left.value())
   self:enter_level()
