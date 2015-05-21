@@ -119,6 +119,7 @@ function game:enter()
   game.select = love.audio.newSource("assets/sound/select.ogg", "static")
   game.warning = love.audio.newSource("assets/sound/warning.ogg", "static")
   game.level_complete = love.audio.newSource("assets/sound/level_complete.ogg", "static")
+  game.ouch = love.audio.newSource("assets/sound/ouch.ogg", "static")
   game.level_complete_delay = .7
 end
 
@@ -272,6 +273,7 @@ function game:choose_square()
 end
 
 function game:defeat()
+  love.audio.play(self.ouch)
   Gamestate.switch(defeat)
 end
 
