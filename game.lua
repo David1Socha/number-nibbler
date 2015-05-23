@@ -43,11 +43,11 @@ function game:enter_level()
   game.time_limit = math.max(game.time_limit - 5,25)
   game.time_left = {
     value = function() return game.time_limit - game.time end,
-    text = function(self) return "Time left: "..math.ceil(self.value()) end,
+    text = function(self) return "Time left: "..(game.active and math.ceil(self.value()) or "") end,
   }
 
   game.warn_txt = {
-    text = function(self) return game.danger and "DANGER" or "" end,
+    text = function(self) return (game.active and game.danger) and "DANGER" or "" end,
     color = game.warning_color,
     font = love.graphics.newFont("assets/font/kenvector_future_thin.ttf",70)
   }
@@ -58,9 +58,8 @@ function game:enter_level()
   }
 
   game.since_selected = 0
-  game.can_move = true
+  game.active = true
   game.can_select = true
-  --game.active = true TODO replace above w/me
 
   game.player = new_player(game.grid_units, game.grid_box_size, self.offx)
 end
@@ -81,7 +80,7 @@ function game:enter()
     draw = function(self)
       love.graphics.setColor(self.color)
       love.graphics.rectangle("fill",0,0,game.offx - game.board_margin,love.graphics.getWidth())
-      love.graphics.setColor({184,184,110})
+      love.graphics.setColor({224,224,102})
       love.graphics.rectangle("fill",game.offx - game.board_margin,0,self.border_width,love.graphics.getWidth())
       --love.graphics.rectangle("fill",0,0,self.border_width,love.graphics.getWidth())
       --love.graphics.rectangle("fill",0,0,game.offx - game.board_margin,self.border_width)
@@ -158,29 +157,32 @@ function game:play_warning()
 end
 
 function game:update(dt)
-  self.player:update(dt)
   self.time = self.time + dt
-  if not self.time_left.warned and self.time_left.value() <= self.timer_warn_threshold then
-    self:warn_timer()
-  end
-  if self.time_left.value() <= 0 then
-    self:defeat()
-  end
-  if not self.enemy_warned and self.enemy_warning_delay <= self.time then
-    self:warn_enemy()
-  end
-  if not self.enemy_spawned and self.enemy_delay <= self.time then
-    self:spawn_enemy()
-  end
-  if not can_select then
-    self.since_selected = self.since_selected + dt
-    if self.since_selected > self.select_cd then
-      self.since_selected = 0
-      self.can_select = true
-    end
-  end
+  self.player:update(dt)
   if not self.can_restart and self.time >= self.restart_time then
     self.can_restart = true
+  end
+
+  if self.active then
+    if not self.time_left.warned and self.time_left.value() <= self.timer_warn_threshold then
+      self:warn_timer()
+    end
+    if self.time_left.value() <= 0 then
+      self:defeat()
+    end
+    if not self.enemy_warned and self.enemy_warning_delay <= self.time then
+      self:warn_enemy()
+    end
+    if not self.enemy_spawned and self.enemy_delay <= self.time then
+      self:spawn_enemy()
+    end
+    if not can_select then
+      self.since_selected = self.since_selected + dt
+      if self.since_selected > self.select_cd then
+        self.since_selected = 0
+        self.can_select = true
+      end
+    end
   end
 end
 
@@ -242,7 +244,7 @@ function game:mousepressed(x, y, grid)
   local grid_x = math.floor((x - self.offx) / game.grid_box_size)
   local grid_y = math.floor(y / game.grid_box_size)
   --TODO handle non grid clicks here, afterwards assume click is for grid movement
-  if self.can_move then
+  if self.active then
     if grid_x < 0 or grid_y < 0 or grid_x > self.grid_units or grid_y > self.grid_units then return end --can't let user go off grid
     local grid_vec = vector(grid_x, grid_y)
     if neareq_vec(grid_vec, game.player.act) and self.can_select then
@@ -278,8 +280,7 @@ function game:choose_square()
       self.player.start_anim_eat()
       self:replace_fly(curr_fly)
       if (self.yes_flies == 0) then
-        self.can_select = false
-        self.can_move = false
+        self.active = false
         Timer.add(self.level_complete_delay, function() self:finish_level() end)
       end
     end
@@ -288,8 +289,7 @@ end
 
 function game:defeat()
   if not self.player.defeated then
-    self.can_select = false
-    self.can_move = false
+    self.active = false
     love.audio.play(self.ouch)
     self.player.defeated = true
     self.can_restart = false
