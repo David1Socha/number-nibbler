@@ -40,7 +40,7 @@ function game:enter_level()
   game.timer_warn_threshold = 10
 
   game.time = 0
-  game.time_limit = math.max(game.time_limit - 5,25)
+  game.time_limit = 10
   game.time_left = {
     value = function() return game.time_limit - game.time end,
     text = function(self) return "Time left: "..math.ceil(self.value()) end,
@@ -83,6 +83,7 @@ function game:enter()
     end
   }
 
+  game.defeated = false
   game.min_yes_flies = 4
   game.max_yes_flies = 12
 
@@ -236,7 +237,7 @@ function game:mousepressed(x, y, grid)
       self.since_selected = 0
       self:choose_square()
     end
-    game.player.dest = grid_vec
+    self.player.dest = grid_vec
   end
 end
 
@@ -273,8 +274,13 @@ function game:choose_square()
 end
 
 function game:defeat()
-  love.audio.play(self.ouch)
-  Gamestate.switch(defeat)
+  if not self.defeated then
+    self.defeated = true
+    self.can_select = false
+    self.can_move = false
+    love.audio.play(self.ouch)
+    Timer.add(self.level_complete_delay, function() Gamestate.switch(defeat) end)
+  end
 end
 
 function game:replace_fly(fly)
