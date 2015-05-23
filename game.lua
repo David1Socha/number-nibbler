@@ -267,7 +267,7 @@ end
 function game:finish_level()
   self:play_alone(self.level_complete)
   self.level.value = self.level.value + 1
-  self.score.value = self.score.value + self.time_score()
+  self.score.value = self.score.value + self.time_score() + 10
   self:enter_level()
 end
 
