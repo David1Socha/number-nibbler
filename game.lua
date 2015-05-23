@@ -40,7 +40,7 @@ function game:enter_level()
   game.timer_warn_threshold = 10
 
   game.time = 0
-  game.time_limit = 10
+  game.time_limit = math.max(game.time_limit - 5,25)
   game.time_left = {
     value = function() return game.time_limit - game.time end,
     text = function(self) return "Time left: "..math.ceil(self.value()) end,
@@ -83,7 +83,6 @@ function game:enter()
     end
   }
 
-  game.defeated = false
   game.min_yes_flies = 4
   game.max_yes_flies = 12
 
@@ -122,6 +121,7 @@ function game:enter()
   game.level_complete = love.audio.newSource("assets/sound/level_complete.ogg", "static")
   game.ouch = love.audio.newSource("assets/sound/ouch.ogg", "static")
   game.level_complete_delay = .7
+  game.defeat_delay = 1
 end
 
 function game:warn_enemy()
@@ -274,12 +274,12 @@ function game:choose_square()
 end
 
 function game:defeat()
-  if not self.defeated then
-    self.defeated = true
+  if not self.player.defeated then
     self.can_select = false
     self.can_move = false
     love.audio.play(self.ouch)
-    Timer.add(self.level_complete_delay, function() Gamestate.switch(defeat) end)
+    self.player.defeated = true
+    Timer.add(self.defeat_delay, function() Gamestate.switch(defeat) end)
   end
 end
 

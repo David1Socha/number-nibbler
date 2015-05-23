@@ -11,10 +11,12 @@ function new_player(max_x_or_y, box_size, offx)
     tweening = false,
     move_sound = love.audio.newSource("assets/sound/player_movement.ogg", "static"),
     anim_eat = {s2 = game.select_cd / 2, s3 = game.select_cd},
+    defeated = false,
     imgs = { 
       rest = love.graphics.newImage "assets/image/froggy.png",
       eat1 = love.graphics.newImage "assets/image/frog_tongue_1.png",
-      eat2 = love.graphics.newImage "assets/image/frog_tongue_2.png"
+      eat2 = love.graphics.newImage "assets/image/frog_tongue_2.png",
+      rip = love.graphics.newImage "assets/image/frog_rip.png"
     }
   }
 
@@ -24,7 +26,9 @@ function new_player(max_x_or_y, box_size, offx)
   player.off = vector(player_offx, player_offy)
 
   function player:update(dt)
-    if self.anim_eat.active then
+    if self.defeated then
+      self.imgs.curr = self.imgs.rip
+    elseif self.anim_eat.active then
       self:update_anim_eat(dt)
     end
 
