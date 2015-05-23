@@ -1,0 +1,13 @@
+button
+  -new(x,y,h,w,border_width,border_color,color,text,onclick)
+  -x
+  -y
+  -h
+  -w
+  -border_width
+  -border_color
+  -color
+  -text
+  -draw()
+  -mousepressed()
+  -onclick()

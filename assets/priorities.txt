@@ -1,0 +1,13 @@
+Top to bottom, highest priority to lowest priority
+-------
+word danger (~ 1hr)
+enemies (~ 1 day)
+menus/instructions (~ 1.5 days)
+categories (~ 4 hrs)
+relative distances (~ 4 hrs)
+android running/deployment (~ 1.5 days)
+non-square grid (~ 4 hrs)
+hi score (~2 hr)
+multiple, semi-intelligent enemies (~ 3 days)
+cutscenes (~2days?)
+--------
