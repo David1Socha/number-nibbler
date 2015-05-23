@@ -52,6 +52,11 @@ function game:enter_level()
     font = love.graphics.newFont("assets/font/kenvector_future_thin.ttf",70)
   }
 
+  game.restart_txt = {
+    text = function(self) return (game.can_restart and game.player.defeated) and "Tap to retry" or "" end,
+    color = {51,51,153}
+  }
+
   game.since_selected = 0
   game.can_move = true
   game.can_select = true
@@ -185,7 +190,7 @@ function game:draw()
   self:draw_lilypads()
   self.player:draw()
   self:draw_flies()
-  self:draw_txts(self.score,self.level,self.time_left,self.question,self.warn_txt)
+  self:draw_txts(self.score,self.level,self.time_left,self.question,self.warn_txt,self.restart_txt)
   if self.enemy_warned and not self.enemy_spawned then
     self:draw_enemy_warning()
   end
