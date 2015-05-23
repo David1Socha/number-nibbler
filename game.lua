@@ -41,9 +41,11 @@ function game:enter_level()
 
   game.time = 0
   game.time_limit = math.max(game.time_limit - 5,25)
+  game.max_time_score = 25
+  function game:time_score() return math.max(0,math.ceil(game.max_time_score - game.time)) end
   game.time_left = {
     value = function() return game.time_limit - game.time end,
-    text = function(self) return "Time left: "..(game.active and math.ceil(self.value()) or "") end,
+    text = function(self) return "Time: "..(game.active and math.ceil(self.value()) or "") end,
   }
 
   game.warn_txt = {
@@ -265,7 +267,7 @@ end
 function game:finish_level()
   self:play_alone(self.level_complete)
   self.level.value = self.level.value + 1
-  self.score.value = self.score.value + math.ceil(self.time_left.value())
+  self.score.value = self.score.value + self.time_score() + 10
   self:enter_level()
 end
 
