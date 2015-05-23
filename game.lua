@@ -55,6 +55,7 @@ function game:enter_level()
   game.since_selected = 0
   game.can_move = true
   game.can_select = true
+  --game.active = true TODO replace above w/me
 
   game.player = new_player(game.grid_units, game.grid_box_size, self.offx)
 end
@@ -121,7 +122,8 @@ function game:enter()
   game.level_complete = love.audio.newSource("assets/sound/level_complete.ogg", "static")
   game.ouch = love.audio.newSource("assets/sound/ouch.ogg", "static")
   game.level_complete_delay = .7
-  game.defeat_delay = 1
+  game.restart_delay = 1.5
+  game.can_restart = true
 end
 
 function game:warn_enemy()
@@ -171,6 +173,9 @@ function game:update(dt)
       self.since_selected = 0
       self.can_select = true
     end
+  end
+  if not self.can_restart and self.time >= self.restart_time then
+    self.can_restart = true
   end
 end
 
@@ -226,6 +231,9 @@ function game:draw_lilypads()
 end
 
 function game:mousepressed(x, y, grid)
+  if self.can_restart and self.player.defeated then
+    Gamestate.switch(menu)
+  end
   local grid_x = math.floor((x - self.offx) / game.grid_box_size)
   local grid_y = math.floor(y / game.grid_box_size)
   --TODO handle non grid clicks here, afterwards assume click is for grid movement
@@ -279,7 +287,8 @@ function game:defeat()
     self.can_move = false
     love.audio.play(self.ouch)
     self.player.defeated = true
-    Timer.add(self.defeat_delay, function() Gamestate.switch(defeat) end)
+    self.can_restart = false
+    self.restart_time = self.time + self.restart_delay
   end
 end
 
