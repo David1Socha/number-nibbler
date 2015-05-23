@@ -43,17 +43,22 @@ function game:enter_level()
   game.time_limit = math.max(game.time_limit - 5,25)
   game.time_left = {
     value = function() return game.time_limit - game.time end,
-    text = function(self) return "Time left: "..math.ceil(self.value()) end,
+    text = function(self) return "Time left: "..(game.active and math.ceil(self.value()) or "") end,
   }
 
   game.warn_txt = {
-    text = function(self) return game.danger and "DANGER" or "" end,
+    text = function(self) return (game.active and game.danger) and "DANGER" or "" end,
     color = game.warning_color,
     font = love.graphics.newFont("assets/font/kenvector_future_thin.ttf",70)
   }
 
+  game.restart_txt = {
+    text = function(self) return (game.can_restart and game.player.defeated) and "Tap to retry" or "" end,
+    color = {51,51,153}
+  }
+
   game.since_selected = 0
-  game.can_move = true
+  game.active = true
   game.can_select = true
 
   game.player = new_player(game.grid_units, game.grid_box_size, self.offx)
@@ -75,7 +80,7 @@ function game:enter()
     draw = function(self)
       love.graphics.setColor(self.color)
       love.graphics.rectangle("fill",0,0,game.offx - game.board_margin,love.graphics.getWidth())
-      love.graphics.setColor({184,184,110})
+      love.graphics.setColor({224,224,102})
       love.graphics.rectangle("fill",game.offx - game.board_margin,0,self.border_width,love.graphics.getWidth())
       --love.graphics.rectangle("fill",0,0,self.border_width,love.graphics.getWidth())
       --love.graphics.rectangle("fill",0,0,game.offx - game.board_margin,self.border_width)
@@ -119,7 +124,10 @@ function game:enter()
   game.select = love.audio.newSource("assets/sound/select.ogg", "static")
   game.warning = love.audio.newSource("assets/sound/warning.ogg", "static")
   game.level_complete = love.audio.newSource("assets/sound/level_complete.ogg", "static")
+  game.ouch = love.audio.newSource("assets/sound/ouch.ogg", "static")
   game.level_complete_delay = .7
+  game.restart_delay = 1.5
+  game.can_restart = true
 end
 
 function game:warn_enemy()
@@ -149,25 +157,31 @@ function game:play_warning()
 end
 
 function game:update(dt)
-  self.player:update(dt)
   self.time = self.time + dt
-  if not self.time_left.warned and self.time_left.value() <= self.timer_warn_threshold then
-    self:warn_timer()
+  self.player:update(dt)
+  if not self.can_restart and self.time >= self.restart_time then
+    self.can_restart = true
   end
-  if self.time_left.value() <= 0 then
-    self:defeat()
-  end
-  if not self.enemy_warned and self.enemy_warning_delay <= self.time then
-    self:warn_enemy()
-  end
-  if not self.enemy_spawned and self.enemy_delay <= self.time then
-    self:spawn_enemy()
-  end
-  if not can_select then
-    self.since_selected = self.since_selected + dt
-    if self.since_selected > self.select_cd then
-      self.since_selected = 0
-      self.can_select = true
+
+  if self.active then
+    if not self.time_left.warned and self.time_left.value() <= self.timer_warn_threshold then
+      self:warn_timer()
+    end
+    if self.time_left.value() <= 0 then
+      self:defeat()
+    end
+    if not self.enemy_warned and self.enemy_warning_delay <= self.time then
+      self:warn_enemy()
+    end
+    if not self.enemy_spawned and self.enemy_delay <= self.time then
+      self:spawn_enemy()
+    end
+    if not can_select then
+      self.since_selected = self.since_selected + dt
+      if self.since_selected > self.select_cd then
+        self.since_selected = 0
+        self.can_select = true
+      end
     end
   end
 end
@@ -178,7 +192,7 @@ function game:draw()
   self:draw_lilypads()
   self.player:draw()
   self:draw_flies()
-  self:draw_txts(self.score,self.level,self.time_left,self.question,self.warn_txt)
+  self:draw_txts(self.score,self.level,self.time_left,self.question,self.warn_txt,self.restart_txt)
   if self.enemy_warned and not self.enemy_spawned then
     self:draw_enemy_warning()
   end
@@ -224,10 +238,13 @@ function game:draw_lilypads()
 end
 
 function game:mousepressed(x, y, grid)
+  if self.can_restart and self.player.defeated then
+    Gamestate.switch(menu)
+  end
   local grid_x = math.floor((x - self.offx) / game.grid_box_size)
   local grid_y = math.floor(y / game.grid_box_size)
   --TODO handle non grid clicks here, afterwards assume click is for grid movement
-  if self.can_move then
+  if self.active then
     if grid_x < 0 or grid_y < 0 or grid_x > self.grid_units or grid_y > self.grid_units then return end --can't let user go off grid
     local grid_vec = vector(grid_x, grid_y)
     if neareq_vec(grid_vec, game.player.act) and self.can_select then
@@ -235,7 +252,7 @@ function game:mousepressed(x, y, grid)
       self.since_selected = 0
       self:choose_square()
     end
-    game.player.dest = grid_vec
+    self.player.dest = grid_vec
   end
 end
 
@@ -263,8 +280,7 @@ function game:choose_square()
       self.player.start_anim_eat()
       self:replace_fly(curr_fly)
       if (self.yes_flies == 0) then
-        self.can_select = false
-        self.can_move = false
+        self.active = false
         Timer.add(self.level_complete_delay, function() self:finish_level() end)
       end
     end
@@ -272,7 +288,13 @@ function game:choose_square()
 end
 
 function game:defeat()
-  Gamestate.switch(defeat)
+  if not self.player.defeated then
+    self.active = false
+    love.audio.play(self.ouch)
+    self.player.defeated = true
+    self.can_restart = false
+    self.restart_time = self.time + self.restart_delay
+  end
 end
 
 function game:replace_fly(fly)
