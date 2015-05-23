@@ -15,12 +15,78 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.91 r13725"
-   inkscape:export-filename="C:\Users\david_000\Desktop\Files\number-nibbler\assets\image\icon_144.png"
-   inkscape:export-xdpi="13.300364"
-   inkscape:export-ydpi="13.300364"
+   inkscape:export-filename="C:\Users\david_000\Desktop\Files\number-nibbler\assets\image\icon_512.png"
+   inkscape:export-xdpi="47.290184"
+   inkscape:export-ydpi="47.290184"
    sodipodi:docname="icon.svg">
   <defs
-     id="defs4" />
+     id="defs4">
+    <filter
+       style="color-interpolation-filters:sRGB;"
+       inkscape:label="Drop Shadow"
+       id="filter3494">
+      <feFlood
+         flood-opacity="0.498039"
+         flood-color="rgb(0,0,0)"
+         result="flood"
+         id="feFlood3496" />
+      <feComposite
+         in="flood"
+         in2="SourceGraphic"
+         operator="in"
+         result="composite1"
+         id="feComposite3498" />
+      <feGaussianBlur
+         in="composite1"
+         stdDeviation="15.6"
+         result="blur"
+         id="feGaussianBlur3500" />
+      <feOffset
+         dx="10.6771"
+         dy="1.8"
+         result="offset"
+         id="feOffset3502" />
+      <feComposite
+         in="SourceGraphic"
+         in2="offset"
+         operator="over"
+         result="fbSourceGraphic"
+         id="feComposite3504" />
+      <feColorMatrix
+         result="fbSourceGraphicAlpha"
+         in="fbSourceGraphic"
+         values="0 0 0 -1 0 0 0 0 -1 0 0 0 0 -1 0 0 0 0 1 0"
+         id="feColorMatrix3506" />
+      <feFlood
+         id="feFlood3508"
+         flood-opacity="0.498039"
+         flood-color="rgb(0,0,0)"
+         result="flood"
+         in="fbSourceGraphic" />
+      <feComposite
+         id="feComposite3510"
+         in2="fbSourceGraphic"
+         in="flood"
+         operator="in"
+         result="composite1" />
+      <feGaussianBlur
+         id="feGaussianBlur3512"
+         in="composite1"
+         stdDeviation="15.6"
+         result="blur" />
+      <feOffset
+         id="feOffset3514"
+         dx="10.7"
+         dy="1.8"
+         result="offset" />
+      <feComposite
+         id="feComposite3516"
+         in2="offset"
+         in="fbSourceGraphic"
+         operator="over"
+         result="composite2" />
+    </filter>
+  </defs>
   <sodipodi:namedview
      id="base"
      pagecolor="#ffffff"
@@ -34,11 +100,11 @@
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1920"
-     inkscape:window-height="1017"
-     inkscape:window-x="-8"
-     inkscape:window-y="-8"
-     inkscape:window-maximized="1"
+     inkscape:window-width="944"
+     inkscape:window-height="1001"
+     inkscape:window-x="960"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0"
      fit-margin-top="0"
      fit-margin-left="0"
      fit-margin-right="0"
@@ -71,7 +137,8 @@
     <g
        transform="matrix(1.3376533,0,0,1.3376533,-20.979731,-131.10675)"
        id="layer1-0"
-       inkscape:label="Layer 1">
+       inkscape:label="Layer 1"
+       style="filter:url(#filter3494)">
       <path
          transform="matrix(0.82583247,0.56391554,-0.56391554,0.82583247,0,0)"
          d="M 908.15228,219.38823 A 317.83807,317.83807 0 0 1 613.2844,536.39519 317.83807,317.83807 0 0 1 275.79625,265.20849 317.83807,317.83807 0 0 1 521.88351,-90.995857 317.83807,317.83807 0 0 1 894.94118,128.70498 l -304.62697,90.68325 z"

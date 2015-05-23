@@ -20,7 +20,40 @@
    inkscape:export-xdpi="28.138584"
    inkscape:export-ydpi="28.138584">
   <defs
-     id="defs4" />
+     id="defs4">
+    <filter
+       style="color-interpolation-filters:sRGB;"
+       inkscape:label="Drop Shadow"
+       id="filter3466">
+      <feFlood
+         flood-opacity="0.498039"
+         flood-color="rgb(0,0,0)"
+         result="flood"
+         id="feFlood3468" />
+      <feComposite
+         in="flood"
+         in2="SourceGraphic"
+         operator="in"
+         result="composite1"
+         id="feComposite3470" />
+      <feGaussianBlur
+         in="composite1"
+         stdDeviation="7.3"
+         result="blur"
+         id="feGaussianBlur3472" />
+      <feOffset
+         dx="14.3"
+         dy="1.82292"
+         result="offset"
+         id="feOffset3474" />
+      <feComposite
+         in="SourceGraphic"
+         in2="offset"
+         operator="over"
+         result="composite2"
+         id="feComposite3476" />
+    </filter>
+  </defs>
   <sodipodi:namedview
      id="base"
      pagecolor="#ffffff"
@@ -61,7 +94,7 @@
      id="layer1"
      transform="translate(-37.931095,-188.19948)">
     <path
-       style="fill:#008000;fill-opacity:1;stroke:#000000;stroke-width:3.93781686;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:#008000;fill-opacity:1;stroke:#000000;stroke-width:3.93781686;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter3466)"
        id="path3342"
        sodipodi:type="arc"
        sodipodi:cx="590.31421"
