@@ -52,6 +52,10 @@ function new_enemy(pos,box_size, offx,grid_units,num)
         table.insert(possibilities,vec)
       end
     end
+    possibilities = remove_empty_delta(possibilities)
+    for k,v in pairs(possibilities) do
+      print(v)
+    end
     return possibilities
   end
 
@@ -62,6 +66,17 @@ function new_enemy(pos,box_size, offx,grid_units,num)
     end
     if (pos + 1) <= max then
       table.insert(deltas,1)
+    end
+    return deltas
+  end
+
+  function remove_empty_delta(deltas)
+    local empty = vector(0,0)
+    for i=#deltas,1,-1 do
+      local v = deltas[i]
+      if v == empty then
+        table.remove(deltas,i)
+      end
     end
     return deltas
   end
