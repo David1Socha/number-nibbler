@@ -10,7 +10,7 @@ function new_enemy(pos,box_size, offx,grid_units,num)
     move_wait = 2,
     box_size = box_size,
     movetime = 1,
-    scale = .69,
+    scale = .8,
     tweening = false,
     img = love.graphics.newImage("assets/image/gator_"..num..".png")
   }
