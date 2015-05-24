@@ -169,6 +169,11 @@ function game:update(dt)
   end
 
   if self.active then
+    for i,enemy in pairs(self.enemies) do
+      if neareq_vec(enemy.act, game.player.act) then
+        self:defeat()
+      end
+    end
     if not self.time_left.warned and self.time_left.value() <= self.timer_warn_threshold then
       self:warn_timer()
     end
