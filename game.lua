@@ -1,8 +1,7 @@
 require("player")
 require("lilypad")
 require("hive")
-
-math.randomseed(os.time())
+require("enemy")
 
 local game = { }
 
