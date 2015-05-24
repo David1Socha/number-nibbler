@@ -62,7 +62,7 @@ function game:enter_level()
   game.active = true
   game.can_select = true
 
-  game.player = new_player(game.grid_units, game.grid_box_size, self.offx)
+  game.player = new_player(game.grid_box_size, self.offx)
 end
 
 function game:enter()
