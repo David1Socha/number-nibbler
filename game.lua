@@ -1,8 +1,7 @@
 require("player")
 require("lilypad")
 require("hive")
-
-math.randomseed(os.time())
+require("enemy")
 
 local game = { }
 
@@ -31,7 +30,7 @@ function game:enter_level()
   game.hive = new_hive()
   self:build_fly_grid()
 
-  game.enemy_delay = math.random(7,17)
+  game.enemy_delay = 5
   game.enemy_warning_delay = game.enemy_delay - 3
   game.enemy_warned = false
   game.enemy_spawned = false
@@ -63,7 +62,8 @@ function game:enter_level()
   game.active = true
   game.can_select = true
 
-  game.player = new_player(game.grid_units, game.grid_box_size, self.offx)
+  game.player = new_player(game.grid_box_size, self.offx)
+  game.enemies = {}
 end
 
 function game:enter()
@@ -143,6 +143,8 @@ end
 function game:spawn_enemy()
   self.enemy_spawned = true
   self.danger = false
+  local enemy = new_enemy(vector(self.spawn_j,self.spawn_i),self.grid_box_size,self.offx,self.grid_units)
+  table.insert(self.enemies,enemy)
   --gen enemy
 end
 
@@ -161,11 +163,17 @@ end
 function game:update(dt)
   self.time = self.time + dt
   self.player:update(dt)
+  self:update_enemies(dt)
   if not self.can_restart and self.time >= self.restart_time then
     self.can_restart = true
   end
 
   if self.active then
+    for i,enemy in pairs(self.enemies) do
+      if neareq_vec(enemy.act, game.player.act) then
+        self:defeat()
+      end
+    end
     if not self.time_left.warned and self.time_left.value() <= self.timer_warn_threshold then
       self:warn_timer()
     end
@@ -188,6 +196,12 @@ function game:update(dt)
   end
 end
 
+function game:update_enemies(dt)
+  for i,enemy in pairs(self.enemies) do
+    enemy:update(dt)
+  end
+end
+
 function game:draw()
   self.bg:draw()
   self.score_bg:draw()
@@ -197,6 +211,15 @@ function game:draw()
   self:draw_txts(self.score,self.level,self.time_left,self.question,self.warn_txt,self.restart_txt)
   if self.enemy_warned and not self.enemy_spawned then
     self:draw_enemy_warning()
+  end
+  self:draw_enemies()
+end
+
+function game:draw_enemies()
+  if self.active then
+    for i,enemy in pairs(self.enemies) do
+      enemy:draw()
+    end
   end
 end
 

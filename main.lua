@@ -5,6 +5,8 @@ game = require "game"
 Timer = require "hump.timer"
 require "equality"
 
+math.randomseed(os.time())
+
 function love.load()
   line_width = 10
   Gamestate.registerEvents()

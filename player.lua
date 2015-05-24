@@ -1,5 +1,5 @@
 
-function new_player(max_x_or_y, box_size, offx)
+function new_player(box_size, offx)
   local player = {
     pos = vector(0, 0),
     act = vector(0.0, 0.0),
@@ -21,8 +21,8 @@ function new_player(max_x_or_y, box_size, offx)
   }
 
   player.imgs.curr = player.imgs.rest
-  player_offx = (box_size - player.imgs.rest:getWidth() * player.scale) / 2 + offx
-  player_offy = (box_size - player.imgs.rest:getHeight() * player.scale) - player.imgs.rest:getHeight() / 20
+  local player_offx = (box_size - player.imgs.rest:getWidth() * player.scale) / 2 + offx
+  local player_offy = (box_size - player.imgs.rest:getHeight() * player.scale) - player.imgs.rest:getHeight() / 20
   player.off = vector(player_offx, player_offy)
 
   function player:update(dt)
@@ -57,7 +57,7 @@ function new_player(max_x_or_y, box_size, offx)
   end
 
   function player:draw()
-    scaled_act = self.act * self.box_size + vector(self.off.x, self.off.y)
+    local scaled_act = self.act * self.box_size + vector(self.off.x, self.off.y)
     love.graphics.setColor(255, 255, 255)
     love.graphics.draw(self.imgs.curr, scaled_act.x, scaled_act.y, 0, self.scale, self.scale)
   end
