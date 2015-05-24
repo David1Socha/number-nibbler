@@ -163,6 +163,7 @@ end
 function game:update(dt)
   self.time = self.time + dt
   self.player:update(dt)
+  self:update_enemies(dt)
   if not self.can_restart and self.time >= self.restart_time then
     self.can_restart = true
   end
@@ -187,6 +188,12 @@ function game:update(dt)
         self.can_select = true
       end
     end
+  end
+end
+
+function game:update_enemies(dt)
+  for i,enemy in pairs(self.enemies) do
+    enemy:update(dt)
   end
 end
 
