@@ -7,12 +7,14 @@ require "equality"
 
 math.randomseed(os.time())
 
+
 function love.load()
   line_width = 10
   Gamestate.registerEvents()
   love.graphics.setLineWidth(line_width)
   Gamestate.switch(menu)
   d = 0
+  love.window.setMode(1280,720)
 end
 
 function love.update(dt)

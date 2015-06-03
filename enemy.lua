@@ -7,10 +7,10 @@ function new_enemy(pos,box_size, offx,grid_units,num)
     dest = pos,
     grid_units = grid_units,
     since_moved = 0,
-    move_wait = 2,
+    move_wait = 1.8,
     box_size = box_size,
-    movetime = 1,
-    scale = .8,
+    movetime = .8,
+    scale = .6,
     tweening = false,
     img = love.graphics.newImage("assets/image/gator_"..num..".png")
   }
@@ -53,9 +53,6 @@ function new_enemy(pos,box_size, offx,grid_units,num)
       end
     end
     possibilities = remove_empty_delta(possibilities)
-    for k,v in pairs(possibilities) do
-      print(v)
-    end
     return possibilities
   end
 

@@ -50,13 +50,13 @@ function new_hive(question_type)
     local c = math.random() < prob_correct
     local fly = {
       score = 5,
-      scale = 1,
+      scale = .65,
       row = row,
       real = true,
       col = col,
       correct = c,
-      font = love.graphics.newFont("assets/font/kenvector_future_thin.ttf",25),
-      text_off = vector(-14, 70),
+      font = love.graphics.newFont("assets/font/kenvector_future_thin.ttf",20),
+      text_off = vector(-45, 43),
       img = love.graphics.newImage "assets/image/fly.png",
     }
 

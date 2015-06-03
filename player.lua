@@ -7,7 +7,7 @@ function new_player(box_size, offx)
     time_moving = 0,
     box_size = box_size,
     movetime = .5,
-    scale = .69,
+    scale = .45,
     tweening = false,
     move_sound = love.audio.newSource("assets/sound/player_movement.ogg", "static"),
     anim_eat = {s2 = game.select_cd / 2, s3 = game.select_cd},
@@ -28,6 +28,7 @@ function new_player(box_size, offx)
   function player:update(dt)
     if self.defeated then
       self.imgs.curr = self.imgs.rip
+      return
     elseif self.anim_eat.active then
       self:update_anim_eat(dt)
     end
@@ -40,6 +41,7 @@ function new_player(box_size, offx)
       if not neareq_vec(self.act, new_pos) and not self.tweening then
         self.tweening = true
         love.audio.play(self.move_sound)
+        print("HI")
         Timer.tween(tween_duration, self.act, new_pos, 'linear', function() self.tweening = false end)
       end
       self.pos = new_pos

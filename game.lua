@@ -54,7 +54,7 @@ function game:enter_level()
   }
 
   game.restart_txt = {
-    text = function(self) return (game.can_restart and game.player.defeated) and "Tap to retry" or "" end,
+    text = function(self) return (game.can_restart and game.player.defeated) and "Tap: retry" or "" end,
     color = {51,51,153}
   }
 
@@ -70,12 +70,12 @@ function game:enter()
 
   game.warning_color = {255,0,0}
   game.grid_units = 3
-  game.offx = 500
+  game.offx = .28 * love.graphics.getWidth()
   game.board_margin = 50
   game.info_margin = 8
   game.left_margin = 15
   game.grid_box_size = love.graphics.getHeight() / (game.grid_units + 1)
-  game.info_font = love.graphics.newFont("assets/font/kenvector_future_thin.ttf",59)
+  game.info_font = love.graphics.newFont("assets/font/kenvector_future_thin.ttf",50)
   game.score_bg = {
     color = {255,255,153},
     border_width = 10,
@@ -231,6 +231,7 @@ function game:draw_enemy_warning()
 end
 
 function game:draw_txts(...)
+  --love.graphics.scale(1800)
   for k,v in ipairs({...}) do
     self:draw_txt(v,k)
   end
