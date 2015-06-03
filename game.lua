@@ -50,7 +50,7 @@ function game:enter_level()
   game.warn_txt = {
     text = function(self) return (game.active and game.danger) and "DANGER" or "" end,
     color = game.warning_color,
-    font = love.graphics.newFont("assets/font/kenvector_future_thin.ttf",70)
+    font = love.graphics.newFont("assets/font/kenvector_future_thin.ttf",.0460625*game.width)
   }
 
   game.restart_txt = {
@@ -68,20 +68,22 @@ end
 
 function game:enter()
 
+  game.width = love.graphics.getWidth()
+  game.height = love.graphics.getHeight()
   game.warning_color = {255,0,0}
   game.grid_units = 3
-  game.offx = .28 * love.graphics.getWidth()
+  game.offx = .28 * game.width
   game.board_margin = 50
   game.info_margin = 8
   game.left_margin = 15
   game.grid_box_size = love.graphics.getHeight() / (game.grid_units + 1)
-  game.info_font = love.graphics.newFont("assets/font/kenvector_future_thin.ttf",50)
+  game.info_font = love.graphics.newFont("assets/font/kenvector_future_thin.ttf",.0390625*game.width)
   game.score_bg = {
     color = {255,255,153},
     border_width = 10,
     draw = function(self)
       love.graphics.setColor(self.color)
-      love.graphics.rectangle("fill",0,0,game.offx - game.board_margin,love.graphics.getWidth())
+      love.graphics.rectangle("fill",0,0,game.offx - game.board_margin,game.width)
       love.graphics.setColor({224,224,102})
       love.graphics.rectangle("fill",game.offx - game.board_margin,0,self.border_width,love.graphics.getWidth())
       --love.graphics.rectangle("fill",0,0,self.border_width,love.graphics.getWidth())

@@ -14,7 +14,7 @@ function love.load()
   love.graphics.setLineWidth(line_width)
   Gamestate.switch(menu)
   d = 0
-  love.window.setMode(1280,720)
+  love.window.setMode(800,720)
 end
 
 function love.update(dt)
