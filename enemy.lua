@@ -7,16 +7,16 @@ function new_enemy(pos,box_size, offx,grid_units,num)
     dest = pos,
     grid_units = grid_units,
     since_moved = 0,
-    move_wait = 2,
+    move_wait = 1.8,
     box_size = box_size,
-    movetime = 1,
-    scale = .8,
+    movetime = .8,
+    scale = 0.0005 * game.width,
     tweening = false,
     img = love.graphics.newImage("assets/image/gator_"..num..".png")
   }
 
   local enemy_offx = (box_size - enemy.img:getWidth() * enemy.scale) / 2 + offx
-  local enemy_offy = (box_size - enemy.img:getHeight() * enemy.scale) - enemy.img:getHeight() / 20
+  local enemy_offy = (box_size - enemy.img:getHeight() * enemy.scale) - (enemy.img:getHeight() * enemy.scale) / 40
   enemy.off = vector(enemy_offx, enemy_offy)
 
   function enemy:draw()
@@ -31,8 +31,7 @@ function new_enemy(pos,box_size, offx,grid_units,num)
       self.since_moved = self.since_moved - self.move_wait
       local new_pos = self.pos + self:get_random_delta()
       local tween_duration = self.movetime
-      Timer.tween(tween_duration, self.act, new_pos, 'linear')
-      self.pos = new_pos
+      Timer.tween(tween_duration, self.act, new_pos, 'linear', function() self.pos = new_pos end)
     end
   end
 
@@ -53,9 +52,6 @@ function new_enemy(pos,box_size, offx,grid_units,num)
       end
     end
     possibilities = remove_empty_delta(possibilities)
-    for k,v in pairs(possibilities) do
-      print(v)
-    end
     return possibilities
   end
 

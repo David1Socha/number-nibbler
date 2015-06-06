@@ -7,12 +7,14 @@ require "equality"
 
 math.randomseed(os.time())
 
+
 function love.load()
-  line_width = 10
+  line_width = 0.0078125 * love.window.getWidth()
   Gamestate.registerEvents()
   love.graphics.setLineWidth(line_width)
   Gamestate.switch(menu)
   d = 0
+  love.window.setMode(1280,720)
 end
 
 function love.update(dt)
@@ -21,10 +23,4 @@ function love.update(dt)
 end
 
 function love.draw()
-end
-
-function love.textinput(t)
-end
-
-function love.keypressed(text)
 end

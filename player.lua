@@ -1,13 +1,12 @@
 
-function new_player(box_size, offx)
+function new_player(box_size)
   local player = {
     pos = vector(0, 0),
     act = vector(0.0, 0.0),
     dest = vector(0, 0),
-    time_moving = 0,
     box_size = box_size,
     movetime = .5,
-    scale = .69,
+    scale = .000351*love.window.getWidth(),
     tweening = false,
     move_sound = love.audio.newSource("assets/sound/player_movement.ogg", "static"),
     anim_eat = {s2 = game.select_cd / 2, s3 = game.select_cd},
@@ -21,28 +20,35 @@ function new_player(box_size, offx)
   }
 
   player.imgs.curr = player.imgs.rest
-  local player_offx = (box_size - player.imgs.rest:getWidth() * player.scale) / 2 + offx
-  local player_offy = (box_size - player.imgs.rest:getHeight() * player.scale) - player.imgs.rest:getHeight() / 20
+  local player_offx = (box_size - player.imgs.rest:getWidth() * player.scale) / 2 + game.offx
+  local player_offy = (box_size - player.imgs.rest:getHeight() * player.scale) - (player.imgs.rest:getHeight() * player.scale) / 8
   player.off = vector(player_offx, player_offy)
+
+  function player:move(dest)
+    for i,enemy in pairs(game.enemies) do --feels bad, but must check here because game:update is slow/infrequent and wouldn't check in time
+      if neareq_vec(enemy.act,game.player.act) then
+        game:defeat()
+      end
+    end
+    if (self.pos ~= dest and not self.tweening and game.active) then
+      self.dest = dest
+      self.tweening = true
+      local new_pos = move_closer_vector(self.pos, self.dest, 1)
+      love.audio.play(self.move_sound)
+      Timer.tween(self.movetime, self.act, new_pos, 'linear', function()
+        self.pos = new_pos
+        self.tweening = false
+        self:move(dest)
+      end)
+    end
+  end
 
   function player:update(dt)
     if self.defeated then
       self.imgs.curr = self.imgs.rip
+      return
     elseif self.anim_eat.active then
       self:update_anim_eat(dt)
-    end
-
-    self.time_moving = self.time_moving + dt
-    if self.time_moving > self.movetime then
-      self.time_moving = self.time_moving - self.movetime
-      local new_pos = move_closer_vector(self.pos, self.dest, 1)
-      local tween_duration = self.movetime - self.time_moving
-      if not neareq_vec(self.act, new_pos) and not self.tweening then
-        self.tweening = true
-        love.audio.play(self.move_sound)
-        Timer.tween(tween_duration, self.act, new_pos, 'linear', function() self.tweening = false end)
-      end
-      self.pos = new_pos
     end
   end
 

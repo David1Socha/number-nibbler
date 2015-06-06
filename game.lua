@@ -50,11 +50,11 @@ function game:enter_level()
   game.warn_txt = {
     text = function(self) return (game.active and game.danger) and "DANGER" or "" end,
     color = game.warning_color,
-    font = love.graphics.newFont("assets/font/kenvector_future_thin.ttf",70)
+    font = love.graphics.newFont("assets/font/kenvector_future_thin.ttf",.055*game.width)
   }
 
   game.restart_txt = {
-    text = function(self) return (game.can_restart and game.player.defeated) and "Tap to retry" or "" end,
+    text = function(self) return (game.can_restart and game.player.defeated) and "Tap: retry" or "" end,
     color = {51,51,153}
   }
 
@@ -62,28 +62,32 @@ function game:enter_level()
   game.active = true
   game.can_select = true
 
-  game.player = new_player(game.grid_box_size, self.offx)
+  game.player = new_player(game.grid_box_size)
   game.enemies = {}
 end
 
 function game:enter()
 
+  game.width = love.graphics.getWidth()
+  game.height = love.graphics.getHeight()
   game.warning_color = {255,0,0}
   game.grid_units = 3
-  game.offx = 500
-  game.board_margin = 50
-  game.info_margin = 8
-  game.left_margin = 15
-  game.grid_box_size = love.graphics.getHeight() / (game.grid_units + 1)
-  game.info_font = love.graphics.newFont("assets/font/kenvector_future_thin.ttf",59)
+  game.offx = .35 * game.width
+  game.board_margin = 0.0390625 * game.width
+  game.info_margin = 0.00625 * game.width
+  game.left_margin = 0.01171875 * game.width
+  local grid_box_size_width = (game.width - game.offx - game.board_margin) / (game.grid_units + 1)
+  local grid_box_size_height = game.height / (game.grid_units + 1)
+  game.grid_box_size = math.min(grid_box_size_height,grid_box_size_width)
+  game.info_font = love.graphics.newFont("assets/font/kenvector_future_thin.ttf",.048*game.width)
   game.score_bg = {
     color = {255,255,153},
-    border_width = 10,
+    border_width = 0.0078125 * love.window.getWidth(),
     draw = function(self)
       love.graphics.setColor(self.color)
-      love.graphics.rectangle("fill",0,0,game.offx - game.board_margin,love.graphics.getWidth())
+      love.graphics.rectangle("fill",0,0,game.offx - game.board_margin,game.height)
       love.graphics.setColor({224,224,102})
-      love.graphics.rectangle("fill",game.offx - game.board_margin,0,self.border_width,love.graphics.getWidth())
+      love.graphics.rectangle("fill",game.offx - game.board_margin,0,self.border_width,game.height)
       --love.graphics.rectangle("fill",0,0,self.border_width,love.graphics.getWidth())
       --love.graphics.rectangle("fill",0,0,game.offx - game.board_margin,self.border_width)
       --love.graphics.rectangle("fill",0,love.graphics.getHeight() -self.border_width,game.offx - game.board_margin,self.border_width)
@@ -120,7 +124,7 @@ function game:enter()
     end
   }
 
-  game.lilypad = new_lilypad(game.grid_box_size, self.offx)
+  game.lilypad = new_lilypad(game.grid_box_size)
 
   game.debug = false
   game.select = love.audio.newSource("assets/sound/select.ogg", "static")
@@ -170,7 +174,7 @@ function game:update(dt)
 
   if self.active then
     for i,enemy in pairs(self.enemies) do
-      if neareq_vec(enemy.act, game.player.act) then
+      if neareq_vec(enemy.act,self.player.act) then
         self:defeat()
       end
     end
@@ -231,6 +235,7 @@ function game:draw_enemy_warning()
 end
 
 function game:draw_txts(...)
+  --love.graphics.scale(1800)
   for k,v in ipairs({...}) do
     self:draw_txt(v,k)
   end
@@ -272,12 +277,12 @@ function game:mousepressed(x, y, grid)
   if self.active then
     if grid_x < 0 or grid_y < 0 or grid_x > self.grid_units or grid_y > self.grid_units then return end --can't let user go off grid
     local grid_vec = vector(grid_x, grid_y)
-    if neareq_vec(grid_vec, game.player.act) and self.can_select then
+    if grid_vec == self.player.pos and self.can_select and not self.player.tweening then
       self.can_select = false
       self.since_selected = 0
       self:choose_square()
     end
-    self.player.dest = grid_vec
+    self.player:move(grid_vec)
   end
 end
 
