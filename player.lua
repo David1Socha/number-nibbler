@@ -4,7 +4,6 @@ function new_player(box_size, offx)
     pos = vector(0, 0),
     act = vector(0.0, 0.0),
     dest = vector(0, 0),
-    time_moving = 0,
     box_size = box_size,
     movetime = .5,
     scale = .45,
@@ -25,26 +24,27 @@ function new_player(box_size, offx)
   local player_offy = (box_size - player.imgs.rest:getHeight() * player.scale) - player.imgs.rest:getHeight() / 20
   player.off = vector(player_offx, player_offy)
 
+  function player:move(dest)
+    if (self.pos ~= dest and not self.tweening) then
+      self.dest = dest
+      self.tweening = true
+      local new_pos = move_closer_vector(self.pos, self.dest, 1)
+      print(new_pos)
+      love.audio.play(self.move_sound)
+      Timer.tween(self.movetime, self.act, new_pos, 'linear', function()
+        self.pos = new_pos
+        self.tweening = false
+        self:move(dest) 
+      end)
+    end
+  end
+
   function player:update(dt)
     if self.defeated then
       self.imgs.curr = self.imgs.rip
       return
     elseif self.anim_eat.active then
       self:update_anim_eat(dt)
-    end
-
-    self.time_moving = self.time_moving + dt
-    if self.time_moving > self.movetime then
-      self.time_moving = self.time_moving - self.movetime
-      local new_pos = move_closer_vector(self.pos, self.dest, 1)
-      local tween_duration = self.movetime - self.time_moving
-      if not neareq_vec(self.act, new_pos) and not self.tweening then
-        self.tweening = true
-        love.audio.play(self.move_sound)
-        print("HI")
-        Timer.tween(tween_duration, self.act, new_pos, 'linear', function() self.tweening = false end)
-      end
-      self.pos = new_pos
     end
   end
 

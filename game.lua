@@ -275,12 +275,12 @@ function game:mousepressed(x, y, grid)
   if self.active then
     if grid_x < 0 or grid_y < 0 or grid_x > self.grid_units or grid_y > self.grid_units then return end --can't let user go off grid
     local grid_vec = vector(grid_x, grid_y)
-    if neareq_vec(grid_vec, game.player.act) and self.can_select then
+    if neareq_vec(grid_vec, game.player.act) and self.can_select and not self.player.tweening then
       self.can_select = false
       self.since_selected = 0
       self:choose_square()
     end
-    self.player.dest = grid_vec
+    self.player:move(grid_vec)
   end
 end
 
