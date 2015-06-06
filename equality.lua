@@ -1,5 +1,5 @@
 function neareq(d1, d2)
-  return math.abs(d1 - d2) < .1
+  return math.abs(d1 - d2) < .2
 end
 
 function neareq_vec(v1, v2)

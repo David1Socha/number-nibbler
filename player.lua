@@ -6,7 +6,7 @@ function new_player(box_size, offx)
     dest = vector(0, 0),
     box_size = box_size,
     movetime = .5,
-    scale = .45,
+    scale = .000351*love.window.getWidth(),
     tweening = false,
     move_sound = love.audio.newSource("assets/sound/player_movement.ogg", "static"),
     anim_eat = {s2 = game.select_cd / 2, s3 = game.select_cd},
@@ -38,7 +38,7 @@ function new_player(box_size, offx)
       Timer.tween(self.movetime, self.act, new_pos, 'linear', function()
         self.pos = new_pos
         self.tweening = false
-        self:move(dest) 
+        self:move(dest)
       end)
     end
   end

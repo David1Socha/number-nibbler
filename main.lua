@@ -9,7 +9,7 @@ math.randomseed(os.time())
 
 
 function love.load()
-  line_width = 10
+  line_width = 0.0078125 * love.window.getWidth()
   Gamestate.registerEvents()
   love.graphics.setLineWidth(line_width)
   Gamestate.switch(menu)
