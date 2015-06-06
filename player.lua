@@ -26,7 +26,7 @@ function new_player(box_size, offx)
 
   function player:move(dest)
     for i,enemy in pairs(game.enemies) do --feels bad, but must check here because game:update is slow/infrequent and wouldn't check in time
-      if enemy.pos == game.player.pos then
+      if neareq_vec(enemy.act,game.player.act) then
         game:defeat()
       end
     end

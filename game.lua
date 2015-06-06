@@ -172,7 +172,7 @@ function game:update(dt)
 
   if self.active then
     for i,enemy in pairs(self.enemies) do
-      if enemy.pos == self.player.pos then
+      if neareq_vec(enemy.act,self.player.act) then
         self:defeat()
       end
     end
