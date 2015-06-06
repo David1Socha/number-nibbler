@@ -1,5 +1,5 @@
 
-function new_player(box_size, offx)
+function new_player(box_size)
   local player = {
     pos = vector(0, 0),
     act = vector(0.0, 0.0),
@@ -20,8 +20,8 @@ function new_player(box_size, offx)
   }
 
   player.imgs.curr = player.imgs.rest
-  local player_offx = (box_size - player.imgs.rest:getWidth() * player.scale) / 2 + offx
-  local player_offy = (box_size - player.imgs.rest:getHeight() * player.scale) - player.imgs.rest:getHeight() / 20
+  local player_offx = (box_size - player.imgs.rest:getWidth() * player.scale) / 2 + game.offx
+  local player_offy = (box_size - player.imgs.rest:getHeight() * player.scale) - (player.imgs.rest:getHeight() * player.scale) / 8
   player.off = vector(player_offx, player_offy)
 
   function player:move(dest)

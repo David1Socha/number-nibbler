@@ -62,7 +62,7 @@ function game:enter_level()
   game.active = true
   game.can_select = true
 
-  game.player = new_player(game.grid_box_size, self.offx)
+  game.player = new_player(game.grid_box_size)
   game.enemies = {}
 end
 
@@ -76,16 +76,18 @@ function game:enter()
   game.board_margin = 0.0390625 * game.width
   game.info_margin = 0.00625 * game.width
   game.left_margin = 0.01171875 * game.width
-  game.grid_box_size = love.graphics.getHeight() / (game.grid_units + 1)
+  local grid_box_size_width = (game.width - game.offx - game.board_margin) / (game.grid_units + 1)
+  local grid_box_size_height = game.height / (game.grid_units + 1)
+  game.grid_box_size = math.min(grid_box_size_height,grid_box_size_width)
   game.info_font = love.graphics.newFont("assets/font/kenvector_future_thin.ttf",.048*game.width)
   game.score_bg = {
     color = {255,255,153},
-    border_width = 10,
+    border_width = 0.0078125 * love.window.getWidth(),
     draw = function(self)
       love.graphics.setColor(self.color)
-      love.graphics.rectangle("fill",0,0,game.offx - game.board_margin,game.width)
+      love.graphics.rectangle("fill",0,0,game.offx - game.board_margin,game.height)
       love.graphics.setColor({224,224,102})
-      love.graphics.rectangle("fill",game.offx - game.board_margin,0,self.border_width,love.graphics.getWidth())
+      love.graphics.rectangle("fill",game.offx - game.board_margin,0,self.border_width,game.height)
       --love.graphics.rectangle("fill",0,0,self.border_width,love.graphics.getWidth())
       --love.graphics.rectangle("fill",0,0,game.offx - game.board_margin,self.border_width)
       --love.graphics.rectangle("fill",0,love.graphics.getHeight() -self.border_width,game.offx - game.board_margin,self.border_width)
@@ -122,7 +124,7 @@ function game:enter()
     end
   }
 
-  game.lilypad = new_lilypad(game.grid_box_size, self.offx)
+  game.lilypad = new_lilypad(game.grid_box_size)
 
   game.debug = false
   game.select = love.audio.newSource("assets/sound/select.ogg", "static")

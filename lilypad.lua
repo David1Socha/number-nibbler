@@ -1,11 +1,11 @@
-function new_lilypad(box_size, offx)
+function new_lilypad(box_size)
   local lilypad = {
-    scale = .7,
+    scale = 0.000546875 * game.width,
     box_size = box_size,
     img = love.graphics.newImage "assets/image/lilypad.png",
   }
 
-  lilypad.offx = (box_size - lilypad.img:getWidth() * lilypad.scale) / 2 + offx
+  lilypad.offx = (box_size - lilypad.img:getWidth() * lilypad.scale) / 2 + game.offx
   lilypad.offy = (box_size - lilypad.img:getHeight() * lilypad.scale)
 
   function lilypad:draw(row, col) 
