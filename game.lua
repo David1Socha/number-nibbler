@@ -77,7 +77,7 @@ function game:enter()
   game.info_margin = 8
   game.left_margin = 0.01171875 * game.width
   game.grid_box_size = love.graphics.getHeight() / (game.grid_units + 1)
-  game.info_font = love.graphics.newFont("assets/font/kenvector_future_thin.ttf",.04*game.width)
+  game.info_font = love.graphics.newFont("assets/font/kenvector_future_thin.ttf",.038*game.width)
   game.score_bg = {
     color = {255,255,153},
     border_width = 10,
@@ -172,7 +172,7 @@ function game:update(dt)
 
   if self.active then
     for i,enemy in pairs(self.enemies) do
-      if neareq_vec(enemy.act, game.player.act) then
+      if enemy.pos == self.player.pos then
         self:defeat()
       end
     end
@@ -275,7 +275,7 @@ function game:mousepressed(x, y, grid)
   if self.active then
     if grid_x < 0 or grid_y < 0 or grid_x > self.grid_units or grid_y > self.grid_units then return end --can't let user go off grid
     local grid_vec = vector(grid_x, grid_y)
-    if neareq_vec(grid_vec, game.player.act) and self.can_select and not self.player.tweening then
+    if grid_vec == self.player.pos and self.can_select and not self.player.tweening then
       self.can_select = false
       self.since_selected = 0
       self:choose_square()

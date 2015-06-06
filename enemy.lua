@@ -31,8 +31,7 @@ function new_enemy(pos,box_size, offx,grid_units,num)
       self.since_moved = self.since_moved - self.move_wait
       local new_pos = self.pos + self:get_random_delta()
       local tween_duration = self.movetime
-      Timer.tween(tween_duration, self.act, new_pos, 'linear')
-      self.pos = new_pos
+      Timer.tween(tween_duration, self.act, new_pos, 'linear', function() self.pos = new_pos end)
     end
   end
 

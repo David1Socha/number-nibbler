@@ -25,11 +25,15 @@ function new_player(box_size, offx)
   player.off = vector(player_offx, player_offy)
 
   function player:move(dest)
-    if (self.pos ~= dest and not self.tweening) then
+    for i,enemy in pairs(game.enemies) do --feels bad, but must check here because game:update is slow/infrequent and wouldn't check in time
+      if enemy.pos == game.player.pos then
+        game:defeat()
+      end
+    end
+    if (self.pos ~= dest and not self.tweening and game.active) then
       self.dest = dest
       self.tweening = true
       local new_pos = move_closer_vector(self.pos, self.dest, 1)
-      print(new_pos)
       love.audio.play(self.move_sound)
       Timer.tween(self.movetime, self.act, new_pos, 'linear', function()
         self.pos = new_pos
