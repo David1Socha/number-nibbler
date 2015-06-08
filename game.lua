@@ -54,7 +54,7 @@ function game:enter_level()
   }
 
   game.restart_txt = {
-    text = function(self) return (game.can_restart and game.player.defeated) and "Tap: retry" or "" end,
+    text = function(self) return (game.can_restart and game.player.defeated) and "Tap: menu" or "" end,
     color = {51,51,153}
   }
 
