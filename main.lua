@@ -1,4 +1,5 @@
 function love.load()
+  love.window.setMode(1280,720)
   Gamestate = require "hump.gamestate"
   menu = require "menu"
   vector = require "hump.vector"
@@ -12,7 +13,8 @@ function love.load()
   love.graphics.setLineWidth(line_width)
   Gamestate.switch(menu)
   d = 0
-  love.window.setMode(1280,720)
+  
+  print(love.graphics.getWidth())
 end
 
 function love.update(dt)
