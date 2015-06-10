@@ -15,7 +15,7 @@ skin.name = "Blue"
 skin.author = "Nikolai Resokav"
 skin.version = "1.0"
 
-local smallfont = love.graphics.newFont(10)
+local smallfont = love.graphics.newFont(50)
 local imagebuttonfont = love.graphics.newFont(15)
 local bordercolor = {143, 143, 143, 255}
 
@@ -31,10 +31,10 @@ skin.controls.frame_name_color                      = {255, 255, 255, 255}
 skin.controls.frame_name_font                       = smallfont
 
 -- button
-skin.controls.button_text_down_color                = {255, 255, 255, 255}
-skin.controls.button_text_nohover_color             = {0, 0, 0, 200}
-skin.controls.button_text_hover_color               = {255, 255, 255, 255}
-skin.controls.button_text_nonclickable_color        = {0, 0, 0, 100}
+skin.controls.button_text_down_color                = {255, 255, 255,220}
+skin.controls.button_text_nohover_color             = {255, 255, 255,220}
+skin.controls.button_text_hover_color               = {255, 255, 255,220}
+skin.controls.button_text_nonclickable_color        = {255, 255, 255,220}
 skin.controls.button_text_font                      = smallfont
 
 -- imagebutton

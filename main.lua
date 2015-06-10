@@ -13,8 +13,6 @@ function love.load()
   love.graphics.setLineWidth(line_width)
   Gamestate.switch(menu)
   d = 0
-  
-  print(love.graphics.getWidth())
 end
 
 function love.update(dt)
