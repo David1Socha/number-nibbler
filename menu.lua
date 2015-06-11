@@ -14,8 +14,14 @@ function menu:enter()
   menu.startbutton:Center()
   menu.startbutton:SetText("Start Game")
   menu.startbutton:SetFont(menu.font)
+  menu.queueing = false
   menu.startbutton.OnClick = function(object,x,y)
-    menu:exit(game)
+    if not menu.queueing then
+      menu.queueing = true
+      Timer.add(.05, function() 
+        menu:exit(game)
+      end)
+    end
   end
 end
 

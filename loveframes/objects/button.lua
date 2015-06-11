@@ -158,6 +158,9 @@ function newobject:mousepressed(x, y, button)
 			baseparent:MakeTop()
 		end
 		self.down = true
+		if self.OnClick then
+			self.OnClick(self, x, y)
+		end
 		loveframes.downobject = self
 	end
 	
