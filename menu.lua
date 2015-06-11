@@ -7,7 +7,7 @@ function menu:enter()
   menu.font = love.graphics.newFont("assets/font/kenvector_future_thin.ttf",fontsize)
   menu.bgcolor = {255,255,153}
   menu.title = love.graphics.newImage("assets/image/title.png")
-  menu.title_scale = 0.0008 * menu.width
+  menu.title_scale = 0.00077 * menu.width
   menu.startbutton = loveframes.Create("button")
   menu.startbutton:SetWidth(600)
   menu.startbutton:SetHeight(100)

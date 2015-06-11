@@ -17,7 +17,7 @@ skin.version = "1.0"
 
 local smallfont = love.graphics.newFont(50)
 local imagebuttonfont = love.graphics.newFont(15)
-local bordercolor = {143, 143, 143, 255}
+local bordercolor = {120, 120, 120, 255}
 
 -- add skin directives to this table
 skin.directives = {}
