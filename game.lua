@@ -30,7 +30,7 @@ function game:enter_level()
   game.hive = new_hive()
   self:build_fly_grid()
 
-  game.enemy_delay = 5
+  game.enemy_delay = math.random(7,12)
   game.enemy_warning_delay = game.enemy_delay - 3
   game.enemy_warned = false
   game.enemy_spawned = false
@@ -94,6 +94,8 @@ function game:enter()
     end
   }
 
+  game.exit_btn = game:build_exit_btn()
+
   game.min_yes_flies = 4
   game.max_yes_flies = 12
 
@@ -134,6 +136,18 @@ function game:enter()
   game.level_complete_delay = .7
   game.restart_delay = 1.5
   game.can_restart = true
+end
+
+function game:build_exit_btn()
+  local btn = loveframes.Create("button")
+  btn:SetWidth(200)
+  btn:SetHeight(70)
+  btn:SetText("Exit")
+  btn:SetFont(self.info_font)
+  btn.OnClick = function(object,x,y)
+    self:exit(menu)
+  end
+  return btn
 end
 
 function game:warn_enemy()
@@ -270,6 +284,7 @@ end
 
 function game:exit(phase)
   Gamestate.switch(phase)
+  self.exit_btn:Remove()
 end
 
 function game:mousepressed(x, y, grid)
