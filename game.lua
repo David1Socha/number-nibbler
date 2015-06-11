@@ -139,6 +139,7 @@ function game:enter()
 end
 
 function game:build_exit_btn()
+  --[[
   local btn = loveframes.Create("button")
   btn:SetWidth(200)
   btn:SetHeight(70)
@@ -148,6 +149,7 @@ function game:build_exit_btn()
     self:exit(menu)
   end
   return btn
+  --]]
 end
 
 function game:warn_enemy()
@@ -231,7 +233,6 @@ function game:draw()
     self:draw_enemy_warning()
   end
   self:draw_enemies()
-  loveframes.draw()
 end
 
 function game:draw_enemies()
@@ -284,7 +285,6 @@ end
 
 function game:exit(phase)
   Gamestate.switch(phase)
-  self.exit_btn:Remove()
 end
 
 function game:mousepressed(x, y, grid)
