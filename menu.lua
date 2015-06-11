@@ -9,24 +9,26 @@ function menu:enter()
   menu.title = love.graphics.newImage("assets/image/title.png")
   menu.title_scale = 0.0008 * menu.width
   menu.startbutton = loveframes.Create("button")
-  menu.startbutton:SetWidth(700)
+  menu.startbutton:SetWidth(600)
   menu.startbutton:SetHeight(100)
   menu.startbutton:Center()
   menu.startbutton:SetText("Start Game")
+  menu.startbutton:SetFont(menu.font)
   menu.startbutton.OnClick = function(object,x,y)
-    menu:start_game()
+    menu:exit(game)
   end
 end
 
-function menu:start_game()
+function menu:exit(phase)
   menu.startbutton:Remove()
-  Gamestate.switch(game)
+  Gamestate.switch(phase)
 end
 
 function menu:draw() 
   love.graphics.setBackgroundColor(menu.bgcolor)
   love.graphics.setColor({0xff, 0xff, 0xff})
   love.graphics.draw(self.title,.5*menu.width,0.01*menu.height,0,menu.title_scale,menu.title_scale,menu.title:getWidth()*.5,0)
+  loveframes.draw()
 end
 
 return menu

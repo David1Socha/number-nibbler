@@ -31,10 +31,10 @@ skin.controls.frame_name_color                      = {255, 255, 255, 255}
 skin.controls.frame_name_font                       = smallfont
 
 -- button
-skin.controls.button_text_down_color                = {255, 255, 255,220}
-skin.controls.button_text_nohover_color             = {255, 255, 255,220}
-skin.controls.button_text_hover_color               = {255, 255, 255,220}
-skin.controls.button_text_nonclickable_color        = {255, 255, 255,220}
+skin.controls.button_text_down_color                = {255, 255, 255,235}
+skin.controls.button_text_nohover_color             = {255, 255, 255,235}
+skin.controls.button_text_hover_color               = {255, 255, 255,235}
+skin.controls.button_text_nonclickable_color        = {255, 255, 255,235}
 skin.controls.button_text_font                      = smallfont
 
 -- imagebutton
@@ -310,7 +310,7 @@ function skin.DrawButton(object)
 	local height = object:GetHeight()
 	local hover = object:GetHover()
 	local text = object:GetText()
-	local font = skin.controls.button_text_font
+	local font = object:GetFont() or skin.controls.button_text_font
 	local twidth = font:getWidth(object.text)
 	local theight = font:getHeight(object.text)
 	local down = object:GetDown()

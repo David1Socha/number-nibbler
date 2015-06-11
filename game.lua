@@ -217,6 +217,7 @@ function game:draw()
     self:draw_enemy_warning()
   end
   self:draw_enemies()
+  loveframes.draw()
 end
 
 function game:draw_enemies()
@@ -267,9 +268,13 @@ function game:draw_lilypads()
   enumerate_2d(self.grid_units, self.grid_units, action)
 end
 
+function game:exit(phase)
+  Gamestate.switch(phase)
+end
+
 function game:mousepressed(x, y, grid)
   if self.can_restart and self.player.defeated then
-    Gamestate.switch(menu)
+    self:exit(menu)
   end
   local grid_x = math.floor((x - self.offx) / game.grid_box_size)
   local grid_y = math.floor(y / game.grid_box_size)

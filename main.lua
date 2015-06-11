@@ -22,7 +22,6 @@ function love.update(dt)
 end
 
 function love.draw()
-  loveframes.draw()
 end
 
 function love.mousepressed(x,y,button)

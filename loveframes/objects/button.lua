@@ -84,6 +84,14 @@ function newobject:update(dt)
 
 end
 
+function newobject:SetFont(font)
+	self.font = font
+end
+
+function newobject:GetFont()
+	return self.font
+end
+
 --[[---------------------------------------------------------
 	- func: draw()
 	- desc: draws the object
