@@ -14,7 +14,7 @@ function love.load()
   Gamestate.switch(menu)
   d = 0
   mgr = ButtonManager()
-  button = mgr:new_button({x=10,y=10})
+  button = mgr:new_button({x=10,y=10,onclick=function() print("shrekpls") end})
 end
 
 function love.update(dt)
@@ -24,4 +24,8 @@ end
 
 function love.draw()
   mgr:draw()
+end
+
+function love.mousepressed(x,y,code)
+  mgr:mousepressed(x,y,code)
 end

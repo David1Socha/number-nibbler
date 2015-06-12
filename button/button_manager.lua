@@ -61,7 +61,6 @@ end
 local btn_draw = function(self)
   local oldfont = love.graphics.getFont()
   local oldr, oldg, oldb, olda = love.graphics.getColor()
-  print(oldcolor)
   local oldlinewidth = love.graphics.getLineWidth()
 
   love.graphics.setFont(self.font)
@@ -86,6 +85,15 @@ local btn_draw = function(self)
   love.graphics.setFont(oldfont)
   love.graphics.setColor(oldr, oldg, oldb, olda)
   love.graphics.setLineWidth(oldlinewidth)
+end
+
+local btn_mousepressed = function(self, x, y, code)
+  local validx = x >= self.x and x <= (self.x + self.width)
+  local validy = y >= self.y and y <= (self.y + self.height)
+  local clicked = validx and validy
+  if (clicked) then
+    self:onclick()
+  end
 end
 
 local default_font = love.graphics.newFont("assets/font/kenvector_future_thin.ttf",.02*love.graphics.getWidth())
@@ -118,6 +126,7 @@ local new_mgr = function()
     btn.set_onclick = btn_set_onclick
 
     btn.draw = btn_draw
+    btn.mousepressed = btn_mousepressed
     btn.remove = btn_remove
 
     btn.x = options.x or 0
