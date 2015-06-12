@@ -14,7 +14,7 @@ function love.load()
   Gamestate.switch(menu)
   d = 0
   mgr = ButtonManager()
-  button = mgr:new_button({x=10,y=10,onclick=function() print("shrekpls") end})
+  button = mgr:new_button({x=300,y=250,width=600,height=70,font=love.graphics.newFont(40),text="Play Game",onclick=function() print("shrekpls") end})
 end
 
 function love.update(dt)

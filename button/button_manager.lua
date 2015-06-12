@@ -74,7 +74,8 @@ local btn_draw = function(self)
   love.graphics.rectangle("fill", corex, corey, corew, coreh)
   
   love.graphics.setColor(self.font_color)
-  love.graphics.printf(self.text, corex, corey, corew, "center")
+  local texty = self.y + (self.height / 2) - (self.font:getHeight() / 2)
+  love.graphics.printf(self.text, corex, texty, corew, "center")
   
   love.graphics.setColor(self.outline_color)
   local outx = self.x + .5 * self.outline_width
