@@ -13,19 +13,9 @@ function love.load()
   love.graphics.setLineWidth(line_width)
   Gamestate.switch(menu)
   d = 0
-  mgr = ButtonManager()
-  button = mgr:new_button({x=300,y=250,width=600,height=70,font=love.graphics.newFont(40),text="Play Game",onclick=function() print("shrekpls") end})
 end
 
 function love.update(dt)
   d=dt
   Timer.update(dt)
-end
-
-function love.draw()
-  mgr:draw()
-end
-
-function love.mousepressed(x,y,code)
-  mgr:mousepressed(x,y,code)
 end
