@@ -1,5 +1,6 @@
 function love.load()
   love.window.setMode(1280,720)
+  ButtonManager = require "button.button_manager"
   Gamestate = require "hump.gamestate"
   menu = require "menu"
   vector = require "hump.vector"
