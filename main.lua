@@ -13,6 +13,8 @@ function love.load()
   love.graphics.setLineWidth(line_width)
   Gamestate.switch(menu)
   d = 0
+  mgr = ButtonManager()
+  button = mgr:new_button({x=10,y=10})
 end
 
 function love.update(dt)
@@ -21,4 +23,5 @@ function love.update(dt)
 end
 
 function love.draw()
+  mgr:draw()
 end

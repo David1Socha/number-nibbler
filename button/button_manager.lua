@@ -68,17 +68,20 @@ local btn_draw = function(self)
   love.graphics.setColor(self.color)
   love.graphics.setLineWidth(self.outline_width)
 
-  local corex = self.x + (.5 * self.outline_width)
-  local corey = self.y + (.5 * self.outline_width)
+  local corex = self.x + (self.outline_width)
+  local corey = self.y + (self.outline_width)
   local corew = self.width - (self.outline_width)
   local coreh = self.height - (self.outline_width)
   love.graphics.rectangle("fill", corex, corey, corew, coreh)
   
   love.graphics.setColor(self.font_color)
-  love.graphics.printf(self.text, self.x, self.y, self.width, "center")
+  love.graphics.printf(self.text, corex, corey, corew, "center")
   
   love.graphics.setColor(self.outline_color)
-  love.graphics.rectangle("line", self.x, self.y, self.width, self.height)
+  local outx = self.x + .5 * self.outline_width
+  local outy = self.y + .5 * self.outline_width
+
+  love.graphics.rectangle("line", outx, outy, self.width, self.height)
 
   love.graphics.setFont(oldfont)
   love.graphics.setColor(oldr, oldg, oldb, olda)
