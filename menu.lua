@@ -9,7 +9,7 @@ function menu:enter()
   menu.title = love.graphics.newImage("assets/image/title.png")
   menu.title_scale = 0.00077 * menu.width
   menu.mgr = ButtonManager()
-  menu.start_button = menu.mgr:new_button({x=300,y=250,width=600,height=70,font=love.graphics.newFont("assets/font/kenvector_future_thin.ttf",40),text="Play Game",onclick=menu.start_game})
+  menu.start_button = menu.mgr:new_button({x=340,y=250,width=600,height=70,font=love.graphics.newFont("assets/font/kenvector_future_thin.ttf",40),text="Play Game",onclick=menu.start_game})
 end
 
 function menu.start_game()
