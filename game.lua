@@ -48,9 +48,8 @@ function game:enter_level()
     font = love.graphics.newFont("assets/font/kenvector_future_thin.ttf",.055*game.width)
   }
 
-  game.restart_txt = {
-    text = function(self) return (game.can_restart and game.player.defeated) and "Tap: menu" or "" end,
-    color = {51,51,153}
+  game.game_over_txt = {
+    text = function(self) return game.player.defeated and "Game over" or "" end,
   }
 
   game.since_selected = 0
@@ -130,8 +129,6 @@ function game:enter()
   game.level_complete = love.audio.newSource("assets/sound/level_complete.ogg", "static")
   game.ouch = love.audio.newSource("assets/sound/ouch.ogg", "static")
   game.level_complete_delay = .7
-  game.restart_delay = 1.5
-  game.can_restart = true
 
   game.mgr = ButtonManager()
   game.quit_button = game.mgr:new_button {
@@ -178,9 +175,6 @@ function game:update(dt)
   self.time = self.time + dt
   self.player:update(dt)
   self:update_enemies(dt)
-  if not self.can_restart and self.time >= self.restart_time then
-    self.can_restart = true
-  end
 
   if self.active then
     for i,enemy in pairs(self.enemies) do
@@ -222,7 +216,7 @@ function game:draw()
   self:draw_lilypads()
   self.player:draw()
   self:draw_flies()
-  self:draw_txts(self.score,self.level,self.time_left,self.question,self.warn_txt,self.restart_txt)
+  self:draw_txts(self.score,self.level,self.time_left,self.question,self.warn_txt,self.game_over_txt)
   if self.enemy_warned and not self.enemy_spawned then
     self:draw_enemy_warning()
   end
@@ -268,7 +262,7 @@ function game:draw_flies()
       love.graphics.setColor({255,255,255})
       love.graphics.rectangle("line", x + self.offx, y, self.grid_box_size, self.grid_box_size)
     end
-    self.fly_grid[i][j]:draw(self.grid_box_size)
+    self.fly_grid[i][j]:draw()
   end
   enumerate_2d(self.grid_units, self.grid_units, action)
 end
@@ -279,9 +273,6 @@ function game:draw_lilypads()
 end
 
 function game:mousepressed(x, y, code)
-  if self.can_restart and self.player.defeated then
-    Gamestate.switch(menu)
-  end
   self.mgr:mousepressed(x, y, code)
   local grid_x = math.floor((x - self.offx) / game.grid_box_size)
   local grid_y = math.floor(y / game.grid_box_size)
@@ -333,8 +324,6 @@ function game:defeat()
     self.active = false
     love.audio.play(self.ouch)
     self.player.defeated = true
-    self.can_restart = false
-    self.restart_time = self.time + self.restart_delay
   end
 end
 
@@ -348,7 +337,7 @@ function game:build_fly_grid()
   for i=0,self.grid_units do
     self.fly_grid[i] = {}
     for j=0,self.grid_units do
-      local newfly = self.hive:new_fly(i,j,self.grid_box_size, self.offx)
+      local newfly = self.hive:new_fly(i,j)
       self.fly_grid[i][j] = newfly
       if newfly.correct then
         self.yes_flies = self.yes_flies + 1
@@ -361,7 +350,7 @@ function game:build_fly_grid()
     local i = math.random(4) - 1
     local j = math.random(4) - 1
     if not self.fly_grid[i][j].correct then
-      self.fly_grid[i][j] = self.hive:new_fly(i,j,self.grid_box_size, self.offx, 1)
+      self.fly_grid[i][j] = self.hive:new_fly(i,j, 1)
       self.yes_flies = self.yes_flies + 1
       self.no_flies = self.no_flies - 1
     end
@@ -370,7 +359,7 @@ function game:build_fly_grid()
     local i = math.random(4) - 1
     local j = math.random(4) - 1
     if self.fly_grid[i][j].correct then
-      self.fly_grid[i][j] = self.hive:new_fly(i,j,self.grid_box_size, self.offx, 0)
+      self.fly_grid[i][j] = self.hive:new_fly(i,j, 0)
       self.yes_flies = self.yes_flies - 1
       self.no_flies = self.no_flies + 1
     end
