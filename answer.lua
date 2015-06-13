@@ -27,3 +27,13 @@ function gen_addition_traps(x)
   )
   return ts
 end
+
+function gen_subtraction_answers(x)
+  local as = {}
+  for minuend=x,x+10 do
+    local subtrahend = minuend - x
+    local a = {minuend, subtrahend}
+    table.insert(as, a)
+  end
+  return as
+end
