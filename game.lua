@@ -38,6 +38,16 @@ function game:enter_level()
 
   game.timer_warn_threshold = 10
 
+  game.mgr = ButtonManager()
+  game.quit_button = game.mgr:new_button {
+    onclick=function() Gamestate.switch(menu) end,
+    text="Menu",
+    width=380,
+    x=8,
+    y=8,
+    height=60
+  }
+
   game.time = 0
   game.time_limit = math.max(game.time_limit - 5,25)
   game.max_time_score = 25
@@ -88,13 +98,8 @@ function game:enter()
       love.graphics.rectangle("fill",0,0,game.offx - game.board_margin,game.height)
       love.graphics.setColor({224,224,102})
       love.graphics.rectangle("fill",game.offx - game.board_margin,0,self.border_width,game.height)
-      --love.graphics.rectangle("fill",0,0,self.border_width,love.graphics.getWidth())
-      --love.graphics.rectangle("fill",0,0,game.offx - game.board_margin,self.border_width)
-      --love.graphics.rectangle("fill",0,love.graphics.getHeight() -self.border_width,game.offx - game.board_margin,self.border_width)
     end
   }
-
-  game.exit_btn = game:build_exit_btn()
 
   game.min_yes_flies = 4
   game.max_yes_flies = 12
@@ -136,20 +141,6 @@ function game:enter()
   game.level_complete_delay = .7
   game.restart_delay = 1.5
   game.can_restart = true
-end
-
-function game:build_exit_btn()
-  --[[
-  local btn = loveframes.Create("button")
-  btn:SetWidth(200)
-  btn:SetHeight(70)
-  btn:SetText("Exit")
-  btn:SetFont(self.info_font)
-  btn.OnClick = function(object,x,y)
-    self:exit(menu)
-  end
-  return btn
-  --]]
 end
 
 function game:warn_enemy()
@@ -233,6 +224,7 @@ function game:draw()
     self:draw_enemy_warning()
   end
   self:draw_enemies()
+  game.mgr:draw()
 end
 
 function game:draw_enemies()
@@ -283,17 +275,13 @@ function game:draw_lilypads()
   enumerate_2d(self.grid_units, self.grid_units, action)
 end
 
-function game:exit(phase)
-  Gamestate.switch(phase)
-end
-
-function game:mousepressed(x, y, grid)
+function game:mousepressed(x, y, code)
   if self.can_restart and self.player.defeated then
-    self:exit(menu)
+    Gamestate.switch(menu)
   end
+  self.mgr:mousepressed(x, y, code)
   local grid_x = math.floor((x - self.offx) / game.grid_box_size)
   local grid_y = math.floor(y / game.grid_box_size)
-  --TODO handle non grid clicks here, afterwards assume click is for grid movement
   if self.active then
     if grid_x < 0 or grid_y < 0 or grid_x > self.grid_units or grid_y > self.grid_units then return end --can't let user go off grid
     local grid_vec = vector(grid_x, grid_y)
