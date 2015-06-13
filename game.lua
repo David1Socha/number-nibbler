@@ -38,16 +38,6 @@ function game:enter_level()
 
   game.timer_warn_threshold = 10
 
-  game.mgr = ButtonManager()
-  game.quit_button = game.mgr:new_button {
-    onclick=function() Gamestate.switch(menu) end,
-    text="Menu",
-    width=380,
-    x=8,
-    y=8,
-    height=60
-  }
-
   game.time = 0
   game.time_limit = math.max(game.time_limit - 5,25)
   game.max_time_score = 25
@@ -90,14 +80,15 @@ function game:enter()
   local grid_box_size_height = game.height / (game.grid_units + 1)
   game.grid_box_size = math.min(grid_box_size_height,grid_box_size_width)
   game.info_font = love.graphics.newFont("assets/font/kenvector_future_thin.ttf",.048*game.width)
+  game.panel_width = (game.offx - game.board_margin)
   game.score_bg = {
     color = {255,255,153},
     border_width = 0.0078125 * love.window.getWidth(),
     draw = function(self)
       love.graphics.setColor(self.color)
-      love.graphics.rectangle("fill",0,0,game.offx - game.board_margin,game.height)
+      love.graphics.rectangle("fill",0,0,game.panel_width,game.height)
       love.graphics.setColor({224,224,102})
-      love.graphics.rectangle("fill",game.offx - game.board_margin,0,self.border_width,game.height)
+      love.graphics.rectangle("fill",game.panel_width,0,self.border_width,game.height)
     end
   }
 
@@ -141,6 +132,18 @@ function game:enter()
   game.level_complete_delay = .7
   game.restart_delay = 1.5
   game.can_restart = true
+
+  game.mgr = ButtonManager()
+  game.quit_button = game.mgr:new_button {
+    onclick=function() Gamestate.switch(menu) end,
+    text="Menu",
+    width= game.panel_width * .96,
+    x=game.panel_width * .018,
+    y=game.panel_width * .018,
+    height=game.panel_width * .13,
+    font=love.graphics.newFont("assets/font/kenvector_future_thin.ttf",game.panel_width*.08),
+  }
+
 end
 
 function game:warn_enemy()
