@@ -7,9 +7,11 @@ menu.start_button_w = 0.469 * menu.width
 menu.start_button_h = .0547 * menu.width
 menu.start_button_fontsize = .0312 * menu.width
 menu.start_button_font = love.graphics.newFont("assets/font/kenvector_future_thin.ttf",menu.start_button_fontsize)
+menu.start_button_color = {204, 224, 245}
 menu.bgcolor = {255,255,153}
 menu.title = love.graphics.newImage("assets/image/title.png")
 menu.title_scale = 0.00077 * menu.width
+
 function menu:enter()
   menu.mgr = ButtonManager()
   menu.start_button = menu.mgr:new_button {
@@ -19,7 +21,8 @@ function menu:enter()
     height=menu.start_button_h,
     font=menu.start_button_font,
     text="Play Game",
-    onclick=menu.start_game
+    color=menu.start_button_color,
+    onclick=menu.start_game,
   }
 end
 

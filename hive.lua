@@ -20,9 +20,9 @@ function prepare_hive_addends(hive)
   local pair_to_sum_text = function(p)
     local txt = ""
     if math.random() > .5 then
-      txt = p[1].." + "..p[2]
+      txt = p[1].."+"..p[2]
     else
-      txt = p[2].." + "..p[1]
+      txt = p[2].."+"..p[1]
     end
     return txt
   end
@@ -56,7 +56,7 @@ function new_hive(question_type)
       col = col,
       correct = c,
       font = love.graphics.newFont("assets/font/kenvector_future_thin.ttf",0.015 * game.width),
-      text_off = vector(.022*game.width, 0.033*game.width),
+      text_off = vector(.021*game.width, 0.033*game.width),
       img = love.graphics.newImage "assets/image/fly.png",
     }
 
@@ -75,7 +75,7 @@ function new_hive(question_type)
       rowcol_scaled = vector(self.row, self.col) * box_size + self.off
       love.graphics.draw(self.img, rowcol_scaled.x, rowcol_scaled.y, 0, self.scale, self.scale)
       love.graphics.setColor(0, 0, 0)
-      love.graphics.printf(self.text, rowcol_scaled.x + self.text_off.x, rowcol_scaled.y + self.text_off.y,game.width)
+      love.graphics.printf(self.text, rowcol_scaled.x + self.text_off.x, rowcol_scaled.y + self.text_off.y,0.05*game.width,"center")
     end
 
     return fly
