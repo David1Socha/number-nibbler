@@ -1,3 +1,5 @@
+--Use to create buttons or image buttons which are tracked through the manager. For image buttons, width/height/color are ignored and instead use the properties of the image
+
 local indexof = function (array, target)
   for k,v in ipairs(array) do
     if v == target then 
@@ -23,10 +25,16 @@ local btn_set_y = function(self, y)
 end
 
 local btn_set_width = function(self, width)
+  if (self.image) then
+    assert(false) --can't change width when image button
+  end
   self.width = width
 end
 
 local btn_set_height = function(self, height)
+  if (self.image) then
+    assert(false) --can't change height when image button
+  end
   self.height = height
 end
 
@@ -54,6 +62,18 @@ local btn_set_text = function(self, text)
   self.text = text
 end
 
+local btn_set_image = function(self, image)
+  self.image = image
+end
+
+local btn_set_image_scalex = function(self, image_scalex)
+  self.image_scalex = image_scalex
+end
+
+local btn_set_image_scaley = function(self, image_scaley)
+  self.image_scaley = image_scaley
+end
+
 local btn_set_onclick = function(self, onclick)
   self.onclick = onclick
 end
@@ -69,9 +89,16 @@ local btn_draw = function(self)
 
   local corex = self.x + (self.outline_width)
   local corey = self.y + (self.outline_width)
+
   local corew = self.width - (self.outline_width)
   local coreh = self.height - (self.outline_width)
-  love.graphics.rectangle("fill", corex, corey, corew, coreh)
+  if self.image then
+    love.graphics.draw(self.image, corex, corey, 0, self.image_scalex, self.image_scaley)
+  else
+    
+    love.graphics.rectangle("fill", corex, corey, corew, coreh)
+  end
+  print(corew)
   
   love.graphics.setColor(self.font_color)
   local texty = self.y + (self.height / 2) - (self.font:getHeight() / 2)
@@ -102,6 +129,7 @@ local default_outline_color = {20,20,20}
 local default_color = {204, 224, 245}
 local default_font_color = {0,0,0}
 local default_text = "PRESS ME"
+local default_scale = 1
 
 local new_mgr = function()
   local mgr = {}
@@ -124,6 +152,9 @@ local new_mgr = function()
     btn.set_outline_color = btn_set_outline_color
     btn.set_color = btn_set_color
     btn.set_text = btn_set_text
+    btn.set_image = btn_set_image
+    btn.set_image_scalex = btn_set_image_scalex
+    btn.set_image_scaley = set_image_scaley
     btn.set_onclick = btn_set_onclick
 
     btn.draw = btn_draw
@@ -140,7 +171,15 @@ local new_mgr = function()
     btn.outline_color = options.outline_color or default_outline_color
     btn.color = options.color or default_color
     btn.text = options.text or default_text
+    btn.image = options.image
+    btn.image_scalex = options.image_scalex or default_scale
+    btn.image_scaley = options.image_scaley or default_scale
     btn.onclick = options.onclick
+
+    if (btn.image) then
+      btn.width = btn.image:getWidth() * btn.image_scalex
+      btn.height = btn.image:getHeight() * btn.image_scaley
+    end
 
     table.insert(self.buttons, btn)
     return btn
