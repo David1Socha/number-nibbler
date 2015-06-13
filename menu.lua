@@ -1,15 +1,26 @@
 menu = {}
-
+menu.width = love.graphics.getWidth()
+menu.height = love.graphics.getHeight()
+menu.start_button_x = 0.2656 * menu.width
+menu.start_button_y = .1953 * menu.width
+menu.start_button_w = 0.469 * menu.width
+menu.start_button_h = .0547 * menu.width
+menu.start_button_fontsize = .0312 * menu.width
+menu.start_button_font = love.graphics.newFont("assets/font/kenvector_future_thin.ttf",menu.start_button_fontsize)
+menu.bgcolor = {255,255,153}
+menu.title = love.graphics.newImage("assets/image/title.png")
+menu.title_scale = 0.00077 * menu.width
 function menu:enter()
-  menu.width = love.graphics.getWidth()
-  menu.height = love.graphics.getHeight()
-  local fontsize = .045 * menu.width
-  menu.font = love.graphics.newFont("assets/font/kenvector_future_thin.ttf",fontsize)
-  menu.bgcolor = {255,255,153}
-  menu.title = love.graphics.newImage("assets/image/title.png")
-  menu.title_scale = 0.00077 * menu.width
   menu.mgr = ButtonManager()
-  menu.start_button = menu.mgr:new_button({x=340,y=250,width=600,height=70,font=love.graphics.newFont("assets/font/kenvector_future_thin.ttf",40),text="Play Game",onclick=menu.start_game})
+  menu.start_button = menu.mgr:new_button {
+    x=menu.start_button_x,
+    y=menu.start_button_y,
+    width=menu.start_button_w,
+    height=menu.start_button_h,
+    font=menu.start_button_font,
+    text="Play Game",
+    onclick=menu.start_game
+  }
 end
 
 function menu.start_game()
