@@ -1,10 +1,13 @@
 require("answer")
 
-ADDENDS = 0
-local ADDEND_MIN_ANS = 8
-local ADDEND_MAX_ANS = 20
+local ADDITION = 0
+local SUBTRACTION = 1
+local ADDITION_MIN_ANS = 8
+local ADDITION_MAX_ANS = 20
+local SUBTRACTION_MIN_ANS = 0
+local SUBTRACTION_MAX_ANS = 12
 
-function map(a, fn)
+local map = function (a, fn)
   local new_array = {}
   for i,v in ipairs(a) do
     new_array[i] = fn(v)
@@ -12,22 +15,13 @@ function map(a, fn)
   return new_array
 end
 
-function prepare_hive_addends(hive)
-  hive.value = math.random(ADDEND_MIN_ANS, ADDEND_MAX_ANS)
-  hive.question = "Add to "..hive.value
-  local ps = gen_addend_pairs(hive.value)
-  local nps = gen_non_addend_pairs(hive.value)
-  local pair_to_sum_text = function(p)
-    local txt = ""
-    if math.random() > .5 then
-      txt = p[1].."+"..p[2]
-    else
-      txt = p[2].."+"..p[1]
-    end
-    return txt
-  end
-  hive.answers = map(ps, pair_to_sum_text)
-  hive.traps = map(nps, pair_to_sum_text)
+local prepare_hive_helper = function(hive, min, max, question_prefix, gen_answers, gen_traps, to_text)
+  hive.value = math.random(min, max)
+  hive.question = question_prefix .. hive.value
+  local as = gen_answers(hive.value)
+  local ts = gen_traps(hive.value)
+  hive.answers = map(as, to_text)
+  hive.traps = map(ts, to_text)
   function hive:get_answer()
     return self.answers[math.random(table.getn(self.answers))]
   end
@@ -36,14 +30,32 @@ function prepare_hive_addends(hive)
   end
 end
 
-function new_hive(question_type)
-  question_type = question_type or ADDENDS
+local build_addition_hive = function ()
   local hive = {}
-  if question_type == ADDENDS then
-    prepare_hive_addends(hive)
-  else
-    assert(false) -- no other type currently supported
+  local to_text = function(p)
+    local txt = ""
+    if math.random() > .5 then
+      txt = p[1].."+"..p[2]
+    else
+      txt = p[2].."+"..p[1]
+    end
+    return txt
   end
+  prepare_hive_helper(hive, ADDITION_MIN_ANS, ADDITION_MAX_ANS, "Make ", gen_addition_answers, gen_addition_traps, to_text)
+  return hive
+end
+
+local build_subtraction_hive = function ()
+  -- body
+end
+
+local hive_builders = {}
+hive_builders[ADDITION] = build_addition_hive
+hive_builders[SUBTRACTION] = build_subtraction_hive
+
+function new_hive(question_type)
+  question_type = question_type or ADDITION
+  local hive = hive_builders[question_type]()
 
   function hive:new_fly(col, row, box_size, offx, prob_correct)
     prob_correct = prob_correct or .5
