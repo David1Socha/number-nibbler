@@ -140,8 +140,8 @@ function game:enter()
     width= game.panel_width * .96,
     x=game.panel_width * .018,
     y=game.panel_width * .018,
-    height=game.panel_width * .13,
-    font=love.graphics.newFont("assets/font/kenvector_future_thin.ttf",game.panel_width*.08),
+    height=game.panel_width * .18,
+    font=love.graphics.newFont("assets/font/kenvector_future_thin.ttf",game.panel_width*.12),
   }
 
 end
