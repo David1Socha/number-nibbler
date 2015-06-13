@@ -7,21 +7,26 @@ local ADDITION_MAX_ANS = 20
 local SUBTRACTION_MIN_ANS = 0
 local SUBTRACTION_MAX_ANS = 12
 
-local map = function (a, fn)
-  local new_array = {}
-  for i,v in ipairs(a) do
-    new_array[i] = fn(v)
+local flat_map = function (a, fn)
+  local mapped = {}
+  local int i = 0
+  for _,v in ipairs(a) do
+    local map_results = fn(v)
+    for _,mv in ipairs(map_results) do
+      mapped[i] = mv
+      i = i + 1
+    end
   end
-  return new_array
+  return mapped
 end
 
-local prepare_hive_helper = function(hive, min, max, question_prefix, gen_answers, gen_traps, to_text)
+local prepare_hive_helper = function(hive, min, max, question_prefix, gen_answers, gen_traps, to_texts)
   hive.value = math.random(min, max)
   hive.question = question_prefix .. hive.value
   local as = gen_answers(hive.value)
   local ts = gen_traps(hive.value)
-  hive.answers = map(as, to_text)
-  hive.traps = map(ts, to_text)
+  hive.answers = flat_map(as, to_texts)
+  hive.traps = flat_map(ts, to_texts)
   function hive:get_answer()
     return self.answers[math.random(table.getn(self.answers))]
   end
@@ -32,16 +37,13 @@ end
 
 local build_addition_hive = function ()
   local hive = {}
-  local to_text = function(p)
-    local txt = ""
-    if math.random() > .5 then
-      txt = p[1].."+"..p[2]
-    else
-      txt = p[2].."+"..p[1]
-    end
-    return txt
+  local to_texts = function(p)
+    local txts = {}
+    txts[1] = p[1].."+"..p[2]
+    txts[2] = p[2].."+"..p[1]
+    return txts
   end
-  prepare_hive_helper(hive, ADDITION_MIN_ANS, ADDITION_MAX_ANS, "Make ", gen_addition_answers, gen_addition_traps, to_text)
+  prepare_hive_helper(hive, ADDITION_MIN_ANS, ADDITION_MAX_ANS, "Make ", gen_addition_answers, gen_addition_traps, to_texts)
   return hive
 end
 
@@ -57,7 +59,7 @@ function new_hive(question_type)
   question_type = question_type or ADDITION
   local hive = hive_builders[question_type]()
 
-  function hive:new_fly(col, row, box_size, offx, prob_correct)
+  function hive:new_fly(col, row, prob_correct)
     prob_correct = prob_correct or .5
     local c = math.random() < prob_correct
     local fly = {
@@ -72,7 +74,7 @@ function new_hive(question_type)
       img = love.graphics.newImage "assets/image/fly.png",
     }
 
-    fly_offx = (box_size - fly.img:getWidth() * fly.scale) / 2 + offx
+    fly_offx = (game.grid_box_size - fly.img:getWidth() * fly.scale) / 2 + game.offx
     fly_offy = 0
     fly.off = vector(fly_offx,fly_offy)
     if c then
@@ -81,10 +83,10 @@ function new_hive(question_type)
       fly.text = self:get_trap()
     end
 
-    function fly:draw(box_size) 
+    function fly:draw() 
       love.graphics.setColor(255, 255, 255)
       love.graphics.setFont(self.font)
-      rowcol_scaled = vector(self.row, self.col) * box_size + self.off
+      rowcol_scaled = vector(self.row, self.col) * game.grid_box_size + self.off
       love.graphics.draw(self.img, rowcol_scaled.x, rowcol_scaled.y, 0, self.scale, self.scale)
       love.graphics.setColor(0, 0, 0)
       love.graphics.printf(self.text, rowcol_scaled.x + self.text_off.x, rowcol_scaled.y + self.text_off.y,0.05*game.width,"center")

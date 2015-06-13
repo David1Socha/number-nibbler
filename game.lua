@@ -1,8 +1,3 @@
-require("player")
-require("lilypad")
-require("hive")
-require("enemy")
-
 local game = { }
 
 function game:draw_txt(t, n)
@@ -91,6 +86,11 @@ function game:enter()
       love.graphics.rectangle("fill",game.panel_width,0,self.border_width,game.height)
     end
   }
+
+  require("player")
+  require("lilypad")
+  require("hive")
+  require("enemy")
 
   game.min_yes_flies = 4
   game.max_yes_flies = 12
