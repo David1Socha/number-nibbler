@@ -22,6 +22,14 @@ function menu:enter()
     text="Play Game",
     onclick=menu.start_game,
   }
+
+  menu.category_left_button = menu.mgr:new_button {
+    x=600,
+    y=400,
+    text="",
+    image=love.graphics.newImage("assets/image/button_left.png"),
+    outline_width=0,
+  }
 end
 
 function menu.start_game()

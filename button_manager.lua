@@ -95,10 +95,8 @@ local btn_draw = function(self)
   if self.image then
     love.graphics.draw(self.image, corex, corey, 0, self.image_scalex, self.image_scaley)
   else
-    
     love.graphics.rectangle("fill", corex, corey, corew, coreh)
   end
-  print(corew)
   
   love.graphics.setColor(self.font_color)
   local texty = self.y + (self.height / 2) - (self.font:getHeight() / 2)
@@ -107,9 +105,11 @@ local btn_draw = function(self)
   love.graphics.setColor(self.outline_color)
   local outx = self.x + .5 * self.outline_width
   local outy = self.y + .5 * self.outline_width
-
-  love.graphics.rectangle("line", outx, outy, self.width, self.height)
-
+  
+  if self.outline_width > 0 then
+    love.graphics.rectangle("line", outx, outy, self.width, self.height)
+  end
+  
   love.graphics.setFont(oldfont)
   love.graphics.setColor(oldr, oldg, oldb, olda)
   love.graphics.setLineWidth(oldlinewidth)
@@ -130,6 +130,7 @@ local default_color = {204, 224, 245}
 local default_font_color = {0,0,0}
 local default_text = "PRESS ME"
 local default_scale = 1
+local default_onclick = function() end --noop
 
 local new_mgr = function()
   local mgr = {}
@@ -174,7 +175,7 @@ local new_mgr = function()
     btn.image = options.image
     btn.image_scalex = options.image_scalex or default_scale
     btn.image_scaley = options.image_scaley or default_scale
-    btn.onclick = options.onclick
+    btn.onclick = options.onclick or default_onclick
 
     if (btn.image) then
       btn.width = btn.image:getWidth() * btn.image_scalex

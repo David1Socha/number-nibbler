@@ -17,8 +17,8 @@
    inkscape:version="0.91 r13725"
    sodipodi:docname="button_left.svg"
    inkscape:export-filename="C:\Users\david_000\Desktop\Files\number-nibbler\assets\image\button_left.png"
-   inkscape:export-xdpi="33.162201"
-   inkscape:export-ydpi="33.162201">
+   inkscape:export-xdpi="47.328686"
+   inkscape:export-ydpi="47.328686">
   <defs
      id="defs4" />
   <sodipodi:namedview
@@ -28,16 +28,16 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.979899"
-     inkscape:cx="139.26646"
-     inkscape:cy="48.101723"
+     inkscape:zoom="0.70000001"
+     inkscape:cx="-64.023021"
+     inkscape:cy="79.984088"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:window-width="944"
      inkscape:window-height="1001"
-     inkscape:window-x="960"
-     inkscape:window-y="0"
+     inkscape:window-x="223"
+     inkscape:window-y="26"
      inkscape:window-maximized="0"
      fit-margin-top="0"
      fit-margin-left="0"
@@ -51,7 +51,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>

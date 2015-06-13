@@ -17,8 +17,8 @@
    inkscape:version="0.91 r13725"
    sodipodi:docname="button_right.svg"
    inkscape:export-filename="C:\Users\david_000\Desktop\Files\number-nibbler\assets\image\button_right.png"
-   inkscape:export-xdpi="33.162201"
-   inkscape:export-ydpi="33.162201">
+   inkscape:export-xdpi="47.328686"
+   inkscape:export-ydpi="47.328686">
   <defs
      id="defs4" />
   <sodipodi:namedview
@@ -29,7 +29,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.7"
-     inkscape:cx="135.22584"
+     inkscape:cx="-78.345589"
      inkscape:cy="-130.33857"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -66,6 +66,8 @@
        d="m 401.04726,343.43362 -67.46375,82.25149 0,-164.50297 z"
        id="path3336"
        inkscape:connector-curvature="0"
-       sodipodi:nodetypes="cccc" />
+       sodipodi:nodetypes="cccc"
+       inkscape:export-xdpi="47.328686"
+       inkscape:export-ydpi="47.328686" />
   </g>
 </svg>

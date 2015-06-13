@@ -6,6 +6,7 @@ function love.load()
   vector = require "hump.vector"
   game = require "game"
   Timer = require "hump.timer"
+  Categories = require "categories"
   require "equality"
   math.randomseed(os.time())
   line_width = 0.0078125 * love.window.getWidth()

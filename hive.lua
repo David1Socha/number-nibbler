@@ -1,7 +1,5 @@
 require("answer")
 
-local ADDITION = 0
-local SUBTRACTION = 1
 local ADDITION_MIN_ANS = 8
 local ADDITION_MAX_ANS = 20
 local SUBTRACTION_MIN_ANS = 2
@@ -62,11 +60,11 @@ local build_subtraction_hive = function()
 end
 
 local hive_builders = {}
-hive_builders[ADDITION] = build_addition_hive
-hive_builders[SUBTRACTION] = build_subtraction_hive
+hive_builders[Categories.ADDITION] = build_addition_hive
+hive_builders[Categories.SUBTRACTION] = build_subtraction_hive
 
 function new_hive(question_type)
-  question_type = question_type or ADDITION
+  question_type = question_type or Categories.ADDITION
   local hive = hive_builders[question_type]()
 
   function hive:new_fly(col, row, prob_correct)
