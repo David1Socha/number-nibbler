@@ -4,8 +4,9 @@ local ADDITION = 0
 local SUBTRACTION = 1
 local ADDITION_MIN_ANS = 8
 local ADDITION_MAX_ANS = 20
-local SUBTRACTION_MIN_ANS = 0
+local SUBTRACTION_MIN_ANS = 2
 local SUBTRACTION_MAX_ANS = 12
+local MAKE_PREFIX = "Make "
 
 local flat_map = function (a, fn)
   local mapped = {}
@@ -18,6 +19,19 @@ local flat_map = function (a, fn)
     end
   end
   return mapped
+end
+
+local subtraction_to_texts = function (p)
+  local txts = {}
+  txts[1] = p[1].."-"..p[2]
+  return txts
+end
+
+local addition_to_texts = function(p)
+  local txts = {}
+  txts[1] = p[1].."+"..p[2]
+  txts[2] = p[2].."+"..p[1]
+  return txts
 end
 
 local prepare_hive_helper = function(hive, min, max, question_prefix, gen_answers, gen_traps, to_texts)
@@ -35,20 +49,16 @@ local prepare_hive_helper = function(hive, min, max, question_prefix, gen_answer
   end
 end
 
-local build_addition_hive = function ()
+local build_addition_hive = function()
   local hive = {}
-  local to_texts = function(p)
-    local txts = {}
-    txts[1] = p[1].."+"..p[2]
-    txts[2] = p[2].."+"..p[1]
-    return txts
-  end
-  prepare_hive_helper(hive, ADDITION_MIN_ANS, ADDITION_MAX_ANS, "Make ", gen_addition_answers, gen_addition_traps, to_texts)
+  prepare_hive_helper(hive, ADDITION_MIN_ANS, ADDITION_MAX_ANS, MAKE_PREFIX, gen_addition_answers, gen_addition_traps, addition_to_texts)
   return hive
 end
 
-local build_subtraction_hive = function ()
-  -- body
+local build_subtraction_hive = function()
+  local hive = {}
+  prepare_hive_helper(hive, SUBTRACTION_MIN_ANS, SUBTRACTION_MAX_ANS, MAKE_PREFIX, gen_subtraction_answers, gen_subtraction_traps, subtraction_to_texts)
+  return hive
 end
 
 local hive_builders = {}

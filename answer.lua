@@ -47,10 +47,10 @@ function gen_subtraction_traps(x)
       for j=a[2]-MIN_DELTA,a[2]+MAX_DELTA do
         if (i>0 and j>0 and i-j~=x) then --don't want to give away the falseness by going out of original range
           local t = {i,j}
-          print(t[1],t[2])
           table.insert(ts, t)
         end
       end
     end
   end)
+  return ts
 end
