@@ -1,19 +1,42 @@
 menu = {}
+menu.width = love.graphics.getWidth()
+menu.height = love.graphics.getHeight()
+menu.start_button_x = 0.2656 * menu.width
+menu.start_button_y = .1953 * menu.width
+menu.start_button_w = 0.469 * menu.width
+menu.start_button_h = .0547 * menu.width
+menu.start_button_fontsize = .0312 * menu.width
+menu.start_button_font = love.graphics.newFont("assets/font/kenvector_future_thin.ttf",menu.start_button_fontsize)
+menu.bgcolor = {255,255,153}
+menu.title = love.graphics.newImage("assets/image/title.png")
+menu.title_scale = 0.00077 * menu.width
 
 function menu:enter()
-  menu.font = love.graphics.newFont("assets/font/kenvector_future_thin.ttf",54)
-  menu.bgcolor = {20, 60, 20}
+  menu.mgr = ButtonManager()
+  menu.start_button = menu.mgr:new_button {
+    x=menu.start_button_x,
+    y=menu.start_button_y,
+    width=menu.start_button_w,
+    height=menu.start_button_h,
+    font=menu.start_button_font,
+    text="Play Game",
+    onclick=menu.start_game,
+  }
+end
+
+function menu.start_game()
+  Gamestate.switch(game)
+end
+
+function menu:mousepressed(x,y,btn)
+  menu.mgr:mousepressed(x,y,btn)
 end
 
 function menu:draw() 
   love.graphics.setBackgroundColor(menu.bgcolor)
-  love.graphics.setFont(menu.font)
   love.graphics.setColor({0xff, 0xff, 0xff})
-  love.graphics.printf("Press to start", 0, love.graphics.getHeight() / 2 - 100, love.graphics.getWidth(), "center")
-end
-
-function menu:mousepressed()
-  Gamestate.switch(game)
+  love.graphics.draw(self.title,.5*menu.width,0.01*menu.height,0,menu.title_scale,menu.title_scale,menu.title:getWidth()*.5,0)
+  menu.mgr:draw()
 end
 
 return menu

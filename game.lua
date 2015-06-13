@@ -30,7 +30,7 @@ function game:enter_level()
   game.hive = new_hive()
   self:build_fly_grid()
 
-  game.enemy_delay = 5
+  game.enemy_delay = math.random(7,12)
   game.enemy_warning_delay = game.enemy_delay - 3
   game.enemy_warned = false
   game.enemy_spawned = false
@@ -54,7 +54,7 @@ function game:enter_level()
   }
 
   game.restart_txt = {
-    text = function(self) return (game.can_restart and game.player.defeated) and "Tap: retry" or "" end,
+    text = function(self) return (game.can_restart and game.player.defeated) and "Tap: menu" or "" end,
     color = {51,51,153}
   }
 
@@ -80,17 +80,15 @@ function game:enter()
   local grid_box_size_height = game.height / (game.grid_units + 1)
   game.grid_box_size = math.min(grid_box_size_height,grid_box_size_width)
   game.info_font = love.graphics.newFont("assets/font/kenvector_future_thin.ttf",.048*game.width)
+  game.panel_width = (game.offx - game.board_margin)
   game.score_bg = {
     color = {255,255,153},
     border_width = 0.0078125 * love.window.getWidth(),
     draw = function(self)
       love.graphics.setColor(self.color)
-      love.graphics.rectangle("fill",0,0,game.offx - game.board_margin,game.height)
+      love.graphics.rectangle("fill",0,0,game.panel_width,game.height)
       love.graphics.setColor({224,224,102})
-      love.graphics.rectangle("fill",game.offx - game.board_margin,0,self.border_width,game.height)
-      --love.graphics.rectangle("fill",0,0,self.border_width,love.graphics.getWidth())
-      --love.graphics.rectangle("fill",0,0,game.offx - game.board_margin,self.border_width)
-      --love.graphics.rectangle("fill",0,love.graphics.getHeight() -self.border_width,game.offx - game.board_margin,self.border_width)
+      love.graphics.rectangle("fill",game.panel_width,0,self.border_width,game.height)
     end
   }
 
@@ -134,6 +132,18 @@ function game:enter()
   game.level_complete_delay = .7
   game.restart_delay = 1.5
   game.can_restart = true
+
+  game.mgr = ButtonManager()
+  game.quit_button = game.mgr:new_button {
+    onclick=function() Gamestate.switch(menu) end,
+    text="Menu",
+    width= game.panel_width * .96,
+    x=game.panel_width * .018,
+    y=game.panel_width * .018,
+    height=game.panel_width * .13,
+    font=love.graphics.newFont("assets/font/kenvector_future_thin.ttf",game.panel_width*.08),
+  }
+
 end
 
 function game:warn_enemy()
@@ -217,6 +227,7 @@ function game:draw()
     self:draw_enemy_warning()
   end
   self:draw_enemies()
+  game.mgr:draw()
 end
 
 function game:draw_enemies()
@@ -267,13 +278,13 @@ function game:draw_lilypads()
   enumerate_2d(self.grid_units, self.grid_units, action)
 end
 
-function game:mousepressed(x, y, grid)
+function game:mousepressed(x, y, code)
   if self.can_restart and self.player.defeated then
     Gamestate.switch(menu)
   end
+  self.mgr:mousepressed(x, y, code)
   local grid_x = math.floor((x - self.offx) / game.grid_box_size)
   local grid_y = math.floor(y / game.grid_box_size)
-  --TODO handle non grid clicks here, afterwards assume click is for grid movement
   if self.active then
     if grid_x < 0 or grid_y < 0 or grid_x > self.grid_units or grid_y > self.grid_units then return end --can't let user go off grid
     local grid_vec = vector(grid_x, grid_y)
