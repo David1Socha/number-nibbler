@@ -4,6 +4,10 @@ local ADDITION_MIN_ANS = 8
 local ADDITION_MAX_ANS = 25
 local SUBTRACTION_MIN_ANS = 2
 local SUBTRACTION_MAX_ANS = 12
+local MULTIPLICATION_MIN_ANS = 4
+local MULTIPLICATION_MAX_ANS = 25
+
+local MIN_ANSWERS = 2
 local MAKE_PREFIX = "Make "
 
 local flat_map = function (a, fn)
@@ -32,10 +36,24 @@ local addition_to_texts = function(p)
   return txts
 end
 
+local multiplication_to_texts = function(p)
+  local txts = {}
+  txts[1] = p[1].."*"..p[2]
+  txts[2] = p[2].."*"..p[1]
+  return txts
+end
+
 local prepare_hive_helper = function(hive, min, max, question_prefix, gen_answers, gen_traps, to_texts)
-  hive.value = math.random(min, max)
-  hive.question = question_prefix .. hive.value
-  local as = gen_answers(hive.value)
+  local enough_answers = false
+  local as
+  while (not enough_answers) do
+    hive.value = math.random(min, max)
+    hive.question = question_prefix .. hive.value
+    as = gen_answers(hive.value)
+    if (#as >= MIN_ANSWERS) then
+      enough_answers = true
+    end
+  end
   local ts = gen_traps(hive.value)
   hive.answers = flat_map(as, to_texts)
   hive.traps = flat_map(ts, to_texts)
@@ -59,9 +77,16 @@ local build_subtraction_hive = function()
   return hive
 end
 
+local build_multiplication_hive = function()
+  local hive = {}
+  prepare_hive_helper(hive, MULTIPLICATION_MIN_ANS, MULTIPLICATION_MAX_ANS, MAKE_PREFIX, gen_multiplication_answers, gen_multiplication_traps, multiplication_to_texts)
+  return hive
+end
+
 local hive_builders = {}
 hive_builders[Categories.ADDITION] = build_addition_hive
 hive_builders[Categories.SUBTRACTION] = build_subtraction_hive
+hive_builders[Categories.MULTIPLICATION] = build_multiplication_hive
 
 function new_hive(question_type)
   question_type = question_type or Categories.ADDITION

@@ -67,8 +67,6 @@ function gen_multiplication_answers(x)
       end
     end
   end
-  table.foreach(as, function(k,v) print(v[1],v[2]) end)
-  print("  ")
   return as
 end
 
@@ -85,8 +83,5 @@ function gen_multiplication_traps(x)
       end
     end
   end
-  table.foreach(ts, function(k,v) print(v[1],v[2]) end)
   return ts
 end
-
-gen_multiplication_traps(20)
