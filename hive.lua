@@ -1,7 +1,7 @@
 require("answer")
 
 local ADDITION_MIN_ANS = 8
-local ADDITION_MAX_ANS = 20
+local ADDITION_MAX_ANS = 25
 local SUBTRACTION_MIN_ANS = 2
 local SUBTRACTION_MAX_ANS = 12
 local MAKE_PREFIX = "Make "

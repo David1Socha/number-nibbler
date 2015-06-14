@@ -10,6 +10,8 @@ menu.start_button_font = love.graphics.newFont("assets/font/kenvector_future_thi
 menu.bgcolor = {255,255,153}
 menu.title = love.graphics.newImage("assets/image/title.png")
 menu.title_scale = 0.00077 * menu.width
+menu.category = Categories.ADDITION
+menu.category_name = Categories.Names[menu.category]
 
 function menu:enter()
   menu.mgr = ButtonManager()
@@ -30,6 +32,7 @@ function menu:enter()
     text="",
     image=love.graphics.newImage("assets/image/button_left.png"),
     outline_width=0,
+    onclick=function() menu:change_category(-1) end,
   }
 
   menu.category_left_button = menu.mgr:new_button {
@@ -38,11 +41,20 @@ function menu:enter()
     text="",
     image=love.graphics.newImage("assets/image/button_right.png"),
     outline_width=0,
+    onclick=function() menu:change_category(1) end,
   }
 
   menu.name_font = love.graphics.newFont("assets/font/kenvector_future_thin.ttf",.0469*menu.width)
-  menu.category = Categories.ADDITION
-  menu.category_name = "Multiplication"
+end
+
+function menu:change_category(delta)
+  menu.category = menu.category + delta
+  if menu.category < 1 then
+    menu.category = Categories.NUM_CATEGORIES
+  elseif menu.category > Categories.NUM_CATEGORIES then
+    menu.category = 1
+  end
+  menu.category_name = Categories.Names[menu.category]
 end
 
 function menu.start_game()

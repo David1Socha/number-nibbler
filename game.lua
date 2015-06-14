@@ -22,7 +22,7 @@ end
 function game:enter_level()
   game.yes_flies = 0
   game.no_flies = 0
-  game.hive = new_hive()
+  game.hive = new_hive(menu.category)
   self:build_fly_grid()
 
   game.enemy_delay = math.random(7,12)

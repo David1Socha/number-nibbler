@@ -1,12 +1,12 @@
 function love.load()
   love.window.setMode(1280,720)
+  Categories = require "categories"
   ButtonManager = require "button_manager"
   Gamestate = require "hump.gamestate"
   menu = require "menu"
   vector = require "hump.vector"
   game = require "game"
   Timer = require "hump.timer"
-  Categories = require "categories"
   require "equality"
   math.randomseed(os.time())
   line_width = 0.0078125 * love.window.getWidth()
