@@ -2,7 +2,7 @@ menu = {}
 menu.width = love.graphics.getWidth()
 menu.height = love.graphics.getHeight()
 menu.start_button_x = 0.25 * menu.width
-menu.start_button_y = .14 * menu.width
+menu.start_button_y = .16 * menu.width
 menu.start_button_w = 0.5 * menu.width
 menu.start_button_h = .075 * menu.width
 menu.start_button_fontsize = .04 * menu.width
@@ -23,6 +23,17 @@ function menu:enter()
     font=menu.start_button_font,
     text="Play Game",
     onclick=menu.start_game,
+    outline_width=.00391*menu.width,
+  }
+
+  menu.exit_button = menu.mgr:new_button {
+    x=menu.start_button_x,
+    y=menu.width * .27,
+    width=menu.start_button_w,
+    height=menu.start_button_h,
+    font=menu.start_button_font,
+    text="Exit",
+    onclick=menu.exit_game,
     outline_width=.00391*menu.width,
   }
 
@@ -55,6 +66,10 @@ function menu:change_category(delta)
     menu.category = 1
   end
   menu.category_name = Categories.Names[menu.category]
+end
+
+function menu.exit_game()
+  love.event.quit()
 end
 
 function menu.start_game()
