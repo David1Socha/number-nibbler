@@ -46,7 +46,7 @@ function menu:enter()
     onclick=function() menu:change_category(-1) end,
   }
 
-  menu.category_left_button = menu.mgr:new_button {
+  menu.category_right_button = menu.mgr:new_button {
     x=.461*menu.width,
     y=0.453 * menu.width,
     text="",

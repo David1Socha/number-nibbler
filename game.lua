@@ -61,7 +61,6 @@ function game:enter_level()
 end
 
 function game:enter()
-
   game.width = love.graphics.getWidth()
   game.height = love.graphics.getHeight()
   game.warning_color = {255,0,0}
@@ -131,9 +130,9 @@ function game:enter()
   game.level_complete_delay = .7
 
   game.mgr = ButtonManager()
-  game.quit_button = game.mgr:new_button {
-    onclick=function() Gamestate.switch(menu) end,
-    text="Menu",
+  game.menu_button = game.mgr:new_button {
+    onclick=function() Gamestate.switch(pause) end,
+    text="Pause",
     width= game.panel_width * .96,
     x=game.panel_width * .018,
     y=game.panel_width * .018,
