@@ -61,6 +61,11 @@ function game:enter_level()
 end
 
 function game:enter()
+  if game.paused then
+    print('k')
+    game.paused = false
+    return
+  end
   game.width = love.graphics.getWidth()
   game.height = love.graphics.getHeight()
   game.warning_color = {255,0,0}
@@ -131,7 +136,7 @@ function game:enter()
 
   game.mgr = ButtonManager()
   game.menu_button = game.mgr:new_button {
-    onclick=function() Gamestate.switch(pause) end,
+    onclick=function() Gamestate.switch(pause); game.paused = true end,
     text="Pause",
     width= game.panel_width * .96,
     x=game.panel_width * .018,

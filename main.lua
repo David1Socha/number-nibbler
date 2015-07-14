@@ -18,6 +18,8 @@ function love.load()
 end
 
 function love.update(dt)
-  d=dt
-  Timer.update(dt)
+  if not game.paused then
+    d=dt
+    Timer.update(dt)
+  end
 end

@@ -9,7 +9,7 @@ pause.resume_button_fontsize = .04 * pause.width
 pause.resume_button_font = love.graphics.newFont("assets/font/kenvector_future_thin.ttf",pause.resume_button_fontsize)
 pause.menu_button_y = (pause.resume_button_y + pause.resume_button_h) + pause.width * .035
 pause.exit_button_y = (pause.menu_button_y + pause.resume_button_h) + pause.width * .035
-pause.bgcolor = {255,255,153}
+pause.bgcolor = {255,204,0}
 
 function pause:enter()
   pause.mgr = ButtonManager()
@@ -54,6 +54,7 @@ function pause.exit_game()
 end
 
 function pause.return_menu()
+  game.paused = false
   Gamestate.switch(menu)
 end
 
