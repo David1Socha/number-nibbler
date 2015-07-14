@@ -6,6 +6,7 @@ function love.load()
   menu = require "menu"
   vector = require "hump.vector"
   game = require "game"
+  pause = require "pause"
   Timer = require "hump.timer"
   require "equality"
   math.randomseed(os.time())
@@ -17,6 +18,8 @@ function love.load()
 end
 
 function love.update(dt)
-  d=dt
-  Timer.update(dt)
+  if not game.paused then
+    d=dt
+    Timer.update(dt)
+  end
 end
