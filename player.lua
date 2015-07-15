@@ -4,6 +4,7 @@ function new_player(box_size)
     pos = vector(0, 0),
     act = vector(0.0, 0.0),
     dest = vector(0, 0),
+    can_move = true,
     box_size = box_size,
     movetime = .5,
     scale = .000351*love.window.getWidth(),
@@ -25,11 +26,7 @@ function new_player(box_size)
   player.off = vector(player_offx, player_offy)
 
   function player:move(dest)
-    for i,enemy in pairs(game.enemies) do --feels bad, but must check here because game:update is slow/infrequent and wouldn't check in time
-      if neareq_vec(enemy.act,game.player.act) then
-        game:defeat()
-      end
-    end
+    if not self.can_move then return end
     if (self.pos ~= dest and not self.tweening and game.active) then
       self.dest = dest
       self.tweening = true
@@ -57,6 +54,7 @@ function new_player(box_size)
     if self.anim_eat.elapsed > self.anim_eat.s3 then --animation done
       self.imgs.curr = self.imgs.rest
       self.anim_eat.active = false
+      self.can_move = true
     elseif self.anim_eat.elapsed > self.anim_eat.s2 then -- in 2nd stage of animation
       self.imgs.curr = self.imgs.eat2
     end
@@ -68,10 +66,11 @@ function new_player(box_size)
     love.graphics.draw(self.imgs.curr, scaled_act.x, scaled_act.y, 0, self.scale, self.scale)
   end
 
-  function player:start_anim_eat()
-    player.anim_eat.active = true
-    player.anim_eat.elapsed = 0
-    player.imgs.curr = player.imgs.eat1
+  function player:start_eat()
+    self.can_move = false
+    self.anim_eat.active = true
+    self.anim_eat.elapsed = 0
+    self.imgs.curr = self.imgs.eat1
   end
 
   return player

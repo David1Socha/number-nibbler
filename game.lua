@@ -313,7 +313,7 @@ function game:choose_square()
     else
       self.score.value = self.score.value + curr_fly.score
       love.audio.play(self.select)
-      self.player.start_anim_eat()
+      self.player:start_eat()
       self:replace_fly(curr_fly)
       if (self.yes_flies == 0) then
         self.active = false
