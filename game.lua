@@ -62,7 +62,6 @@ end
 
 function game:enter()
   if game.paused then
-    print('k')
     game.paused = false
     return
   end
