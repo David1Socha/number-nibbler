@@ -236,10 +236,11 @@ function game:draw_enemies()
 end
 
 function game:draw_enemy_warning()
-  local x = self.spawn_j * self.grid_box_size
-  local y = self.spawn_i * self.grid_box_size
+  local line_width_offset = line_width / 2
+  local x = self.spawn_j * self.grid_box_size + line_width_offset
+  local y = self.spawn_i * self.grid_box_size + line_width_offset
   love.graphics.setColor(self.warning_color)
-  love.graphics.rectangle("line", x + self.offx, y, self.grid_box_size, self.grid_box_size)
+  love.graphics.rectangle("line", x + self.offx, y, self.grid_box_size - line_width_offset, self.grid_box_size - line_width_offset)
 end
 
 function game:draw_txts(...)
