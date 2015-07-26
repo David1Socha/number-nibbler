@@ -329,6 +329,7 @@ function game:defeat()
     self.active = false
     love.audio.play(self.ouch)
     self.player.defeated = true
+    Gamestate.switch(defeat)
   end
 end
 
