@@ -9,7 +9,9 @@ pause.resume_button_fontsize = .04 * pause.width
 pause.resume_button_font = love.graphics.newFont("assets/font/kenvector_future_thin.ttf",pause.resume_button_fontsize)
 pause.menu_button_y = (pause.resume_button_y + pause.resume_button_h) + pause.width * .035
 pause.exit_button_y = (pause.menu_button_y + pause.resume_button_h) + pause.width * .035
-pause.bgcolor = {255,204,0}
+pause.text = love.graphics.newImage("assets/image/paused.png")
+pause.text_scale = 0.00077 * pause.width
+pause.bgcolor = {255,255,153}
 
 function pause:enter()
   pause.mgr = ButtonManager()
@@ -73,7 +75,10 @@ function pause:draw()
   love.graphics.setColor {0,0,0}
   love.graphics.setFont(self.name_font)
 
-  love.graphics.printf("Paused",0,-.02*pause.width,1.02*pause.width,"center") --for some reason was not centering properly with 1*screen width as size
+  --love.graphics.printf("Paused",0,-.02*pause.width,1.02*pause.width,"center") --for some reason was not centering properly with 1*screen width as size
+
+  love.graphics.setColor({0xff, 0xff, 0xff})
+  love.graphics.draw(self.text,.5*pause.width,0.01*pause.height,0,pause.text_scale,pause.text_scale,pause.text:getWidth()*.5,0)
 
   pause.mgr:draw()
 end
