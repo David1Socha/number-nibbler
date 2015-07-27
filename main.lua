@@ -7,6 +7,7 @@ function love.load()
   vector = require "hump.vector"
   game = require "game"
   pause = require "pause"
+  defeat = require "defeat"
   Timer = require "hump.timer"
   require "equality"
   math.randomseed(os.time())

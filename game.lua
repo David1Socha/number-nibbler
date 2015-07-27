@@ -140,7 +140,7 @@ function game:enter()
     width= game.panel_width * .96,
     x=game.panel_width * .018,
     y=game.panel_width * .018,
-    height=game.panel_width * .18,
+    height=game.panel_width * .2,
     outline_width=.00391*game.width,
     font=love.graphics.newFont("assets/font/kenvector_future_thin.ttf",game.panel_width*.12),
   }
@@ -329,6 +329,7 @@ function game:defeat()
     self.active = false
     love.audio.play(self.ouch)
     self.player.defeated = true
+    Gamestate.switch(defeat)
   end
 end
 

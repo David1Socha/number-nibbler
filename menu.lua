@@ -1,10 +1,10 @@
 menu = {}
 menu.width = love.graphics.getWidth()
 menu.height = love.graphics.getHeight()
-menu.start_button_x = 0.25 * menu.width
+menu.start_button_x = 0.1 * menu.width
 menu.start_button_y = .16 * menu.width
-menu.start_button_w = 0.5 * menu.width
-menu.start_button_h = .075 * menu.width
+menu.start_button_w = 0.8 * menu.width
+menu.start_button_h = .1 * menu.width
 menu.start_button_fontsize = .04 * menu.width
 menu.start_button_font = love.graphics.newFont("assets/font/kenvector_future_thin.ttf",menu.start_button_fontsize)
 menu.bgcolor = {255,255,153}
@@ -28,7 +28,7 @@ function menu:enter()
 
   menu.exit_button = menu.mgr:new_button {
     x=menu.start_button_x,
-    y=menu.width * .27,
+    y=menu.start_button_y + menu.start_button_h + .04 * menu.width,
     width=menu.start_button_w,
     height=menu.start_button_h,
     font=menu.start_button_font,
