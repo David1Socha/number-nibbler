@@ -1,14 +1,16 @@
 defeat = {}
 defeat.width = love.graphics.getWidth()
 defeat.height = love.graphics.getHeight()
-defeat.menu_button_x = 0.25 * defeat.width
+defeat.menu_button_x = 0.1 * defeat.width
 defeat.menu_button_y = .28 * defeat.width
-defeat.menu_button_w = 0.5 * defeat.width
+defeat.menu_button_w = 0.8 * defeat.width
 defeat.menu_button_h = .1 * defeat.width
 defeat.menu_button_fontsize = .04 * defeat.width
 defeat.menu_button_font = love.graphics.newFont("assets/font/kenvector_future_thin.ttf",defeat.menu_button_fontsize)
 defeat.replay_button_y = (defeat.menu_button_y + defeat.menu_button_h) + defeat.width * .035
-defeat.bgcolor = {0xDB,0x4D,0x4D}
+defeat.bgcolor = {255,255,153}
+defeat.text = love.graphics.newImage("assets/image/defeat.png")
+defeat.text_scale = 0.0008 * defeat.width
 
 function defeat:enter()
   defeat.mgr = ButtonManager()
@@ -60,7 +62,8 @@ function defeat:draw()
   love.graphics.setColor {0,0,0}
   love.graphics.setFont(self.name_font)
 
-  love.graphics.printf("Game Over",0,-.02*defeat.width,1.02*defeat.width,"center") --for some reason was not centering properly with 1*screen width as size
+  love.graphics.setColor({0xff, 0xff, 0xff})
+  love.graphics.draw(self.text,.5*defeat.width,0.01*defeat.height,0,defeat.text_scale,defeat.text_scale,defeat.text:getWidth()*.5,0)
 
   defeat.mgr:draw()
 end
