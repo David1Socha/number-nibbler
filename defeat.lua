@@ -1,12 +1,36 @@
 defeat = {}
 defeat.width = love.graphics.getWidth()
 defeat.height = love.graphics.getHeight()
+
 defeat.menu_button_x = 0.1 * defeat.width
 defeat.menu_button_y = .28 * defeat.width
 defeat.menu_button_w = 0.8 * defeat.width
 defeat.menu_button_h = .1 * defeat.width
 defeat.menu_button_fontsize = .04 * defeat.width
 defeat.menu_button_font = love.graphics.newFont("assets/font/kenvector_future_thin.ttf",defeat.menu_button_fontsize)
+
+defeat.score_txt = {
+  x = .1 * defeat.width,
+  y = .175 * defeat.width,
+  font = love.graphics.newFont("assets/font/kenvector_future_thin.ttf",.07*defeat.width),
+  draw = function(self) 
+    love.graphics.setColor({0,0,0})
+    love.graphics.setFont(self.font)
+    love.graphics.printf("Score: "..game.score.value, self.x,self.y,defeat.width)
+  end
+}
+
+defeat.high_txt = {
+  x = 0,
+  y = .175 * defeat.width,
+  font = love.graphics.newFont("assets/font/kenvector_future_thin.ttf",.07*defeat.width),
+  draw = function(self) 
+    love.graphics.setColor({0,0,0})
+    love.graphics.setFont(self.font)
+    love.graphics.printf("Best: "..love.filesystem.read("score"), self.x,self.y,.92*defeat.width,"right")
+  end
+}
+
 defeat.replay_button_y = (defeat.menu_button_y + defeat.menu_button_h) + defeat.width * .035
 defeat.bgcolor = {255,255,153}
 defeat.text = love.graphics.newImage("assets/image/defeat.png")
@@ -47,6 +71,7 @@ function defeat.return_menu()
   Gamestate.switch(menu)
 end
 
+
 function defeat.play_again()
   Gamestate.switch(game)
 end
@@ -64,6 +89,9 @@ function defeat:draw()
 
   love.graphics.setColor({0xff, 0xff, 0xff})
   love.graphics.draw(self.text,.5*defeat.width,0.01*defeat.height,0,defeat.text_scale,defeat.text_scale,defeat.text:getWidth()*.5,0)
+
+  self.score_txt:draw()
+  self.high_txt:draw()
 
   defeat.mgr:draw()
 end
