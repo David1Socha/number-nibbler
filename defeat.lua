@@ -11,12 +11,23 @@ defeat.menu_button_font = love.graphics.newFont("assets/font/kenvector_future_th
 
 defeat.score_txt = {
   x = .1 * defeat.width,
-  y = .19 * defeat.width,
+  y = .175 * defeat.width,
   font = love.graphics.newFont("assets/font/kenvector_future_thin.ttf",.07*defeat.width),
   draw = function(self) 
     love.graphics.setColor({0,0,0})
     love.graphics.setFont(self.font)
     love.graphics.printf("Score: "..game.score.value, self.x,self.y,defeat.width)
+  end
+}
+
+defeat.high_txt = {
+  x = 0,
+  y = .175 * defeat.width,
+  font = love.graphics.newFont("assets/font/kenvector_future_thin.ttf",.07*defeat.width),
+  draw = function(self) 
+    love.graphics.setColor({0,0,0})
+    love.graphics.setFont(self.font)
+    love.graphics.printf("Best: "..love.filesystem.read("score"), self.x,self.y,.92*defeat.width,"right")
   end
 }
 
@@ -80,6 +91,8 @@ function defeat:draw()
   love.graphics.draw(self.text,.5*defeat.width,0.01*defeat.height,0,defeat.text_scale,defeat.text_scale,defeat.text:getWidth()*.5,0)
 
   self.score_txt:draw()
+  self.high_txt:draw()
+
   defeat.mgr:draw()
 end
 
