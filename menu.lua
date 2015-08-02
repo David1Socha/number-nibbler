@@ -43,6 +43,8 @@ function menu:enter()
   menu.category_left_button = menu.mgr:new_button {
     x=0.063 * menu.width,
     y=0.453 * menu.width,
+    image_scalex=menu.width / 1280,
+    image_scaley=menu.width / 1280,
     text="",
     image=love.graphics.newImage("assets/image/button_left.png"),
     outline_width=0,
@@ -52,6 +54,8 @@ function menu:enter()
   menu.category_right_button = menu.mgr:new_button {
     x=.531*menu.width,
     y=0.453 * menu.width,
+    image_scalex=menu.width / 1280,
+    image_scaley=menu.width / 1280,
     text="",
     image=love.graphics.newImage("assets/image/button_right.png"),
     outline_width=0,
@@ -61,6 +65,8 @@ function menu:enter()
   menu.difficulty_left_button = menu.mgr:new_button {
     x=0.65 * menu.width,
     y=0.453 * menu.width,
+    image_scalex=menu.width / 1280,
+    image_scaley=menu.width / 1280,
     text="",
     image=love.graphics.newImage("assets/image/button_left.png"),
     outline_width=0,
@@ -70,6 +76,8 @@ function menu:enter()
   menu.difficulty_right_button = menu.mgr:new_button {
     x=.9*menu.width,
     y=0.453 * menu.width,
+    image_scalex=menu.width / 1280,
+    image_scaley=menu.width / 1280,
     text="",
     image=love.graphics.newImage("assets/image/button_right.png"),
     outline_width=0,
