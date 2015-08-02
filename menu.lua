@@ -13,8 +13,8 @@ menu.title_scale = 0.00077 * menu.width
 
 menu.category = Categories.ADDITION
 menu.category_name = Categories.Names[menu.category]
-menu.difficulty = Categories.EASY
-menu.difficulty_name = Categories.Names[menu.difficulty]
+menu.difficulty = Difficulties.EASY
+menu.difficulty_name = Difficulties.Names[menu.difficulty]
 
 function menu:enter()
   menu.mgr = ButtonManager()
@@ -41,7 +41,7 @@ function menu:enter()
   }
 
   menu.category_left_button = menu.mgr:new_button {
-    x=0.0078 * menu.width,
+    x=0.063 * menu.width,
     y=0.453 * menu.width,
     text="",
     image=love.graphics.newImage("assets/image/button_left.png"),
@@ -50,12 +50,30 @@ function menu:enter()
   }
 
   menu.category_right_button = menu.mgr:new_button {
-    x=.461*menu.width,
+    x=.531*menu.width,
     y=0.453 * menu.width,
     text="",
     image=love.graphics.newImage("assets/image/button_right.png"),
     outline_width=0,
     onclick=function() menu:change_category(1) end,
+  }
+
+  menu.difficulty_left_button = menu.mgr:new_button {
+    x=0.65 * menu.width,
+    y=0.453 * menu.width,
+    text="",
+    image=love.graphics.newImage("assets/image/button_left.png"),
+    outline_width=0,
+    onclick=function() menu:change_difficulty(-1) end,
+  }
+
+  menu.difficulty_right_button = menu.mgr:new_button {
+    x=.9*menu.width,
+    y=0.453 * menu.width,
+    text="",
+    image=love.graphics.newImage("assets/image/button_right.png"),
+    outline_width=0,
+    onclick=function() menu:change_difficulty(1) end,
   }
 
   menu.name_font = love.graphics.newFont("assets/font/kenvector_future_thin.ttf",.0469*menu.width)
@@ -99,7 +117,8 @@ function menu:draw()
 
   love.graphics.setColor {0,0,0}
   love.graphics.setFont(self.name_font)
-  love.graphics.printf(self.category_name,.063*menu.width,.469*menu.width,.39*menu.width,"center")
+  love.graphics.printf(self.category_name,.113*menu.width,.469*menu.width,.415*menu.width,"center")
+  love.graphics.printf(self.difficulty_name,.65*menu.width,.469*menu.width,.3*menu.width,"center")
 
   menu.mgr:draw()
 end
