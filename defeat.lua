@@ -27,7 +27,7 @@ defeat.high_txt = {
   draw = function(self) 
     love.graphics.setColor({0,0,0})
     love.graphics.setFont(self.font)
-    love.graphics.printf("Best: "..love.filesystem.read(menu.category.."score"), self.x,self.y,.92*defeat.width,"right")
+    love.graphics.printf("Best: "..game.high,self.x,self.y,.92*defeat.width,"right")
   end
 }
 

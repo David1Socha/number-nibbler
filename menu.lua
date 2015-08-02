@@ -2,7 +2,7 @@ menu = {}
 menu.width = love.graphics.getWidth()
 menu.height = love.graphics.getHeight()
 menu.start_button_x = 0.1 * menu.width
-menu.start_button_y = .16 * menu.width
+menu.start_button_y = .17 * menu.width
 menu.start_button_w = 0.8 * menu.width
 menu.start_button_h = .1 * menu.width
 menu.start_button_fontsize = .04 * menu.width
@@ -10,8 +10,11 @@ menu.start_button_font = love.graphics.newFont("assets/font/kenvector_future_thi
 menu.bgcolor = {255,255,153}
 menu.title = love.graphics.newImage("assets/image/title.png")
 menu.title_scale = 0.00077 * menu.width
+
 menu.category = Categories.ADDITION
 menu.category_name = Categories.Names[menu.category]
+menu.difficulty = Categories.EASY
+menu.difficulty_name = Categories.Names[menu.difficulty]
 
 function menu:enter()
   menu.mgr = ButtonManager()
@@ -58,14 +61,23 @@ function menu:enter()
   menu.name_font = love.graphics.newFont("assets/font/kenvector_future_thin.ttf",.0469*menu.width)
 end
 
-function menu:change_category(delta)
-  menu.category = menu.category + delta
-  if menu.category < 1 then
-    menu.category = Categories.NUM_CATEGORIES
-  elseif menu.category > Categories.NUM_CATEGORIES then
-    menu.category = 1
+function menu:change(old_val,delta,num_elements,names)
+  local new_val = old_val + delta
+  if new_val < 1 then
+    new_val = num_elements
+  elseif new_val > num_elements then
+    new_val = 1
   end
-  menu.category_name = Categories.Names[menu.category]
+  local new_name = names[new_val]
+  return new_val, new_name
+end
+
+function menu:change_difficulty(delta)
+  menu.difficulty, menu.difficulty_name = menu:change(menu.difficulty,delta,Difficulties.NUM_DIFFICULTIES,Difficulties.Names)
+end
+
+function menu:change_category(delta)
+  menu.category, menu.category_name = menu:change(menu.category,delta,Categories.NUM_CATEGORIES,Categories.Names)
 end
 
 function menu.exit_game()
