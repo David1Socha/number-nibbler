@@ -1,11 +1,35 @@
 require("answer")
 
-local ADDITION_MIN_ANS = 8
-local ADDITION_MAX_ANS = 25
-local SUBTRACTION_MIN_ANS = 2
-local SUBTRACTION_MAX_ANS = 12
-local MULTIPLICATION_MIN_ANS = 4
-local MULTIPLICATION_MAX_ANS = 25
+local Ranges = {}
+Ranges[Categories.ADDITION] = {}
+Ranges[Categories.ADDITION][Difficulties.EASY] = {
+  Min = 4,
+  Max = 12,
+}
+Ranges[Categories.ADDITION][Difficulties.HARD] = {
+  Min = 10,
+  Max = 25,
+}
+
+Ranges[Categories.SUBTRACTION] = {}
+Ranges[Categories.SUBTRACTION][Difficulties.EASY] = {
+  Min = 2,
+  Max = 8,
+}
+Ranges[Categories.SUBTRACTION][Difficulties.HARD] = {
+  Min = 4,
+  Max = 15,
+}
+
+Ranges[Categories.MULTIPLICATION] = {}
+Ranges[Categories.MULTIPLICATION][Difficulties.EASY] = {
+  Min = 4,
+  Max = 15,
+}
+Ranges[Categories.MULTIPLICATION][Difficulties.HARD] = {
+  Min = 8,
+  Max = 30,
+}
 
 local MIN_ANSWERS = 2
 local MAKE_PREFIX = "Make "
@@ -65,21 +89,23 @@ local prepare_hive_helper = function(hive, min, max, question_prefix, gen_answer
   end
 end
 
-local build_addition_hive = function()
+local build_addition_hive = function(difficulty)
   local hive = {}
-  prepare_hive_helper(hive, ADDITION_MIN_ANS, ADDITION_MAX_ANS, MAKE_PREFIX, gen_addition_answers, gen_addition_traps, addition_to_texts)
+  print(Categories.ADDITION)
+  print(difficulty)
+  prepare_hive_helper(hive, Ranges[Categories.ADDITION][difficulty].Min, Ranges[Categories.ADDITION][difficulty].Max, MAKE_PREFIX, gen_addition_answers, gen_addition_traps, addition_to_texts)
   return hive
 end
 
-local build_subtraction_hive = function()
+local build_subtraction_hive = function(difficulty)
   local hive = {}
-  prepare_hive_helper(hive, SUBTRACTION_MIN_ANS, SUBTRACTION_MAX_ANS, MAKE_PREFIX, gen_subtraction_answers, gen_subtraction_traps, subtraction_to_texts)
+  prepare_hive_helper(hive, Ranges[Categories.SUBTRACTION][difficulty].Min, Ranges[Categories.SUBTRACTION][difficulty].Max, MAKE_PREFIX, gen_subtraction_answers, gen_subtraction_traps, subtraction_to_texts)
   return hive
 end
 
-local build_multiplication_hive = function()
+local build_multiplication_hive = function(difficulty)
   local hive = {}
-  prepare_hive_helper(hive, MULTIPLICATION_MIN_ANS, MULTIPLICATION_MAX_ANS, MAKE_PREFIX, gen_multiplication_answers, gen_multiplication_traps, multiplication_to_texts)
+  prepare_hive_helper(hive, Ranges[Categories.MULTIPLICATION][difficulty].Min, Ranges[Categories.MULTIPLICATION][difficulty].Max, MAKE_PREFIX, gen_multiplication_answers, gen_multiplication_traps, multiplication_to_texts)
   return hive
 end
 
@@ -88,9 +114,9 @@ hive_builders[Categories.ADDITION] = build_addition_hive
 hive_builders[Categories.SUBTRACTION] = build_subtraction_hive
 hive_builders[Categories.MULTIPLICATION] = build_multiplication_hive
 
-function new_hive(question_type)
+function new_hive(question_type, difficulty)
   question_type = question_type or Categories.ADDITION
-  local hive = hive_builders[question_type]()
+  local hive = hive_builders[question_type](difficulty)
 
   function hive:new_fly(col, row, prob_correct)
     prob_correct = prob_correct or .5
