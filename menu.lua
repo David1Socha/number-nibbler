@@ -6,7 +6,7 @@ menu.start_button_y = .17 * menu.width
 menu.start_button_w = 0.8 * menu.width
 menu.start_button_h = .1 * menu.width
 menu.start_button_fontsize = .04 * menu.width
-menu.start_button_font = love.graphics.newFont("assets/font/kenvector_future_thin.ttf",menu.start_button_fontsize)
+menu.start_button_font = love.graphics.newFont("assets/font/Roboto-Black.ttf",menu.start_button_fontsize)
 menu.bgcolor = {255,255,153}
 menu.title = love.graphics.newImage("assets/image/title.png")
 menu.title_scale = 0.00077 * menu.width
@@ -84,7 +84,7 @@ function menu:enter()
     onclick=function() menu:change_difficulty(1) end,
   }
 
-  menu.name_font = love.graphics.newFont("assets/font/kenvector_future_thin.ttf",.0469*menu.width)
+  menu.name_font = love.graphics.newFont("assets/font/Roboto-Black.ttf",.0469*menu.width)
 end
 
 function menu:change(old_val,delta,num_elements,names)

@@ -7,12 +7,12 @@ defeat.menu_button_y = .28 * defeat.width
 defeat.menu_button_w = 0.8 * defeat.width
 defeat.menu_button_h = .1 * defeat.width
 defeat.menu_button_fontsize = .04 * defeat.width
-defeat.menu_button_font = love.graphics.newFont("assets/font/kenvector_future_thin.ttf",defeat.menu_button_fontsize)
+defeat.menu_button_font = love.graphics.newFont("assets/font/Roboto-Black.ttf",defeat.menu_button_fontsize)
 
 defeat.score_txt = {
   x = .1 * defeat.width,
   y = .175 * defeat.width,
-  font = love.graphics.newFont("assets/font/kenvector_future_thin.ttf",.07*defeat.width),
+  font = love.graphics.newFont("assets/font/Roboto-Black.ttf",.07*defeat.width),
   draw = function(self) 
     love.graphics.setColor({0,0,0})
     love.graphics.setFont(self.font)
@@ -23,11 +23,11 @@ defeat.score_txt = {
 defeat.high_txt = {
   x = 0,
   y = .175 * defeat.width,
-  font = love.graphics.newFont("assets/font/kenvector_future_thin.ttf",.07*defeat.width),
+  font = love.graphics.newFont("assets/font/Roboto-Black.ttf",.07*defeat.width),
   draw = function(self) 
     love.graphics.setColor({0,0,0})
     love.graphics.setFont(self.font)
-    love.graphics.printf("Best: "..game.high,self.x,self.y,.92*defeat.width,"right")
+    love.graphics.printf("Best: "..game.high,self.x,self.y,.9*defeat.width,"right")
   end
 }
 
@@ -60,7 +60,7 @@ function defeat:enter()
     outline_width=.00391*defeat.width,
   }
 
-  defeat.name_font = love.graphics.newFont("assets/font/kenvector_future_thin.ttf",.16*defeat.width)
+  defeat.name_font = love.graphics.newFont("assets/font/Roboto-Black.ttf",.16*defeat.width)
 end
 
 function defeat.exit_game()

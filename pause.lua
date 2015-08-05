@@ -6,7 +6,7 @@ pause.resume_button_y = .22 * pause.width
 pause.resume_button_w = 0.8 * pause.width
 pause.resume_button_h = .1 * pause.width
 pause.resume_button_fontsize = .04 * pause.width
-pause.resume_button_font = love.graphics.newFont("assets/font/kenvector_future_thin.ttf",pause.resume_button_fontsize)
+pause.resume_button_font = love.graphics.newFont("assets/font/Roboto-Black.ttf",pause.resume_button_fontsize)
 pause.menu_button_y = (pause.resume_button_y + pause.resume_button_h) + pause.width * .04
 pause.menu_button_h = pause.resume_button_h
 pause.menu_button_w = .375 * pause.width
@@ -50,7 +50,7 @@ function pause:enter()
     outline_width=.00391*pause.width,
   }
 
-  pause.name_font = love.graphics.newFont("assets/font/kenvector_future_thin.ttf",.16*pause.width)
+  pause.name_font = love.graphics.newFont("assets/font/Roboto-Black.ttf",.16*pause.width)
 end
 
 function pause.exit_game()

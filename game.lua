@@ -45,7 +45,7 @@ function game:enter_level()
   game.warn_txt = {
     text = function(self) return (game.active and game.danger) and "DANGER" or "" end,
     color = game.warning_color,
-    font = love.graphics.newFont("assets/font/kenvector_future_thin.ttf",.055*game.width)
+    font = love.graphics.newFont("assets/font/Roboto-Black.ttf",.055*game.width)
   }
 
   game.game_over_txt = {
@@ -76,7 +76,7 @@ function game:enter()
   local grid_box_size_width = (game.width - game.offx - game.board_margin) / (game.grid_units + 1)
   local grid_box_size_height = game.height / (game.grid_units + 1)
   game.grid_box_size = math.min(grid_box_size_height,grid_box_size_width)
-  game.info_font = love.graphics.newFont("assets/font/kenvector_future_thin.ttf",.048*game.width)
+  game.info_font = love.graphics.newFont("assets/font/Roboto-Black.ttf",.048*game.width)
   game.panel_width = (game.offx - game.board_margin)
   game.score_bg = {
     color = {255,255,153},
@@ -143,7 +143,7 @@ function game:enter()
     y=game.panel_width * .018,
     height=game.panel_width * .2,
     outline_width=.00391*game.width,
-    font=love.graphics.newFont("assets/font/kenvector_future_thin.ttf",game.panel_width*.12),
+    font=love.graphics.newFont("assets/font/Roboto-Black.ttf",game.panel_width*.12),
   }
 
 end

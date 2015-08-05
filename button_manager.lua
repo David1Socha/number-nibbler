@@ -124,7 +124,7 @@ local btn_mousepressed = function(self, x, y, code)
   end
 end
 
-local default_font = love.graphics.newFont("assets/font/kenvector_future_thin.ttf",.02*love.graphics.getWidth())
+local default_font = love.graphics.newFont("assets/font/Roboto-Black.ttf",.02*love.graphics.getWidth())
 local default_outline_color = {20,20,20}
 local default_color = {204, 224, 245}
 local default_font_color = {0,0,0}

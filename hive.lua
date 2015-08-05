@@ -128,7 +128,7 @@ function new_hive(question_type, difficulty)
       real = true,
       col = col,
       correct = c,
-      font = love.graphics.newFont("assets/font/kenvector_future_thin.ttf",0.015 * game.width),
+      font = love.graphics.newFont("assets/font/Roboto-Black.ttf",0.015 * game.width),
       text_off = vector(.021*game.width, 0.033*game.width),
       img = love.graphics.newImage "assets/image/fly.png",
     }
