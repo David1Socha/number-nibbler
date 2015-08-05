@@ -76,6 +76,8 @@ function game:enter()
   local grid_box_size_width = (game.width - game.offx - game.board_margin) / (game.grid_units + 1)
   local grid_box_size_height = game.height / (game.grid_units + 1)
   game.grid_box_size = math.min(grid_box_size_height,grid_box_size_width)
+  line_width = .0556 * game.grid_box_size
+  love.graphics.setLineWidth(line_width)
   game.info_font = love.graphics.newFont("assets/font/Roboto-Black.ttf",.048*game.width)
   game.panel_width = (game.offx - game.board_margin)
   game.score_bg = {
@@ -351,7 +353,7 @@ function game:build_fly_grid()
   for i=0,self.grid_units do
     self.fly_grid[i] = {}
     for j=0,self.grid_units do
-      local newfly = self.hive:new_fly(i,j)
+      local newfly = self.hive:new_fly(self.grid_box_size,i,j)
       self.fly_grid[i][j] = newfly
       if newfly.correct then
         self.yes_flies = self.yes_flies + 1
@@ -364,7 +366,7 @@ function game:build_fly_grid()
     local i = math.random(4) - 1
     local j = math.random(4) - 1
     if not self.fly_grid[i][j].correct then
-      self.fly_grid[i][j] = self.hive:new_fly(i,j, 1)
+      self.fly_grid[i][j] = self.hive:new_fly(self.grid_box_size,i,j, 1)
       self.yes_flies = self.yes_flies + 1
       self.no_flies = self.no_flies - 1
     end
@@ -373,7 +375,7 @@ function game:build_fly_grid()
     local i = math.random(4) - 1
     local j = math.random(4) - 1
     if self.fly_grid[i][j].correct then
-      self.fly_grid[i][j] = self.hive:new_fly(i,j, 0)
+      self.fly_grid[i][j] = self.hive:new_fly(self.grid_box_size,i,j, 0)
       self.yes_flies = self.yes_flies - 1
       self.no_flies = self.no_flies + 1
     end

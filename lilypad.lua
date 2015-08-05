@@ -1,6 +1,6 @@
 function new_lilypad(box_size)
   local lilypad = {
-    scale = 0.000546875 * game.width,
+    scale = .0039 * box_size,
     box_size = box_size,
     img = love.graphics.newImage "assets/image/lilypad.png",
   }

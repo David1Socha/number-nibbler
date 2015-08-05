@@ -12,9 +12,7 @@ function love.load()
   Timer = require "hump.timer"
   require "equality"
   math.randomseed(os.time())
-  line_width = 0.0078125 * love.window.getWidth()
   Gamestate.registerEvents()
-  love.graphics.setLineWidth(line_width)
   Gamestate.switch(menu)
   d = 0
 end

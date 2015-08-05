@@ -7,7 +7,7 @@ function new_player(box_size)
     can_move = true,
     box_size = box_size,
     movetime = .5,
-    scale = .000351*love.window.getWidth(),
+    scale = 0.002496*box_size,
     tweening = false,
     move_sound = love.audio.newSource("assets/sound/player_movement.ogg", "static"),
     anim_eat = {s2 = game.select_cd / 2, s3 = game.select_cd},

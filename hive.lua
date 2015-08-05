@@ -91,8 +91,6 @@ end
 
 local build_addition_hive = function(difficulty)
   local hive = {}
-  print(Categories.ADDITION)
-  print(difficulty)
   prepare_hive_helper(hive, Ranges[Categories.ADDITION][difficulty].Min, Ranges[Categories.ADDITION][difficulty].Max, MAKE_PREFIX, gen_addition_answers, gen_addition_traps, addition_to_texts)
   return hive
 end
@@ -118,18 +116,19 @@ function new_hive(question_type, difficulty)
   question_type = question_type or Categories.ADDITION
   local hive = hive_builders[question_type](difficulty)
 
-  function hive:new_fly(col, row, prob_correct)
+  function hive:new_fly(box_size, col, row, prob_correct)
     prob_correct = prob_correct or .5
     local c = math.random() < prob_correct
     local fly = {
       score = 5,
-      scale = 0.00048 * game.width,
+      scale = .003413 * box_size,
       row = row,
       real = true,
       col = col,
+      box_size = box_size,
       correct = c,
-      font = love.graphics.newFont("assets/font/Roboto-Black.ttf",0.015 * game.width),
-      text_off = vector(.021*game.width, 0.033*game.width),
+      font = love.graphics.newFont("assets/font/Roboto-Black.ttf",0.107 * box_size),
+      text_off = vector(.146 * box_size, .23 * box_size),
       img = love.graphics.newImage "assets/image/fly.png",
     }
 
@@ -148,7 +147,7 @@ function new_hive(question_type, difficulty)
       rowcol_scaled = vector(self.row, self.col) * game.grid_box_size + self.off
       love.graphics.draw(self.img, rowcol_scaled.x, rowcol_scaled.y, 0, self.scale, self.scale)
       love.graphics.setColor(0, 0, 0)
-      love.graphics.printf(self.text, rowcol_scaled.x + self.text_off.x, rowcol_scaled.y + self.text_off.y,0.05*game.width,"center")
+      love.graphics.printf(self.text, rowcol_scaled.x + self.text_off.x, rowcol_scaled.y + self.text_off.y,0.356*self.box_size,"center")
     end
 
     return fly
