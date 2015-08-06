@@ -17,9 +17,9 @@
    id="svg3374"
    version="1.1"
    inkscape:version="0.91 r13725"
-   inkscape:export-filename="C:\Users\david_000\Desktop\Files\number-nibbler\assets\image\ic_launcher.png"
-   inkscape:export-xdpi="12.833684"
-   inkscape:export-ydpi="12.833684"
+   inkscape:export-filename="C:\Users\david_000\Desktop\Files\number-nibbler\assets\image\hires_icon.png"
+   inkscape:export-xdpi="45.630878"
+   inkscape:export-ydpi="45.630878"
    sodipodi:docname="icon.svg">
   <defs
      id="defs3376">
@@ -97,9 +97,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.7"
-     inkscape:cx="673.3064"
-     inkscape:cy="515.61887"
+     inkscape:zoom="0.35"
+     inkscape:cx="252.51024"
+     inkscape:cy="-24.072676"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -120,7 +120,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>

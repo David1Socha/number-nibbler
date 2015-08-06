@@ -2,12 +2,12 @@ defeat = {}
 defeat.width = love.graphics.getWidth()
 defeat.height = love.graphics.getHeight()
 
-defeat.menu_button_x = 0.1 * defeat.width
+defeat.replay_button_x = 0.1 * defeat.width
 defeat.menu_button_y = .28 * defeat.width
-defeat.menu_button_w = 0.8 * defeat.width
-defeat.menu_button_h = .1 * defeat.width
-defeat.menu_button_fontsize = .04 * defeat.width
-defeat.menu_button_font = love.graphics.newFont("assets/font/Roboto-Black.ttf",defeat.menu_button_fontsize)
+defeat.replay_button_w = .8 * defeat.width
+defeat.replay_button_h = .1 * defeat.width
+defeat.replay_button_fontsize = .04 * defeat.width
+defeat.replay_button_font = love.graphics.newFont("assets/font/Roboto-Black.ttf",defeat.replay_button_fontsize)
 
 defeat.score_txt = {
   x = .1 * defeat.width,
@@ -31,35 +31,51 @@ defeat.high_txt = {
   end
 }
 
-defeat.replay_button_y = (defeat.menu_button_y + defeat.menu_button_h) + defeat.width * .035
+defeat.replay_button_y = (defeat.menu_button_y + defeat.replay_button_h) + defeat.width * .035
+defeat.menu_button_w = .375 * defeat.width
+
+defeat.exit_button_x = defeat.replay_button_x + defeat.menu_button_w + 0.05 * defeat.width
+
 defeat.bgcolor = {255,255,153}
 defeat.text = love.graphics.newImage("assets/image/defeat.png")
 defeat.text_scale = 0.0008 * defeat.width
+defeat.outline_width = .00391*defeat.width
 
 function defeat:enter()
   defeat.time = 0
   defeat.cd = .35
   defeat.mgr = ButtonManager()
-  defeat.menu_button = defeat.mgr:new_button {
-    x=defeat.menu_button_x,
-    y=defeat.menu_button_y,
+  defeat.replay_button = defeat.mgr:new_button {
+    x=defeat.replay_button_x,
+    y=defeat.replay_button_y,
     width=defeat.menu_button_w,
-    height=defeat.menu_button_h,
-    font=defeat.menu_button_font,
+    height=defeat.replay_button_h,
+    font=defeat.replay_button_font,
     text="Return to menu",
     onclick=defeat.return_menu,
-    outline_width=.00391*defeat.width,
+    outline_width=defeat.outline_width,
   }
 
   defeat.replay_button = defeat.mgr:new_button {
-    x=defeat.menu_button_x,
-    y=defeat.replay_button_y,
-    width=defeat.menu_button_w,
-    height=defeat.menu_button_h,
-    font=defeat.menu_button_font,
+    x=defeat.replay_button_x,
+    y=defeat.menu_button_y,
+    width=defeat.replay_button_w,
+    height=defeat.replay_button_h,
+    font=defeat.replay_button_font,
     text="Play Again",
     onclick=defeat.play_again,
-    outline_width=.00391*defeat.width,
+    outline_width=defeat.outline_width,
+  }
+
+  defeat.exit_button = defeat.mgr:new_button {
+    x=defeat.exit_button_x,
+    y=defeat.replay_button_y,
+    width=defeat.menu_button_w,
+    height=defeat.replay_button_h,
+    font=defeat.replay_button_font,
+    text="Quit Game",
+    onclick=defeat.exit_game,
+    outline_width=defeat.outline_width,
   }
 
   defeat.name_font = love.graphics.newFont("assets/font/Roboto-Black.ttf",.16*defeat.width)
