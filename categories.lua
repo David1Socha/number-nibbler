@@ -1,6 +1,6 @@
 local Categories = {}
 
-Categories.NUM_CATEGORIES = 3
+Categories.NUM_CATEGORIES = 4
 Categories.ADDITION = 1
 Categories.SUBTRACTION = 2
 Categories.MULTIPLICATION = 3

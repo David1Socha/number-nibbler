@@ -85,3 +85,18 @@ function gen_multiplication_traps(x)
   end
   return ts
 end
+
+function gen_multiples_answers(x)
+  local as = {}
+  for i=2,8 do
+    local a = x * i
+    table.insert(as, a)
+  end
+  return as
+end
+
+function gen_multiples_traps(x)
+  local ts = {}
+  table.insert(ts, "TRAP")
+  return ts
+end

@@ -47,7 +47,7 @@ local MULTIPLES_PREFIX = "Multiples of "
 
 local flat_map = function (a, fn)
   local mapped = {}
-  local int i = 0
+  local int i = 1
   for _,v in ipairs(a) do
     local map_results = fn(v)
     for _,mv in ipairs(map_results) do
