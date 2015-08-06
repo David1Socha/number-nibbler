@@ -37,6 +37,8 @@ defeat.text = love.graphics.newImage("assets/image/defeat.png")
 defeat.text_scale = 0.0008 * defeat.width
 
 function defeat:enter()
+  defeat.time = 0
+  defeat.cd = .35
   defeat.mgr = ButtonManager()
   defeat.menu_button = defeat.mgr:new_button {
     x=defeat.menu_button_x,
@@ -64,20 +66,30 @@ function defeat:enter()
 end
 
 function defeat.exit_game()
-  love.event.quit()
+  if (defeat.time > defeat.cd) then
+    love.event.quit()
+  end
 end
 
 function defeat.return_menu()
-  Gamestate.switch(menu)
+  if (defeat.time > defeat.cd) then
+    Gamestate.switch(menu)
+  end
 end
 
 
 function defeat.play_again()
-  Gamestate.switch(game)
+  if (defeat.time > defeat.cd) then
+    Gamestate.switch(game)
+  end
 end
 
 function defeat:mousepressed(x,y,btn)
   defeat.mgr:mousepressed(x,y,btn)
+end
+
+function defeat:update(dt)
+  self.time = self.time + dt
 end
 
 function defeat:draw() 
