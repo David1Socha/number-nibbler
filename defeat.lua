@@ -8,22 +8,34 @@ defeat.replay_button_w = .8 * defeat.width
 defeat.replay_button_h = .1 * defeat.width
 defeat.replay_button_fontsize = .04 * defeat.width
 defeat.replay_button_font = love.graphics.newFont("assets/font/Roboto-Black.ttf",defeat.replay_button_fontsize)
+defeat.info_font = love.graphics.newFont("assets/font/Roboto-Black.ttf",.07*defeat.width)
+
+defeat.category_txt = {
+  x = .1 * defeat.width,
+  y = .13 * defeat.width,
+  font = defeat.info_font,
+  draw = function(self)
+    love.graphics.setColor{0,0,0}
+    love.graphics.setFont(self.font)
+    love.graphics.printf(Categories.Names[menu.category].." - "..Difficulties.Names[menu.difficulty],self.x,self.y,.8*defeat.width,"center")
+  end
+}
 
 defeat.score_txt = {
   x = .1 * defeat.width,
-  y = .175 * defeat.width,
-  font = love.graphics.newFont("assets/font/Roboto-Black.ttf",.07*defeat.width),
+  y = .2 * defeat.width,
+  font = defeat.info_font,
   draw = function(self) 
     love.graphics.setColor({0,0,0})
     love.graphics.setFont(self.font)
-    love.graphics.printf("Score: "..game.score.value, self.x,self.y,defeat.width)
+    love.graphics.printf("Score: "..game.score.value,self.x,self.y,defeat.width)
   end
 }
 
 defeat.high_txt = {
   x = 0,
-  y = .175 * defeat.width,
-  font = love.graphics.newFont("assets/font/Roboto-Black.ttf",.07*defeat.width),
+  y = .2 * defeat.width,
+  font = defeat.info_font,
   draw = function(self) 
     love.graphics.setColor({0,0,0})
     love.graphics.setFont(self.font)
@@ -120,6 +132,7 @@ function defeat:draw()
 
   self.score_txt:draw()
   self.high_txt:draw()
+  self.category_txt:draw()
 
   defeat.mgr:draw()
 end
