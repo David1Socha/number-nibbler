@@ -334,12 +334,12 @@ function game:defeat()
     self.active = false
     love.audio.play(self.ouch)
     self.player.defeated = true
-    local old_high = tonumber(love.filesystem.read(menu.category.."score"),10)
+    local old_high = tonumber(love.filesystem.read(menu.difficulty..menu.category.."score"),10)
     if (old_high and old_high > game.score.value) then
       game.high = old_high
     else
       game.high = game.score.value
-      love.filesystem.write(menu.category.."score",tostring(game.score.value))
+      love.filesystem.write(menu.difficulty..menu.category.."score",tostring(game.score.value))
     end
     Gamestate.switch(defeat)
   end
