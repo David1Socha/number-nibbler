@@ -82,11 +82,11 @@ function game:enter()
   game.panel_width = (game.offx - game.board_margin)
   game.score_bg = {
     color = {255,255,153},
-    border_width = 0.0078125 * love.window.getWidth(),
+    border_width = 0.004 * love.window.getWidth(),
     draw = function(self)
       love.graphics.setColor(self.color)
       love.graphics.rectangle("fill",0,0,game.panel_width,game.height)
-      love.graphics.setColor({224,224,102})
+      love.graphics.setColor({0,0,0})
       love.graphics.rectangle("fill",game.panel_width,0,self.border_width,game.height)
     end
   }
@@ -121,9 +121,11 @@ function game:enter()
 }
 
   game.bg = {
-    color = {0x33, 0xff, 0xff},
+    image = love.graphics.newImage("assets/image/bg_water.png"),
     draw = function (self)
-      love.graphics.setBackgroundColor(self.color)
+      love.graphics.setBackgroundColor{0xff,0xff,0xff}
+      love.graphics.setColor{0xff,0xff,0xff}
+      love.graphics.draw(self.image,game.panel_width,0,0,game.width/1280,game.height/720)
     end
   }
 
