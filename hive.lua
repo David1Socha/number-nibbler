@@ -38,12 +38,12 @@ Ranges[Categories.MULTIPLES][Difficulties.EASY] = {
 }
 Ranges[Categories.MULTIPLES][Difficulties.HARD] = {
   Min = 6,
-  Max = 18,
+  Max = 15,
 }
 
 local MIN_ANSWERS = 2
 local MAKE_PREFIX = "Make "
-local MULTIPLES_PREFIX = "Multiples of "
+local MULTIPLES_PREFIX = "Multiple of "
 
 local flat_map = function (a, fn)
   local mapped = {}

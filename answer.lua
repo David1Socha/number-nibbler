@@ -97,6 +97,14 @@ end
 
 function gen_multiples_traps(x)
   local ts = {}
-  table.insert(ts, "TRAP")
+  local as = gen_multiples_answers(x)
+  for k,a in ipairs(as) do
+    for i=a-MIN_DELTA,a+MAX_DELTA do
+      if (i>0 and i % x ~= 0) then
+        print(i)
+        table.insert(ts, i)
+      end
+    end
+  end
   return ts
 end
