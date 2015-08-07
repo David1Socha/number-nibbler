@@ -31,6 +31,16 @@ Ranges[Categories.MULTIPLICATION][Difficulties.HARD] = {
   Max = 30,
 }
 
+Ranges[Categories.DIVISION] = {}
+Ranges[Categories.DIVISION][Difficulties.EASY] = {
+  Min = 2,
+  Max = 8,
+}
+Ranges[Categories.DIVISION][Difficulties.HARD] = {
+  Min = 6,
+  Max = 15,
+}
+
 Ranges[Categories.MULTIPLES] = {}
 Ranges[Categories.MULTIPLES][Difficulties.EASY] = {
   Min = 2,
@@ -65,6 +75,12 @@ end
 local subtraction_to_texts = function (p)
   local txts = {}
   txts[1] = p[1].."-"..p[2]
+  return txts
+end
+
+local division_to_texts = function (p)
+  local txts = {}
+  txts[1] = p[1].."/"..p[2]
   return txts
 end
 
@@ -122,9 +138,15 @@ local build_multiplication_hive = function(difficulty)
   return hive
 end
 
+local build_division_hive = function(difficulty)
+  local hive = {}
+  prepare_hive_helper(hive, Ranges[Categories.DIVISION][difficulty].Min, Ranges[Categories.DIVISION][difficulty].Max, MAKE_PREFIX, gen_division_answers, gen_division_traps, division_to_texts)
+  return hive
+end
+
 local build_multiples_hive = function(difficulty)
   local hive = {}
-  prepare_hive_helper(hive, Ranges[Categories.MULTIPLES][difficulty].Min, Ranges[Categories.MULTIPLES][difficulty].Max, MULTIPLES_PREFIX, gen_multiples_answers, gen_multiples_traps, multiples_to_texts) --todo add functions in answer.lua
+  prepare_hive_helper(hive, Ranges[Categories.MULTIPLES][difficulty].Min, Ranges[Categories.MULTIPLES][difficulty].Max, MULTIPLES_PREFIX, gen_multiples_answers, gen_multiples_traps, multiples_to_texts)
   return hive
 end
 
@@ -132,6 +154,7 @@ local hive_builders = {}
 hive_builders[Categories.ADDITION] = build_addition_hive
 hive_builders[Categories.SUBTRACTION] = build_subtraction_hive
 hive_builders[Categories.MULTIPLICATION] = build_multiplication_hive
+hive_builders[Categories.DIVISION] = build_division_hive
 hive_builders[Categories.MULTIPLES] = build_multiples_hive
 
 function new_hive(question_type, difficulty)
