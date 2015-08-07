@@ -55,6 +55,32 @@ function gen_subtraction_traps(x)
   return ts
 end
 
+function gen_division_answers(x)
+  local as = {}
+  for denominator=2,9 do
+    local numerator = x * denominator
+    local a = {numerator, denominator}
+    table.insert(as, a)
+  end
+  return as
+end
+
+function gen_division_traps(x)
+  local ts = {}
+  local as = gen_division_answers(x)
+  for k,a in ipairs(as) do 
+    for i=a[1]-MIN_DELTA,a[1]+MAX_DELTA do
+      for j=a[2]-MIN_DELTA,a[2]+MAX_DELTA do
+        if (i>0 and j>0 and i/j~=x) then
+          local t = {i,j}
+          table.insert(ts,t)
+        end
+      end
+    end
+  end
+  return ts
+end
+ 
 function gen_multiplication_answers(x)
   local as = {}
   local prev_large_factor = x
@@ -80,6 +106,29 @@ function gen_multiplication_traps(x)
           local t = {i,j}
           table.insert(ts,t)
         end
+      end
+    end
+  end
+  return ts
+end
+
+function gen_multiples_answers(x)
+  local as = {}
+  for i=2,8 do
+    local a = x * i
+    table.insert(as, a)
+  end
+  return as
+end
+
+function gen_multiples_traps(x)
+  local ts = {}
+  local as = gen_multiples_answers(x)
+  for k,a in ipairs(as) do
+    for i=a-MIN_DELTA,a+MAX_DELTA do
+      if (i>0 and i % x ~= 0) then
+        print(i)
+        table.insert(ts, i)
       end
     end
   end
