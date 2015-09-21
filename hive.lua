@@ -80,7 +80,7 @@ end
 
 local division_to_texts = function (p)
   local txts = {}
-  txts[1] = p[1].."/"..p[2]
+  txts[1] = p[1].."÷"..p[2]
   return txts
 end
 
@@ -93,8 +93,8 @@ end
 
 local multiplication_to_texts = function(p)
   local txts = {}
-  txts[1] = p[1].."*"..p[2]
-  txts[2] = p[2].."*"..p[1]
+  txts[1] = p[1].."×"..p[2]
+  txts[2] = p[2].."×"..p[1]
   return txts
 end
 
@@ -172,7 +172,7 @@ function new_hive(question_type, difficulty)
       col = col,
       box_size = box_size,
       correct = c,
-      font = love.graphics.newFont("assets/font/Roboto-Black.ttf",0.107 * box_size),
+      font = love.graphics.newFont(main_font_path,0.107 * box_size),
       text_off = vector(.146 * box_size, .23 * box_size),
       img = love.graphics.newImage "assets/image/fly.png",
     }
