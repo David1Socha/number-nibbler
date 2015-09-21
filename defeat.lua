@@ -7,8 +7,8 @@ defeat.menu_button_y = .28 * defeat.width
 defeat.replay_button_w = .8 * defeat.width
 defeat.replay_button_h = .1 * defeat.width
 defeat.replay_button_fontsize = .04 * defeat.width
-defeat.replay_button_font = love.graphics.newFont("assets/font/Roboto-Black.ttf",defeat.replay_button_fontsize)
-defeat.info_font = love.graphics.newFont("assets/font/Roboto-Black.ttf",.07*defeat.width)
+defeat.replay_button_font = love.graphics.newFont(main_font_path,defeat.replay_button_fontsize)
+defeat.info_font = love.graphics.newFont(main_font_path,.07*defeat.width)
 
 defeat.category_txt = {
   x = .1 * defeat.width,
@@ -90,7 +90,7 @@ function defeat:enter()
     outline_width=defeat.outline_width,
   }
 
-  defeat.name_font = love.graphics.newFont("assets/font/Roboto-Black.ttf",.16*defeat.width)
+  defeat.name_font = love.graphics.newFont(main_font_path,.16*defeat.width)
 end
 
 function defeat.exit_game()

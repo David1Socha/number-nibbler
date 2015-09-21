@@ -172,7 +172,7 @@ function new_hive(question_type, difficulty)
       col = col,
       box_size = box_size,
       correct = c,
-      font = love.graphics.newFont("assets/font/Roboto-Black.ttf",0.107 * box_size),
+      font = love.graphics.newFont(main_font_path,0.107 * box_size),
       text_off = vector(.146 * box_size, .23 * box_size),
       img = love.graphics.newImage "assets/image/fly.png",
     }

@@ -1,5 +1,6 @@
 function love.load()
   love.window.setMode(1280,720)
+  main_font_path = "assets/font/Roboto-Black.ttf"
   Categories = require "categories"
   Difficulties = require "difficulties"
   ButtonManager = require "button_manager"
