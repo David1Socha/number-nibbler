@@ -80,7 +80,7 @@ end
 
 local division_to_texts = function (p)
   local txts = {}
-  txts[1] = p[1].."/"..p[2]
+  txts[1] = p[1].."÷"..p[2]
   return txts
 end
 
@@ -93,8 +93,8 @@ end
 
 local multiplication_to_texts = function(p)
   local txts = {}
-  txts[1] = p[1].."*"..p[2]
-  txts[2] = p[2].."*"..p[1]
+  txts[1] = p[1].."×"..p[2]
+  txts[2] = p[2].."×"..p[1]
   return txts
 end
 
