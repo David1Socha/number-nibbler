@@ -16,7 +16,7 @@
    version="1.1"
    inkscape:version="0.91 r13725"
    sodipodi:docname="lilypad.svg"
-   inkscape:export-filename="C:\Users\David\Desktop\Laptop\love2d\number-nibbler\assets\image\lilypad.png"
+   inkscape:export-filename="C:\Users\david_000\Desktop\Files\number-nibbler\assets\image\lilypad.png"
    inkscape:export-xdpi="28.138584"
    inkscape:export-ydpi="28.138584">
   <defs
@@ -61,9 +61,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.7"
-     inkscape:cx="-267.09557"
-     inkscape:cy="492.49023"
+     inkscape:zoom="0.49497475"
+     inkscape:cx="85.455398"
+     inkscape:cy="425.97164"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -105,5 +105,20 @@
        sodipodi:end="5.9938526"
        d="M 908.15228,219.38823 A 317.83807,317.83807 0 0 1 613.2844,536.39519 317.83807,317.83807 0 0 1 275.79625,265.20849 317.83807,317.83807 0 0 1 521.88351,-90.995857 317.83807,317.83807 0 0 1 894.94118,128.70498 l -304.62697,90.68325 z"
        transform="matrix(0.82583247,0.56391554,-0.56391554,0.82583247,0,0)" />
+    <path
+       sodipodi:type="star"
+       style="fill:none;fill-opacity:1;stroke:#247724;stroke-width:15;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path4232"
+       sodipodi:sides="6"
+       sodipodi:cx="363.64539"
+       sodipodi:cy="510.84921"
+       sodipodi:r1="179.8242"
+       sodipodi:r2="2.4305875"
+       sodipodi:arg1="0.23551484"
+       sodipodi:arg2="0.75911362"
+       inkscape:flatsided="false"
+       inkscape:rounded="0"
+       inkscape:randomized="0"
+       d="M 538.50542,552.81005 365.40865,512.52213 414.73626,683.26286 363.07822,513.2127 239.87622,641.30203 361.31496,511.53978 188.78535,468.88838 361.88212,509.17629 312.55452,338.43556 364.21255,508.48572 487.41455,380.3964 365.97581,510.15864 Z" />
   </g>
 </svg>
