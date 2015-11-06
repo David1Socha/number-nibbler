@@ -76,7 +76,7 @@ function game:enter()
   local grid_box_size_width = (game.width - game.offx - game.board_margin) / (game.grid_units + 1)
   local grid_box_size_height = game.height / (game.grid_units + 1)
   game.grid_box_size = math.min(grid_box_size_height,grid_box_size_width)
-  line_width = .0556 * game.grid_box_size
+  line_width = .05 * game.grid_box_size
   love.graphics.setLineWidth(line_width)
   game.info_font = love.graphics.newFont(main_font_path,.048*game.width)
   game.panel_width = (game.offx - game.board_margin)
