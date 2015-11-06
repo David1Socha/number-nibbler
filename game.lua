@@ -231,6 +231,15 @@ function game:draw()
   end
   self:draw_enemies()
   game.mgr:draw()
+  self:draw_fps()
+end
+
+function game:draw_fps()
+  if self.debug then
+    love.graphics.setColor(0,0,0)
+    love.graphics.setNewFont(20)
+    love.graphics.print("Current FPS: "..tostring(love.timer.getFPS( )), 0, 200)
+  end
 end
 
 function game:draw_enemies()
