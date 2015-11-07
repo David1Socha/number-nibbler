@@ -26,9 +26,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="4"
-     inkscape:cx="91.157528"
-     inkscape:cy="88.66885"
+     inkscape:zoom="2.8284271"
+     inkscape:cx="66.816539"
+     inkscape:cy="139.58128"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -69,7 +69,7 @@
        style="fill:#88aa00;fill-opacity:1;stroke:#000000;stroke-width:2.20000005;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
       <desc
          id="desc8">
-        skin medium
+        skin-medium
       </desc>
     </path>
     <path
@@ -80,7 +80,7 @@
        style="fill:#88aa00;fill-opacity:1;stroke:#000000;stroke-width:2.20000005;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
       <desc
          id="desc11">
-        skin medium
+        skin-medium
       </desc>
     </path>
     <path
@@ -91,7 +91,7 @@
        sodipodi:nodetypes="ssscs">
       <desc
          id="desc14">
-        skin dark
+        skin-dark
       </desc>
     </path>
     <path
@@ -111,7 +111,12 @@
        sodipodi:sides="3"
        id="path4318"
        style="fill:#d4ff2a;fill-opacity:1;stroke:#000000;stroke-width:1.44467092;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       sodipodi:type="star" />
+       sodipodi:type="star">
+      <desc
+         id="desc15">
+        spike
+      </desc>
+    </path>
     <path
        style="fill:#88aa00;fill-opacity:1;stroke:#000000;stroke-width:2.20000005;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 303.84935,633.73558 c -0.89504,-1.07845 -2.04282,-5.93662 -2.06387,-8.73572 -0.022,-2.92395 -1.61037,-2.72639 -3.20462,0.3986 -1.68612,3.30506 -4.46001,6.55205 -5.59739,6.55205 -1.17843,0 -1.15089,-1.60567 0.12362,-7.20942 0.61975,-2.72486 0.80045,-4.79073 0.44969,-5.14148 -0.35075,-0.35075 -1.9701,0.5948 -4.0302,2.35327 -1.89412,1.61679 -4.27867,3.37131 -5.29898,3.89894 -1.75334,0.90668 -1.85514,0.88604 -1.85514,-0.37617 0,-0.84834 -0.36271,-2.7852 0.48619,-4.43055 0.7303,-1.41548 1.64099,-3.01583 2.77739,-4.33383 l 1.98982,-2.3078 0.56576,-20.80561 0,-21.29055 6.32881,6.06007 c 3.48085,3.33304 7.3838,6.77598 8.6732,7.65096 l 2.3444,1.59089 0.38922,19.74599 c 0.16943,8.59564 2.3059,12.50266 2.35001,16.29669 0.0909,7.81949 -2.14378,9.38444 -2.8232,10.06386 -0.73942,0.73942 -1.00481,0.74271 -1.60475,0.0198 z"
@@ -120,7 +125,7 @@
        sodipodi:nodetypes="csssssssssscccsscssscc">
       <desc
          id="desc18">
-        skin medium
+        skin-medium
       </desc>
     </path>
     <path
@@ -131,7 +136,7 @@
        style="fill:#88aa00;fill-opacity:1;stroke:#000000;stroke-width:2.20000005;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
       <desc
          id="desc21">
-        skin medium
+        skin-medium
       </desc>
     </path>
     <path
@@ -142,7 +147,7 @@
        sodipodi:nodetypes="csssssscssscccsscssccc">
       <desc
          id="desc24">
-        skin medium
+        skin-medium
       </desc>
     </path>
     <path
@@ -153,7 +158,7 @@
        style="fill:#7c9e00;fill-opacity:1;stroke:none;stroke-width:2.20000005;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
       <desc
          id="desc27">
-        skin dark
+        skin-dark
       </desc>
     </path>
     <path
@@ -173,7 +178,12 @@
        d="m 393,491.36218 11.74519,8.21891 -12.99038,6.06218 z"
        inkscape:transform-center-x="-1.4580465"
        inkscape:transform-center-y="0.67372991"
-       transform="matrix(0.96878762,-0.2478922,0.2478922,0.96878762,-118.90014,101.90805)" />
+       transform="matrix(0.96878762,-0.2478922,0.2478922,0.96878762,-118.90014,101.90805)">
+      <desc
+         id="desc26">
+        spike
+      </desc>
+    </path>
     <ellipse
        ry="74.55275"
        rx="55.620766"
@@ -183,7 +193,7 @@
        style="fill:#88aa00;fill-opacity:1;stroke:#000000;stroke-width:1.86400044;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
       <desc
          id="desc31">
-        skin medium
+        skin-medium
       </desc>
     </ellipse>
     <ellipse
@@ -192,20 +202,32 @@
        cy="532.90601"
        cx="324.9321"
        id="path4314"
-       style="fill:#ffdd55;fill-opacity:1;stroke:#000000;stroke-width:1.96985829;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="fill:#ffdd55;fill-opacity:1;stroke:#000000;stroke-width:1.96985829;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+      <desc>
+        underside-skin-medium
+      </desc>
+    </ellipse>
     <path
        sodipodi:nodetypes="csssssssssssscssssscc"
        inkscape:connector-curvature="0"
        id="path4168"
        d="m 317.38822,508.40688 c -5.33423,-0.96798 -8.24991,-2.28831 -14.5453,-6.58664 -3.32833,-2.27249 -9.24868,-5.76104 -13.15632,-7.7523 -8.57589,-4.37013 -13.71122,-9.07602 -16.80728,-15.40181 -2.162,-4.41736 -3.87492,-11.30943 -3.89267,-15.66288 -0.005,-1.3511 0.0933,-2.59898 0.68925,-2.93846 0.79346,-0.45195 2.50928,0.3475 6.43179,1.1787 6.11235,1.29523 11.36339,4.30246 15.18511,8.69637 3.64794,4.19414 8.28603,6.78037 15.33707,8.55209 3.57598,0.89853 7.11367,1.10894 18.35246,1.09151 12.19021,-0.0189 14.61535,-0.19485 19.49025,-1.41405 7.96584,-1.99224 11.87238,-4.09903 15.64634,-8.43804 4.39471,-5.05272 10.48964,-8.08676 17.27613,-8.60001 l 4.37514,-0.0492 0.47353,3.72822 c 1.19688,9.42324 -3.96245,19.90215 -9.31347,24.6123 -1.63226,1.43677 -4.67049,3.37763 -6.75164,4.31303 -2.08116,0.9354 -8.92673,4.27636 -15.21238,7.42436 -6.28564,3.14799 -12.99474,6.08088 -14.90909,6.51752 -4.61227,1.052 -14.71546,1.44665 -18.6689,0.72923 z"
-       style="fill:#ffdd55;fill-opacity:1;stroke:#000000;stroke-width:1.94915903;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="fill:#ffdd55;fill-opacity:1;stroke:#000000;stroke-width:1.94915903;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+      <desc>
+        underside-skin-medium
+      </desc>
+    </path>
     <path
        style="fill:#ffe680;fill-opacity:1;stroke:none;stroke-width:6.25;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 54.169763,150.48193 c -3.573967,-15.82507 -1.579422,-34.31213 5.220902,-48.39157 0.973431,-2.0154 1.816848,-3.711334 1.874262,-3.768748 0.08639,-0.08639 5.619986,3.136528 7.893302,4.597278 l 0.637021,0.40933 -1.052533,2.66022 c -2.830869,7.15488 -6.660905,21.13416 -10.717513,39.11795 -0.863201,3.82676 -2.285946,10.94226 -2.405444,11.0589 0,0 -1.257558,-4.83317 -1.449997,-5.68336 z"
        id="path4244"
        inkscape:connector-curvature="0"
        transform="translate(231.69261,398.91704)"
-       sodipodi:nodetypes="cssscsscc" />
+       sodipodi:nodetypes="cssscsscc">
+      <desc>
+        underside-skin-light
+      </desc>
+    </path>
     <path
        sodipodi:nodetypes="sssss"
        inkscape:connector-curvature="0"
@@ -220,7 +242,7 @@
        style="fill:#88aa00;fill-opacity:1;stroke:#000000;stroke-width:1.94915903;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
       <desc
          id="desc38">
-        skin medium
+        skin-medium
       </desc>
     </path>
     <path
@@ -369,14 +391,24 @@
        cx="353.66025"
        cy="422.51605"
        rx="7.4298306"
-       ry="7.0573034" />
+       ry="7.0573034">
+      <desc
+         id="desc3375">
+        eye
+      </desc>
+    </ellipse>
     <ellipse
        ry="7.0573034"
        rx="7.4298306"
        cy="422.33163"
        cx="300.73965"
        id="ellipse4301"
-       style="fill:#d40000;fill-opacity:1;stroke:#000000;stroke-width:1.1590606;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="fill:#d40000;fill-opacity:1;stroke:#000000;stroke-width:1.1590606;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+      <desc
+         id="desc3378">
+        eye
+      </desc>
+    </ellipse>
     <ellipse
        ry="2.3049023"
        rx="2.7658827"
@@ -426,7 +458,12 @@
        sodipodi:sides="3"
        id="path4322"
        style="fill:#d4ff2a;fill-opacity:1;stroke:#000000;stroke-width:1.68829477;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       sodipodi:type="star" />
+       sodipodi:type="star">
+      <desc
+         id="desc53">
+        spike
+      </desc>
+    </path>
     <path
        sodipodi:type="star"
        style="fill:#d4ff2a;fill-opacity:1;stroke:#000000;stroke-width:2.01780272;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
@@ -444,13 +481,22 @@
        d="m 393,491.36218 11.74519,8.21891 -12.99038,6.06218 z"
        inkscape:transform-center-x="-1.5113357"
        inkscape:transform-center-y="0.030862094"
-       transform="matrix(0.73988807,-0.07199865,0.07199865,0.73988807,83.746766,131.09396)" />
+       transform="matrix(0.73988807,-0.07199865,0.07199865,0.73988807,83.746766,131.09396)">
+      <desc
+         id="desc56">
+        spike
+      </desc>
+    </path>
     <path
        style="fill:#ffcc00;fill-opacity:1;stroke:none;stroke-width:6.25;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 90.130734,191.23596 c -1.787577,-0.22562 -4.732802,-0.85078 -5.708393,-1.21167 -0.420553,-0.15557 0.190325,-0.25724 2.151947,-0.35813 9.725684,-0.50024 19.045072,-7.47101 27.152662,-20.30982 2.31426,-3.66476 6.54718,-12.27018 8.54659,-17.375 3.18635,-8.13527 6.47699,-19.1216 8.64868,-28.875 1.36406,-6.12622 1.37321,-6.14786 1.73155,-4.0923 1.16521,6.68407 1.5411,12.43754 1.24369,19.03661 -0.67212,14.91367 -5.65936,28.97864 -13.89768,39.19414 -4.54492,5.63569 -11.2185,10.51687 -17.08191,12.49402 -3.97309,1.33973 -9.192564,1.95084 -12.787136,1.49715 z"
        id="path4226"
        inkscape:connector-curvature="0"
-       transform="translate(231.69261,398.91704)" />
+       transform="translate(231.69261,398.91704)">
+      <desc>
+        underside-skin-dark
+      </desc>
+    </path>
     <g
        id="g4235"
        transform="translate(-0.00877521,0.6856602)">
@@ -522,11 +568,11 @@
        sodipodi:nodetypes="cccscccc"
        inkscape:connector-curvature="0"
        id="path3371"
-       d="m 298.80077,474.45133 c -1.65915,-0.97184 -0.27022,-3.19505 -0.0723,-5.86866 -0.0873,-0.32781 6.74241,-11.32212 10.12391,-12.43962 6.51302,-5.01914 25.19371,-6.52748 35.03774,-0.38856 3.3189,2.06973 8.86778,18.75584 8.86778,18.75584 -8.12224,2.90235 -12.52818,4.63829 -27.46011,4.14099 -3.24297,-0.0289 -5.27567,0.006 -6.50096,0.14593 -14.76235,-0.68982 -18.16952,-3.31925 -19.99606,-4.34592 z"
+       d="m 298.80077,474.45133 c -1.65915,-0.97184 -0.27022,-3.19505 -0.0723,-5.86866 -0.0873,-0.32781 6.74241,-11.32212 10.12391,-12.43962 6.51302,-5.01914 25.19371,-6.52748 35.03774,-0.38856 3.3189,2.06973 8.77939,18.57906 8.77939,18.57906 -8.12224,2.90235 -12.43979,4.81507 -27.37172,4.31777 -3.24297,-0.0289 -5.27567,0.006 -6.50096,0.14593 -14.76235,-0.68982 -18.16952,-3.31925 -19.99606,-4.34592 z"
        style="fill:#7c9e00;fill-opacity:1;stroke:none;stroke-width:6.25;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
       <desc
          id="desc61">
-        skin dark
+        skin-dark
       </desc>
     </path>
     <path
@@ -534,34 +580,54 @@
        inkscape:connector-curvature="0"
        id="path3373"
        d="m 335.39841,469.50627 c 1.21973,3.72322 0.73796,9.01043 -2.19244,9.22228 -2.4526,0.18251 -5.6754,-0.0897 -8.51337,-0.0897 -2.52656,0 -7.76106,0.20876 -10.05506,-0.0366 -0.53665,-0.0574 -1.0883,0.0421 -1.3764,-0.33174 -1.7568,-2.27941 -1.20971,-6.1124 0.18146,-8.63167 2.12283,-3.84425 6.60859,-7.23548 11,-7.25 4.35489,-0.0144 8.94476,3.25467 10.95581,7.11743 z"
-       style="fill:#586d00;fill-opacity:1;stroke:none;stroke-width:6.25;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="fill:#586d00;fill-opacity:1;stroke:none;stroke-width:6.25;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+      <desc
+         id="desc68">
+        snout
+      </desc>
+    </path>
     <ellipse
        style="fill:#002b00;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="ellipse4207"
        cx="329.95419"
        cy="471.77206"
        rx="2.6849289"
-       ry="3.4680333" />
+       ry="3.4680333">
+      <desc
+         id="desc71">
+        nostril
+      </desc>
+    </ellipse>
     <ellipse
        ry="3.4680333"
        rx="2.6849289"
        cy="471.77206"
        cx="318.99072"
        id="path4205"
-       style="fill:#002b00;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="fill:#002b00;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+      <desc
+         id="desc74">
+        nostril
+      </desc>
+    </ellipse>
     <g
        id="g4212"
-       style="fill:#ffea92;fill-opacity:1">
+       style="fill:#ffe680;fill-opacity:1">
       <g
          id="g4238"
-         style="fill:#ffea92;fill-opacity:1">
+         style="fill:#ffe680;fill-opacity:1">
         <path
            sodipodi:nodetypes="cssscc"
            inkscape:connector-curvature="0"
            id="path4208"
            d="m 44.384855,82.669948 c -2.892641,-3.16501 -3.217218,-5.056928 -4.6503,-10.528277 -0.892513,-3.407517 -1.560497,-8.753204 -1.176301,-9.413597 0.417648,-0.717892 8.80435,1.403349 12.213832,3.089234 2.663433,1.316987 -0.215704,-0.6219 0.112673,0.233838 -0.663321,2.422242 -2.301571,20.23646 -6.499904,16.618802 z"
-           style="fill:#ffea92;fill-opacity:1;stroke:none;stroke-width:6.25;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-           transform="translate(231.69261,398.91704)" />
+           style="fill:#ffe680;fill-opacity:1;stroke:none;stroke-width:6.25;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           transform="translate(231.69261,398.91704)">
+          <desc
+             id="desc79">
+            underside-skin-light
+          </desc>
+        </path>
       </g>
     </g>
     <path
@@ -573,7 +639,7 @@
        style="fill:#7c9e00;fill-opacity:1;stroke:none;stroke-width:6.25;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
       <desc
          id="desc70">
-        skin dark
+        skin-dark
       </desc>
     </path>
     <path
@@ -581,13 +647,21 @@
        inkscape:connector-curvature="0"
        id="path4246"
        d="m 130.89382,93.353578 c 6.39745,-8.938416 10.97505,-17.368619 12.36625,-22.773954 0.59304,-2.304173 0.71488,-4.369259 0.34314,-5.815803 -0.15989,-0.622171 -0.25475,-1.167179 -0.2108,-1.211129 0.0768,-0.0768 5.63186,-0.393663 5.70942,-0.325663 0.0208,0.01827 0.16798,1.063574 0.32699,2.32289 0.65417,5.181063 -0.29551,10.312372 -2.91426,15.746442 -2.43714,5.057216 -5.12322,8.156468 -9.36203,10.802098 -1.39742,0.872187 -7.87503,4.113786 -8.22048,4.113786 -0.0463,0 0.83647,-1.286401 1.96177,-2.858667 z"
-       style="fill:#ffcc00;fill-opacity:1;stroke:none;stroke-width:6.25;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="fill:#ffcc00;fill-opacity:1;stroke:none;stroke-width:6.25;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+      <desc>
+        underside-skin-dark
+      </desc>
+    </path>
     <path
        transform="translate(231.69261,398.91704)"
        inkscape:connector-curvature="0"
        id="path4248"
        d="m 129.20845,95.906466 c 0.0511,-0.08594 0.88135,-1.28125 1.84504,-2.65625 7.95004,-11.343208 12.16185,-19.746858 12.73522,-25.410028 0.12453,-1.23 0.11353,-1.585739 -0.0861,-2.78626 -0.12589,-0.756928 -0.20593,-1.399199 -0.17786,-1.42727 0.0855,-0.08552 4.3795,-0.338645 4.98061,-0.293597 l 0.5625,0.04216 0.16107,1 c 0.0886,0.55 0.19401,2.166951 0.23427,3.593224 0.0588,2.083648 0.0308,2.894223 -0.14239,4.125 -0.84322,5.991326 -4.08687,12.773577 -7.93254,16.586435 -1.17206,1.162053 -2.88951,2.508695 -4.32041,3.387602 -0.88587,0.544128 -7.66473,3.993058 -7.85113,3.994471 -0.0556,4.23e-4 -0.0593,-0.06955 -0.008,-0.155482 z"
-       style="fill:#ffcc00;fill-opacity:1;stroke:none;stroke-width:6.25;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="fill:#ffcc00;fill-opacity:1;stroke:none;stroke-width:6.25;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+      <desc>
+        underside-skin-dark
+      </desc>
+    </path>
     <path
        sodipodi:nodetypes="csssssccscssssssscc"
        transform="translate(231.69261,398.91704)"
@@ -597,7 +671,7 @@
        style="fill:#92b600;fill-opacity:1;stroke:none;stroke-width:6.25;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
       <desc
          id="desc80">
-        skin light
+        skin-light
       </desc>
     </path>
     <path
@@ -609,7 +683,7 @@
        style="fill:#7c9e00;fill-opacity:1;stroke:none;stroke-width:6.25;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
       <desc
          id="desc83">
-        skin dark
+        skin-dark
       </desc>
     </path>
     <path
@@ -620,7 +694,7 @@
        style="fill:#7c9e00;fill-opacity:1;stroke:none;stroke-width:6.25;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
       <desc
          id="desc86">
-        skin dark
+        skin-dark
       </desc>
     </path>
     <path
@@ -631,7 +705,7 @@
        style="fill:#7c9e00;fill-opacity:1;stroke:none;stroke-width:6.25;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
       <desc
          id="desc93">
-        skin dark
+        skin-dark
       </desc>
     </path>
     <path
@@ -643,7 +717,7 @@
        style="fill:#92b600;fill-opacity:1;stroke:none;stroke-width:6.25;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
       <desc
          id="desc96">
-        skin light
+        skin-light
       </desc>
     </path>
   </g>
