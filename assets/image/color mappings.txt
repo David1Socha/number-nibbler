@@ -1,0 +1,15 @@
+Colors for each gator (Used with Inkscape's Extensions->Replace Color feature to convert base image into different colors)
+
+Gator 1:
+skin light: 92b600ff
+skin medium: 88aa00ff
+skin dark: 7c9e00ff
+eye: d40000ff
+snout: 586d00ff
+nostril: 002b00ff
+spike: d4ff2aff
+underside skin light: ffea92ff
+underside skin medium: ffdd55ff
+underside skin dark: ffcc00ff
+
+Gator 2: 
