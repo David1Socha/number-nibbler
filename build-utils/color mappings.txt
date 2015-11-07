@@ -1,10 +1,10 @@
 Colors for each gator (Used with find/replace on svg to convert base image into different colors)
 
 Gator 1 (opacity for all is ff):
-skin light: 92b600
-skin medium: 88aa00
-skin dark: 7c9e00
-eye: d40000
+skin light: 92b600 -
+skin medium: 88aa00 -
+skin dark: 7c9e00 -
+eye: d40000 
 snout: 586d00
 nostril: 002b00
 spike: d4ff2a
