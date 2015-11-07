@@ -1,0 +1,19 @@
+//Colors for each scheme of various images (Used with util script to generate all schemes quickly from single file)
+//Opacity isn't included because of how svg format works, but it is full (ff) for everything
+{
+  "gator-mappings": [
+    {
+      "id": "1",
+      "skin-light": "92b600",
+      "skin-medium": "88aa00",
+      "skin-dark": "7c9e00",
+      "eye": "d40000",
+      "snout": "586d00",
+      "nostril": "002b00",
+      "spike": "d4ff2a",
+      "underside-skin-light": "ffe680",
+      "underside-skin-medium": "ffdd55",
+      "underside-skin-dark": "ffcc00",
+    },
+  ],
+}
