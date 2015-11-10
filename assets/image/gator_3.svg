@@ -16,7 +16,7 @@
    version="1.1"
    inkscape:version="0.91 r13725"
    sodipodi:docname="gator_3.svg"
-   inkscape:export-filename="C:\Users\david_000\Desktop\Files\number-nibbler\assets\image\gator_1.png"
+   inkscape:export-filename="C:\Users\david_000\Desktop\Files\number-nibbler\assets\image\gator_3.png"
    inkscape:export-xdpi="102.55748"
    inkscape:export-ydpi="102.55748">
   <sodipodi:namedview
@@ -27,7 +27,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="2"
-     inkscape:cx="103.34465"
+     inkscape:cx="28.59465"
      inkscape:cy="168.33699"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -52,7 +52,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
