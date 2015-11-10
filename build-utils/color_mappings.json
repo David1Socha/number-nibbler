@@ -1,0 +1,17 @@
+//Colors for each scheme of various images (Used with util script to generate all schemes quickly from single file)
+//Opacity isn't included because of how svg format works, but it is full (0xff) for everything
+{
+  "gator": {
+    "names": ["gator_1", "gator_2", "gator_3", "gator_4"],
+    "skin-light": ["92b600", "bd92ff", "3788ff", "ff5757"],
+    "skin-medium": ["88aa00", "b380ff", "2a7fff", "ff2a2a"],
+    "skin-dark": ["7c9e00", "a467ff", "0d6fff", "f20000"],
+    "eye": ["d40000", "0066ff", "ffcc01", "ff1e9e"],
+    "snout": ["586d00", "5b1abb", "0048b3", "a40000"],
+    "nostril": ["002b00", "16003d", "000080", "550000"],
+    "spike": ["d4ff2a", "6600ff", "002255", "de8888"],
+    "underside-skin-light": ["ffe680", "e7daa7", "e8ff8c", "ffc5a1"],
+    "underside-skin-medium": ["ffdd55", "decd87", "d4ff2a", "ffb380"],
+    "underside-skin-dark": ["ffcc00", "d6c370", "c0ee00", "ffa367"]
+  }
+}

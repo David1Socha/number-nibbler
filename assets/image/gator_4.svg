@@ -26,18 +26,18 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="2"
-     inkscape:cx="41.8978"
-     inkscape:cy="153.45913"
+     inkscape:zoom="2.8284271"
+     inkscape:cx="-38.895925"
+     inkscape:cy="139.58128"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
      showguides="false"
-     inkscape:window-width="958"
-     inkscape:window-height="1008"
-     inkscape:window-x="-7"
-     inkscape:window-y="0"
-     inkscape:window-maximized="0"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
      fit-margin-top="0.5"
      fit-margin-left="0.5"
      fit-margin-right="0.5"
@@ -66,7 +66,7 @@
        inkscape:connector-curvature="0"
        id="path4345"
        d="m 350.69146,632.32136 c 0.89504,-1.07845 2.04282,-5.93662 2.06387,-8.73572 0.022,-2.92395 1.61037,-2.72639 3.20462,0.3986 1.68612,3.30506 4.46001,6.55205 5.59739,6.55205 1.17843,0 1.15089,-1.60567 -0.12362,-7.20942 -0.61975,-2.72486 -0.80045,-4.79073 -0.44969,-5.14148 0.35075,-0.35075 1.9701,0.5948 4.0302,2.35327 1.89412,1.61679 4.27867,3.37131 5.29898,3.89894 1.75334,0.90668 1.85514,0.88604 1.85514,-0.37617 0,-0.84834 0.36271,-2.7852 -0.48619,-4.43055 -0.7303,-1.41548 -1.64099,-3.01583 -2.77739,-4.33383 l -1.98982,-2.3078 -0.56576,-20.80561 0,-21.29055 -6.32881,6.06007 c -3.48085,3.33304 -7.3838,6.77598 -8.6732,7.65096 l -2.3444,1.59089 -0.38922,19.74599 c -0.16943,8.59564 -2.3059,12.50266 -2.35001,16.29669 -0.0909,7.81949 2.14378,9.38444 2.8232,10.06386 0.73942,0.73942 1.00481,0.74271 1.60475,0.0198 z"
-       style="fill:#88aa00;fill-opacity:1;stroke:#000000;stroke-width:2.20000005;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+       style="fill:#ff2a2a;fill-opacity:1;stroke:#000000;stroke-width:2.20000005;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
       <desc
          id="desc8">
         skin-medium
@@ -651,7 +651,7 @@
        inkscape:connector-curvature="0"
        id="path4246"
        d="m 130.89382,93.353578 c 6.39745,-8.938416 10.97505,-17.368619 12.36625,-22.773954 0.59304,-2.304173 0.71488,-4.369259 0.34314,-5.815803 -0.15989,-0.622171 -0.25475,-1.167179 -0.2108,-1.211129 0.0768,-0.0768 5.63186,-0.393663 5.70942,-0.325663 0.0208,0.01827 0.16798,1.063574 0.32699,2.32289 0.65417,5.181063 -0.29551,10.312372 -2.91426,15.746442 -2.43714,5.057216 -5.12322,8.156468 -9.36203,10.802098 -1.39742,0.872187 -7.87503,4.113786 -8.22048,4.113786 -0.0463,0 0.83647,-1.286401 1.96177,-2.858667 z"
-       style="fill:#ffcc00;fill-opacity:1;stroke:none;stroke-width:6.25;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+       style="fill:#ffa367;fill-opacity:1;stroke:none;stroke-width:6.25;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
       <desc
          id="desc86">
         underside-skin-dark
