@@ -15,8 +15,7 @@ function new_player(box_size)
     imgs = { 
       rest = love.graphics.newImage "assets/image/froggy.png",
       eat1 = love.graphics.newImage "assets/image/frog_tongue_1.png",
-      eat2 = love.graphics.newImage "assets/image/frog_tongue_2.png",
-      rip = love.graphics.newImage "assets/image/frog_rip.png"
+      eat2 = love.graphics.newImage "assets/image/frog_tongue_2.png"
     }
   }
 
@@ -41,10 +40,7 @@ function new_player(box_size)
   end
 
   function player:update(dt)
-    if self.defeated then
-      self.imgs.curr = self.imgs.rip
-      return
-    elseif self.anim_eat.active then
+    if self.anim_eat.active then
       self:update_anim_eat(dt)
     end
   end
