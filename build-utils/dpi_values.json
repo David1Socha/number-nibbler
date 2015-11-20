@@ -1,0 +1,6 @@
+//DPI to export different images from SVG to PNG using Inkscape
+//Matches any file containing string
+{
+  "gator" : 102.56,
+  "frog" : 24.89
+}

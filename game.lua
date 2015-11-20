@@ -76,7 +76,7 @@ function game:enter()
   local grid_box_size_width = (game.width - game.offx - game.board_margin) / (game.grid_units + 1)
   local grid_box_size_height = game.height / (game.grid_units + 1)
   game.grid_box_size = math.min(grid_box_size_height,grid_box_size_width)
-  line_width = .0556 * game.grid_box_size
+  line_width = .05 * game.grid_box_size
   love.graphics.setLineWidth(line_width)
   game.info_font = love.graphics.newFont(main_font_path,.048*game.width)
   game.panel_width = (game.offx - game.board_margin)
@@ -231,6 +231,15 @@ function game:draw()
   end
   self:draw_enemies()
   game.mgr:draw()
+  self:draw_fps()
+end
+
+function game:draw_fps()
+  if self.debug then
+    love.graphics.setColor(0,0,0)
+    love.graphics.setNewFont(20)
+    love.graphics.print("Current FPS: "..tostring(love.timer.getFPS( )), 0, 200)
+  end
 end
 
 function game:draw_enemies()
