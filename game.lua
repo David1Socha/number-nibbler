@@ -58,7 +58,7 @@ function game:enter_level()
 
   game.player = new_player(game.grid_box_size)
   game.enemies = {}
-  Timer.every(1,function() self:move_flies() end)
+  game.mover = Timer.every(self.move_fly_delay,function() self:move_flies() end)
 end
 
 function game:enter()
@@ -99,6 +99,9 @@ function game:enter()
 
   game.min_yes_flies = 4
   game.max_yes_flies = 12
+  game.move_fly_delay = .6
+  game.fly_move_time = .8
+  game.fly_halfmove_time = game.fly_move_time / 2
 
   game.select_cd = .3
 
@@ -188,11 +191,14 @@ function game:move_flies()
     local j = math.random(0,#self.fly_grid)
     flai = self.fly_grid[i][j]
   end
-  Timer.every(.08, function() 
-    flai.rx = flai.rx + math.random(-5,5)
-    flai.ry = flai.ry + math.random(-5,5)
-  end,
-  5)
+  local rx = math.random(-10,10)
+  local ry = math.random(-10,10)
+  local orig = vector(0,0)
+  local temp = flai.r + vector(rx, ry)
+  Timer.tween(self.fly_halfmove_time,flai.r,temp,'out-circ', function() 
+    Timer.tween(self.fly_halfmove_time,flai.r,orig,'in-circ')
+  end) -- TODO no magic number plx
+
 end
 
 function game:update(dt)
@@ -329,6 +335,7 @@ function game:keypressed(key)
 end
 
 function game:finish_level()
+  self:cleanup_level()
   self:play_alone(self.level_complete)
   self.level.value = self.level.value + 1
   self.score.value = self.score.value + self.time_score() + 10
@@ -355,6 +362,7 @@ end
 
 function game:defeat()
   if not self.player.defeated then
+    self:cleanup_level()
     self.active = false
     love.audio.play(self.ouch)
     self.player.defeated = true
@@ -367,6 +375,10 @@ function game:defeat()
     end
     Gamestate.switch(defeat)
   end
+end
+
+function game:cleanup_level()
+  Timer.cancel(self.mover)
 end
 
 function game:replace_fly(fly)
