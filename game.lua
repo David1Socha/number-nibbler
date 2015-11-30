@@ -332,7 +332,7 @@ function game:choose_square()
       self:replace_fly(curr_fly)
       if (self.yes_flies == 0) then
         self.active = false
-        Timer.add(self.level_complete_delay, function() self:finish_level() end)
+        Timer.after(self.level_complete_delay, function() self:finish_level() end)
       end
     end
   end
