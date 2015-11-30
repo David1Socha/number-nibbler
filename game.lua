@@ -58,6 +58,7 @@ function game:enter_level()
 
   game.player = new_player(game.grid_box_size)
   game.enemies = {}
+  Timer.every(1,function() self:move_flies() end)
 end
 
 function game:enter()
@@ -178,6 +179,20 @@ function game:play_warning()
   if not self.level_complete:isPlaying() then
     self:play_alone(self.warning)
   end
+end
+
+function game:move_flies()
+  local flai = {}
+  while (not flai.real) do
+    local i = math.random(0,#self.fly_grid)
+    local j = math.random(0,#self.fly_grid)
+    flai = self.fly_grid[i][j]
+  end
+  Timer.every(.08, function() 
+    flai.rx = flai.rx + math.random(-5,5)
+    flai.ry = flai.ry + math.random(-5,5)
+  end,
+  5)
 end
 
 function game:update(dt)
