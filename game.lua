@@ -58,6 +58,7 @@ function game:enter_level()
 
   game.player = new_player(game.grid_box_size)
   game.enemies = {}
+  game.mover = Timer.every(self.move_fly_delay,function() self:move_flies() end)
 end
 
 function game:enter()
@@ -98,6 +99,11 @@ function game:enter()
 
   game.min_yes_flies = 4
   game.max_yes_flies = 12
+  game.move_fly_delay = 2
+  game.fly_move_time = .6
+  game.fly_halfmove_time = game.fly_move_time / 2
+  game.fly_move_length2 = 400
+  game.last_moved = {}
 
   game.select_cd = .3
 
@@ -178,6 +184,43 @@ function game:play_warning()
   if not self.level_complete:isPlaying() then
     self:play_alone(self.warning)
   end
+end
+
+function game:move_flies(i,j)
+  local flai = {}
+  while (not (flai.real and flai ~= self.last_moved)) do
+    local li = i or math.random(0,#self.fly_grid)
+    local lj = j or math.random(0,#self.fly_grid)
+    flai = self.fly_grid[li][lj]
+  end
+  self.last_moved = flai
+
+  local c2 = self.fly_move_length2
+  local b2 = math.random() * c2
+  local a2 = c2 - b2
+
+  local mx = math.sqrt(b2)
+  mx = math.random() > .5 and mx or -mx
+  local my = math.sqrt(a2)
+  my = math.random() > .5 and my or -my
+  local orig = vector(0,0)
+  local temp = vector(flai.move.x + mx, flai.move.y + my)
+  local tweenx, tweeny
+  if mx > my then
+    tweenx = "in-quad"
+    tweeny = "in-linear"
+  else
+    tweenx = "in-linear"
+    tweeny = "in-quad"
+  end
+
+  Timer.tween(self.fly_halfmove_time,flai.move,{x=temp.x},tweenx, function() 
+    Timer.tween(self.fly_halfmove_time,flai.move,{x=orig.x},tweenx)
+  end)
+
+  Timer.tween(self.fly_halfmove_time,flai.move,{y=temp.y},tweeny, function()
+    Timer.tween(self.fly_halfmove_time,flai.move,{y=orig.y},tweeny)
+  end)
 end
 
 function game:update(dt)
@@ -314,6 +357,7 @@ function game:keypressed(key)
 end
 
 function game:finish_level()
+  self:cleanup_level()
   self:play_alone(self.level_complete)
   self.level.value = self.level.value + 1
   self.score.value = self.score.value + self.time_score() + 10
@@ -332,7 +376,7 @@ function game:choose_square()
       self:replace_fly(curr_fly)
       if (self.yes_flies == 0) then
         self.active = false
-        Timer.add(self.level_complete_delay, function() self:finish_level() end)
+        Timer.after(self.level_complete_delay, function() self:finish_level() end)
       end
     end
   end
@@ -340,6 +384,7 @@ end
 
 function game:defeat()
   if not self.player.defeated then
+    self:cleanup_level()
     self.active = false
     love.audio.play(self.ouch)
     self.player.defeated = true
@@ -352,6 +397,15 @@ function game:defeat()
     end
     Gamestate.switch(defeat)
   end
+end
+
+function game:return_menu()
+  self:cleanup_level()
+  Gamestate.switch(menu)
+end
+
+function game:cleanup_level()
+  Timer.cancel(self.mover)
 end
 
 function game:replace_fly(fly)

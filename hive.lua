@@ -175,6 +175,7 @@ function new_hive(question_type, difficulty)
       font = love.graphics.newFont(main_font_path,0.107 * box_size),
       text_off = vector(.146 * box_size, .23 * box_size),
       img = love.graphics.newImage "assets/image/fly.png",
+      move = vector(0,0)
     }
 
     fly_offx = (game.grid_box_size - fly.img:getWidth() * fly.scale) / 2 + game.offx
@@ -186,13 +187,14 @@ function new_hive(question_type, difficulty)
       fly.text = self:get_trap()
     end
 
-    function fly:draw() 
+    function fly:draw()
+      local m = self.move
       love.graphics.setColor(255, 255, 255)
       love.graphics.setFont(self.font)
       rowcol_scaled = vector(self.row, self.col) * game.grid_box_size + self.off
-      love.graphics.draw(self.img, rowcol_scaled.x, rowcol_scaled.y, 0, self.scale, self.scale)
+      love.graphics.draw(self.img, rowcol_scaled.x+m.x, rowcol_scaled.y+m.y, 0, self.scale, self.scale)
       love.graphics.setColor(0, 0, 0)
-      love.graphics.printf(self.text, rowcol_scaled.x + self.text_off.x, rowcol_scaled.y + self.text_off.y,0.356*self.box_size,"center")
+      love.graphics.printf(self.text, rowcol_scaled.x + self.text_off.x+m.x, rowcol_scaled.y + self.text_off.y + m.y,0.356*self.box_size,"center")
     end
 
     return fly
