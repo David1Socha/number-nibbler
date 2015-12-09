@@ -193,7 +193,7 @@ function game:move_flies()
     flai = self.fly_grid[i][j]
   end
   local c2 = self.fly_move_length2
-  local b2 = math.random(0,c2)
+  local b2 = math.random() * c2
   local a2 = c2 - b2
 
   local mx = math.sqrt(b2)
@@ -203,12 +203,12 @@ function game:move_flies()
   local orig = vector(0,0)
   local temp = vector(flai.move.x + mx, flai.move.y + my)
 
-  Timer.tween(self.fly_halfmove_time,flai.move,{x=temp.x},'in-quad', function() 
-    Timer.tween(self.fly_halfmove_time,flai.move,{x=orig.x},'in-quad')
+  Timer.tween(self.fly_halfmove_time,flai.move,{x=temp.x},'in-cubic', function() 
+    Timer.tween(self.fly_halfmove_time,flai.move,{x=orig.x},'in-cubic')
   end)
 
-  Timer.tween(self.fly_halfmove_time,flai.move,{y=temp.y},'in-linear', function()
-    Timer.tween(self.fly_halfmove_time,flai.move,{y=orig.y},'in-linear')
+  Timer.tween(self.fly_halfmove_time,flai.move,{y=temp.y},'in-quad', function()
+    Timer.tween(self.fly_halfmove_time,flai.move,{y=orig.y},'in-quad')
   end)
 end
 
@@ -386,6 +386,11 @@ function game:defeat()
     end
     Gamestate.switch(defeat)
   end
+end
+
+function game:return_menu()
+  self:cleanup_level()
+  Gamestate.switch(menu)
 end
 
 function game:cleanup_level()

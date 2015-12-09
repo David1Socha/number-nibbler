@@ -59,7 +59,7 @@ end
 
 function pause.return_menu()
   game.paused = false
-  Gamestate.switch(menu)
+  game:return_menu()
 end
 
 function pause.resume_game()
