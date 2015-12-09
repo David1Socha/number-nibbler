@@ -99,10 +99,11 @@ function game:enter()
 
   game.min_yes_flies = 4
   game.max_yes_flies = 12
-  game.move_fly_delay = 1
-  game.fly_move_time = .8
+  game.move_fly_delay = 2
+  game.fly_move_time = .6
   game.fly_halfmove_time = game.fly_move_time / 2
   game.fly_move_length2 = 400
+  game.last_moved = {}
 
   game.select_cd = .3
 
@@ -185,13 +186,15 @@ function game:play_warning()
   end
 end
 
-function game:move_flies()
+function game:move_flies(i,j)
   local flai = {}
-  while (not flai.real) do
-    local i = math.random(0,#self.fly_grid)
-    local j = math.random(0,#self.fly_grid)
-    flai = self.fly_grid[i][j]
+  while (not (flai.real and flai ~= self.last_moved)) do
+    local li = i or math.random(0,#self.fly_grid)
+    local lj = j or math.random(0,#self.fly_grid)
+    flai = self.fly_grid[li][lj]
   end
+  self.last_moved = flai
+
   local c2 = self.fly_move_length2
   local b2 = math.random() * c2
   local a2 = c2 - b2
@@ -202,13 +205,21 @@ function game:move_flies()
   my = math.random() > .5 and my or -my
   local orig = vector(0,0)
   local temp = vector(flai.move.x + mx, flai.move.y + my)
+  local tweenx, tweeny
+  if mx > my then
+    tweenx = "in-quad"
+    tweeny = "in-linear"
+  else
+    tweenx = "in-linear"
+    tweeny = "in-quad"
+  end
 
-  Timer.tween(self.fly_halfmove_time,flai.move,{x=temp.x},'in-cubic', function() 
-    Timer.tween(self.fly_halfmove_time,flai.move,{x=orig.x},'in-cubic')
+  Timer.tween(self.fly_halfmove_time,flai.move,{x=temp.x},tweenx, function() 
+    Timer.tween(self.fly_halfmove_time,flai.move,{x=orig.x},tweenx)
   end)
 
-  Timer.tween(self.fly_halfmove_time,flai.move,{y=temp.y},'in-quad', function()
-    Timer.tween(self.fly_halfmove_time,flai.move,{y=orig.y},'in-quad')
+  Timer.tween(self.fly_halfmove_time,flai.move,{y=temp.y},tweeny, function()
+    Timer.tween(self.fly_halfmove_time,flai.move,{y=orig.y},tweeny)
   end)
 end
 
