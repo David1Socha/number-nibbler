@@ -1,16 +1,18 @@
 local game = { }
 
 function game:draw_txt(t, n)
-  local color = t.color or {0,0,0}
-  love.graphics.setColor(color)
-  local font = t.font or self.info_font
-  love.graphics.setFont(font)
-  local x = self.left_margin
-  local y = love.graphics.getHeight() - (self.info_font:getHeight() + self.info_margin) * n
-  love.graphics.printf(t:text(),x,y,love.graphics.getWidth())
-  if t.warned then
-    love.graphics.setColor(self.warning_color)
-    love.graphics.rectangle("line",x-line_width,y,game.offx - game.board_margin - line_width,self.info_font:getHeight())
+  if not t.hidden then
+    local color = t.color or {0,0,0}
+    love.graphics.setColor(color)
+    local font = t.font or self.info_font
+    love.graphics.setFont(font)
+    local x = self.left_margin
+    local y = love.graphics.getHeight() - (self.info_font:getHeight() + self.info_margin) * n
+    love.graphics.printf(t:text(),x,y,love.graphics.getWidth())
+    if t.warned then
+      love.graphics.setColor(self.warning_color)
+      love.graphics.rectangle("line",x-line_width,y,game.offx - game.board_margin - line_width,self.info_font:getHeight())
+    end
   end
 end
 
@@ -69,6 +71,10 @@ function game:enter()
   game.width = love.graphics.getWidth()
   game.height = love.graphics.getHeight()
   game.warning_color = {255,0,0}
+  game.blink_frequency = .15
+  game.time_blinking = .9 
+  game.blinks = game.time_blinking / game.blink_frequency --ensure that game.blinks is even, or text disappears
+  print(game.blinks)
   game.grid_units = 3
   game.offx = .35 * game.width
   game.board_margin = 0.0390625 * game.width
@@ -113,9 +119,11 @@ function game:enter()
 
   game.score = {
     value = 0,
+    hidden = false,
     text = function(self) return "Score: "..self.value end
   }
   game.high = tonumber(love.filesystem.read(menu.category.."score"..menu.difficulty),10)
+  game.new_high = false
 
   game.question = {
     text = function(self) return game.hive.question end,
@@ -239,6 +247,12 @@ function game:update(dt)
     end
     if self.time_left.value() <= 0 then
       self:defeat()
+    end
+    if ((not self.high) or (self.high < self.score.value)) and (not self.new_high) then
+      if self.score.value > 0 then
+        self.new_high = true
+        Timer.every(self.blink_frequency, function() self.score.hidden = not self.score.hidden end, self.blinks)
+      end
     end
     if not self.enemy_warned and self.enemy_warning_delay <= self.time then
       self:warn_enemy()
@@ -388,9 +402,9 @@ function game:defeat()
     self.active = false
     love.audio.play(self.ouch)
     self.player.defeated = true
-    if (not (game.high and game.high > game.score.value)) then
-      game.high = game.score.value
-      love.filesystem.write(menu.category.."score"..menu.difficulty,tostring(game.score.value))
+    if self.new_high then
+      self.high = self.score.value
+      love.filesystem.write(menu.category.."score"..menu.difficulty,tostring(self.score.value))
     end
     Gamestate.switch(defeat)
   end
