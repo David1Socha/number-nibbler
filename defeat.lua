@@ -17,7 +17,7 @@ defeat.category_txt = {
   draw = function(self)
     love.graphics.setColor{0,0,0}
     love.graphics.setFont(self.font)
-    love.graphics.printf(Categories.Names[menu.category].." - "..Difficulties.Names[menu.difficulty],self.x,self.y,.8*defeat.width,"center")
+    floor_print(Categories.Names[menu.category].." - "..Difficulties.Names[menu.difficulty],self.x,self.y,.8*defeat.width,"center")
   end
 }
 
@@ -28,7 +28,7 @@ defeat.score_txt = {
   draw = function(self) 
     love.graphics.setColor({0,0,0})
     love.graphics.setFont(self.font)
-    love.graphics.printf("Score: "..game.score.value,self.x,self.y,defeat.width)
+    floor_print("Score: "..game.score.value,self.x,self.y,defeat.width)
   end
 }
 
@@ -39,7 +39,7 @@ defeat.high_txt = {
   draw = function(self) 
     love.graphics.setColor({0,0,0})
     love.graphics.setFont(self.font)
-    love.graphics.printf("Best: "..game.high,self.x,self.y,.9*defeat.width,"right")
+    floor_print("Best: "..game.high,self.x,self.y,.9*defeat.width,"right")
   end
 }
 

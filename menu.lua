@@ -125,8 +125,8 @@ function menu:draw()
 
   love.graphics.setColor {0,0,0}
   love.graphics.setFont(self.name_font)
-  love.graphics.printf(self.category_name,.113*menu.width,.469*menu.width,.415*menu.width,"center")
-  love.graphics.printf(self.difficulty_name,.65*menu.width,.469*menu.width,.3*menu.width,"center")
+  floor_print(self.category_name,.113*menu.width,.469*menu.width,.415*menu.width,"center")
+  floor_print(self.difficulty_name,.65*menu.width,.469*menu.width,.3*menu.width,"center")
 
   menu.mgr:draw()
 end

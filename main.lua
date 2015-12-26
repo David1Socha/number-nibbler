@@ -1,3 +1,7 @@
+function floor_print(msg, x, y, limit, align)
+  love.graphics.printf(msg,math.floor(x),math.floor(y),limit,align)
+end
+
 function love.load()
   love.window.setMode(1280,720)
   main_font_path = "assets/font/Roboto-Black.ttf"

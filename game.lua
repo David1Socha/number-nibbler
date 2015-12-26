@@ -8,7 +8,7 @@ function game:draw_txt(t, n)
     love.graphics.setFont(font)
     local x = self.left_margin
     local y = love.graphics.getHeight() - (self.info_font:getHeight() + self.info_margin) * n
-    love.graphics.printf(t:text(),x,y,love.graphics.getWidth())
+    floor_print(t:text(),x,y,love.graphics.getWidth())
     if t.warned then
       love.graphics.setColor(self.warning_color)
       love.graphics.rectangle("line",x-line_width,y,game.offx - game.board_margin - line_width,self.info_font:getHeight())
@@ -74,7 +74,6 @@ function game:enter()
   game.blink_frequency = .15
   game.time_blinking = .9 
   game.blinks = game.time_blinking / game.blink_frequency --ensure that game.blinks is even, or text disappears
-  print(game.blinks)
   game.grid_units = 3
   game.offx = .35 * game.width
   game.board_margin = 0.0390625 * game.width
@@ -89,7 +88,7 @@ function game:enter()
   game.panel_width = (game.offx - game.board_margin)
   game.score_bg = {
     color = {255,255,153},
-    border_width = 0.004 * love.window.getWidth(),
+    border_width = 0.004 * love.graphics.getWidth(),
     draw = function(self)
       love.graphics.setColor(self.color)
       love.graphics.rectangle("fill",0,0,game.panel_width,game.height)

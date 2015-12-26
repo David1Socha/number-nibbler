@@ -77,8 +77,6 @@ function pause:draw()
   love.graphics.setColor {0,0,0}
   love.graphics.setFont(self.name_font)
 
-  --love.graphics.printf("Paused",0,-.02*pause.width,1.02*pause.width,"center") --for some reason was not centering properly with 1*screen width as size
-
   love.graphics.setColor({0xff, 0xff, 0xff})
   love.graphics.draw(self.text,.5*pause.width,0.01*pause.height,0,pause.text_scale,pause.text_scale,pause.text:getWidth()*.5,0)
 

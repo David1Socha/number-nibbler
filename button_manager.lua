@@ -100,7 +100,7 @@ local btn_draw = function(self)
   
   love.graphics.setColor(self.font_color)
   local texty = self.y + (self.height / 2) - (self.font:getHeight() / 2)
-  love.graphics.printf(self.text, corex, texty, corew, "center")
+  floor_print(self.text, corex, texty, corew, "center")
   
   love.graphics.setColor(self.outline_color)
   local outx = self.x + .5 * self.outline_width
