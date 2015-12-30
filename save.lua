@@ -26,17 +26,13 @@ function save:get_saved_high(category,difficulty)
   cstr = tostring(category)
   dstr = tostring(difficulty)
   local high
-  local has_high = false
   if self.data then
     local cdata = self.data[cstr]
     if cdata then
       high = cdata[dstr]
-      if high then
-        has_high = true
-      end
     end
   end
-  return has_high, high
+  return high
 end
 
 function save:write_high(category,difficulty,high)
