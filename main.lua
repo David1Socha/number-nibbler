@@ -14,6 +14,7 @@ function love.load()
   game = require "game"
   pause = require "pause"
   defeat = require "defeat"
+  save = require "save"
   Timer = require "hump.timer"
   require "equality"
   math.randomseed(os.time())
