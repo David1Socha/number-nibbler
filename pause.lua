@@ -1,4 +1,4 @@
-pause = {}
+local pause = {}
 pause.width = love.graphics.getWidth()
 pause.height = love.graphics.getHeight()
 pause.resume_button_x = 0.1 * pause.width
@@ -16,41 +16,41 @@ pause.text_scale = 0.00077 * pause.width
 pause.bgcolor = {255,255,153}
 
 function pause:enter()
-  pause.mgr = ButtonManager()
-  pause.resume_button = pause.mgr:new_button {
-    x=pause.resume_button_x,
-    y=pause.resume_button_y,
-    width=pause.resume_button_w,
-    height=pause.resume_button_h,
-    font=pause.resume_button_font,
+  self.mgr = ButtonManager()
+  self.resume_button = self.mgr:new_button {
+    x=self.resume_button_x,
+    y=self.resume_button_y,
+    width=self.resume_button_w,
+    height=self.resume_button_h,
+    font=self.resume_button_font,
     text="Resume Game",
-    onclick=pause.resume_game,
-    outline_width=.00391*pause.width,
+    onclick=self.resume_game,
+    outline_width=.00391*self.width,
   }
 
-  pause.menu_button = pause.mgr:new_button {
-    x=pause.resume_button_x,
-    y=pause.menu_button_y,
-    width=pause.menu_button_w,
-    height=pause.menu_button_h,
-    font=pause.resume_button_font,
+  self.menu_button = self.mgr:new_button {
+    x=self.resume_button_x,
+    y=self.menu_button_y,
+    width=self.menu_button_w,
+    height=self.menu_button_h,
+    font=self.resume_button_font,
     text="Return to menu",
-    onclick=pause.return_menu,
-    outline_width=.00391*pause.width,
+    onclick=self.return_menu,
+    outline_width=.00391*self.width,
   }
 
-  pause.exit_button = pause.mgr:new_button {
-    x=pause.exit_button_x,
-    y=pause.menu_button_y,
-    width=pause.menu_button_w,
-    height=pause.menu_button_h,
-    font=pause.resume_button_font,
+  self.exit_button = self.mgr:new_button {
+    x=self.exit_button_x,
+    y=self.menu_button_y,
+    width=self.menu_button_w,
+    height=self.menu_button_h,
+    font=self.resume_button_font,
     text="Quit Game",
-    onclick=pause.exit_game,
-    outline_width=.00391*pause.width,
+    onclick=self.exit_game,
+    outline_width=.00391*self.width,
   }
 
-  pause.name_font = love.graphics.newFont(main_font_path,.16*pause.width)
+  self.name_font = love.graphics.newFont(main_font_path,.16*self.width)
 end
 
 function pause.exit_game()
