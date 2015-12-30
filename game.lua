@@ -121,7 +121,7 @@ function game:enter()
     hidden = false,
     text = function(self) return "Score: "..self.value end
   }
-  game.high = tonumber(love.filesystem.read(menu.category.."score"..menu.difficulty),10)
+  game.high = save:get_saved_high(menu.category,menu.difficulty)
   game.new_high = false
 
   game.question = {
@@ -395,22 +395,27 @@ function game:choose_square()
   end
 end
 
+function game:save_high()
+  if self.new_high then
+    self.high = self.score.value
+    save:write_high(menu.category,menu.difficulty,self.high)
+  end
+end
+
 function game:defeat()
   if not self.player.defeated then
     self:cleanup_level()
     self.active = false
     love.audio.play(self.ouch)
     self.player.defeated = true
-    if self.new_high then
-      self.high = self.score.value
-      love.filesystem.write(menu.category.."score"..menu.difficulty,tostring(self.score.value))
-    end
+    self:save_high()
     Gamestate.switch(defeat)
   end
 end
 
 function game:return_menu()
   self:cleanup_level()
+  self:save_high()
   Gamestate.switch(menu)
 end
 
