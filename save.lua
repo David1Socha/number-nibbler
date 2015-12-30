@@ -39,10 +39,18 @@ function save:get_saved_high(category,difficulty)
   return has_high, high
 end
 
-b, h = save:get_saved_high(0,1)
-print(b)
-print(h)
-
-save:get_saved_high(0,1)
+function save:write_high(category,difficulty,high)
+  if not self.data_read then
+    self:read_data()
+    self.data_read = true
+  end
+  cstr = tostring(category)
+  dstr = tostring(difficulty)
+  if not self.data[cstr] then
+    self.data[cstr] = {}
+  end
+  self.data[cstr][dstr] = high
+  save:write_data()
+end
 
 return save
