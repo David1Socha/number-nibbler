@@ -1,5 +1,3 @@
-# Requires Inkscape to be in PATH
-
 require "json"
 
 SCRIPT_DIR = File.expand_path(File.dirname(__FILE__))
@@ -15,7 +13,7 @@ def make_pngs
       dpi = dpiPair.last if dpiPair
       if dpi then
         puts "Exporting #{imgName} to PNG at #{dpi} DPI"
-        system "inkscape #{IMAGES_PATH}/#{imgName} --export-png=#{IMAGES_PATH}/#{imgName[0...-4]}.png --export-dpi=#{dpi}"
+        system "\"C:\\Program Files\\Inkscape\\inkscape.exe\" #{IMAGES_PATH}/#{imgName} --export-png=#{IMAGES_PATH}/#{imgName[0...-4]}.png --export-dpi=#{dpi}"
       end
     end
   end
