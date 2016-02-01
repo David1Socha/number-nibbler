@@ -408,6 +408,10 @@ function game:defeat()
     self.active = false
     love.audio.play(self.ouch)
     self.player.defeated = true
+    if not game.high then
+      game.high = 0
+      self.new_high = true
+    end
     self:save_high()
     Gamestate.switch(defeat)
   end
