@@ -2,5 +2,14 @@
 //Matches any file containing string
 {
   "gator" : 102.56,
-  "frog" : 24.89
+  "frog" : 24.89,
+  "bg_water" : 37.49,
+  "button" : 59.16,
+  "defeat" : 46.83,
+  "feature" : 90,
+  "fly" : 37.17,
+  "lilypad" : 28.14,
+  "paused" : 46.58,
+  "promo" : 10.75,
+  "title" : 40.20
 }
